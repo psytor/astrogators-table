@@ -9,3 +9,5 @@ node_modules
 
 # Ignore Prisma cache
 .prisma/client
+
+/src/generated/prisma

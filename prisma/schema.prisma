@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Master table for all stats in the game (e.g., Speed, Offense %, Critical Damage).
+model Stat {
+  id                   Int                   @id @default(autoincrement())
+  name                 String                @unique
+  is_percentage        Boolean
+  can_be_primary       Boolean
+  can_be_secondary     Boolean
+  possible_primary_on  ModShapePrimaryStat[]
+  roll_info            StatRollInfo[]
+  calibration_costs    CalibrationInfo[]
+}
+
+/// Defines the mod set bonuses (e.g., Health, Offense, Speed).
+model ModSet {
+  id                Int    @id @default(autoincrement())
+  name              String @unique
+  required_mods     Int
+  bonus_description String
+}
+
+/// Defines the six mod shapes/slots (e.g., Square, Arrow, Triangle).
+model ModShape {
+  id              Int                   @id @default(autoincrement())
+  name            String                @unique
+  formal_name     String                @unique
+  possible_primaries ModShapePrimaryStat[]
+}
+
+/// Defines the quality/tier of a mod, represented by color (e.g., Gold, Purple, Blue).
+model ModQuality {
+  id                  Int    @id @default(autoincrement())
+  tier_letter         String @unique
+  color_name          String @unique
+  initial_secondaries Int
+  slicing_from        SlicingAction[] @relation("from_quality")
+  slicing_to          SlicingAction[] @relation("to_quality")
+}
+
+/// Defines the rarity of a mod, represented by dots/pips (1 through 6).
+model ModRarity {
+  dot_value Int            @id
+  roll_info StatRollInfo[]
+  leveling_costs LevelingCost[]
+  slicing_from   SlicingAction[] @relation("from_rarity")
+  slicing_to     SlicingAction[] @relation("to_rarity")
+}
+
+/// Master table for all non-credit resources used for slicing and calibration.
+model Material {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  slicing_costs SlicingCost[]
+  calibration_costs CalibrationInfo[]
+}
+
+/// Link table to define which primary stats can appear on which mod shapes.
+model ModShapePrimaryStat {
+  shape_id Int
+  stat_id  Int
+  shape    ModShape @relation(fields: [shape_id], references: [id])
+  stat     Stat     @relation(fields: [stat_id], references: [id])
+
+  @@id([shape_id, stat_id])
+}
+
+/// Defines the min/max/target roll values for a specific stat at a specific rarity.
+model StatRollInfo {
+  stat_id     Int
+  rarity_id   Int
+  min_roll    Float
+  max_roll    Float
+  target_roll Float
+  stat        Stat      @relation(fields: [stat_id], references: [id])
+  rarity      ModRarity @relation(fields: [rarity_id], references: [dot_value])
+
+  @@id([stat_id, rarity_id])
+}
+
+/// Stores the credit cost for each mod level-up step, which varies by rarity.
+model LevelingCost {
+  rarity_id   Int
+  level       Int
+  credit_cost Int
+  rarity      ModRarity @relation(fields: [rarity_id], references: [dot_value])
+
+  @@id([rarity_id, level])
+}
+
+/// Defines a specific slicing action, from a starting rarity/quality to a target rarity/quality.
+model SlicingAction {
+  id             Int           @id @default(autoincrement())
+  from_rarity_id Int
+  from_quality_id Int
+  to_rarity_id   Int
+  to_quality_id  Int
+  from_rarity    ModRarity     @relation("from_rarity", fields: [from_rarity_id], references: [dot_value])
+  from_quality   ModQuality    @relation("from_quality", fields: [from_quality_id], references: [id])
+  to_rarity      ModRarity     @relation("to_rarity", fields: [to_rarity_id], references: [dot_value])
+  to_quality     ModQuality    @relation("to_quality", fields: [to_quality_id], references: [id])
+  costs          SlicingCost[]
+}
+
+/// Link table to define the material costs for a specific SlicingAction.
+model SlicingCost {
+  action_id   Int
+  material_id Int
+  quantity    Int
+  action      SlicingAction @relation(fields: [action_id], references: [id])
+  material    Material      @relation(fields: [material_id], references: [id])
+
+  @@id([action_id, material_id])
+}
+
+/// Defines the material cost to re-roll (calibrate) a secondary stat on a 6-dot mod.
+model CalibrationInfo {
+  stat_id     Int
+  material_id Int
+  quantity    Int
+  stat        Stat     @relation(fields: [stat_id], references: [id])
+  material    Material @relation(fields: [material_id], references: [id])
+
+  @@id([stat_id, material_id])
+}
