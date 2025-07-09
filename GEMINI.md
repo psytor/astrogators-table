@@ -6,6 +6,16 @@
 
 ---
 
+## Important Instructions
+
+Whenever we work on this project, we already established phases, steps and things to do.
+Everytime a step is completed, we update GEMINI.md to follow our plan.
+Upon completion of a numbered task from the roadmap, your immediate next action must be to update this file to mark the task as complete before proceeding with any other step.
+Before writing any seeder script or file containing complex data, first present the data in a clear, visual Markdown table for my review and confirmation.
+Whenever we reach a new phase, we need to discuss of all the steps that we will take to advance.
+Everytime we discuss the plan, we write steps to complete and how to achieve them.
+Everytime we complete a phase, we need to take a break and git our changes.
+
 ## 1. Local Development Setup
 
 This guide explains how to set up the project on a new machine.
@@ -42,7 +52,7 @@ This guide explains how to set up the project on a new machine.
 ## 2. Project Status
 
 *   **Current Stage:** Database Seeding
-*   **Current Task:** Task 22.1: Create the `/scripts` and `/scripts/seeders` directories.
+*   **Current Task:** Task 24.1: Implement `/scripts/seeders/modShapePrimaryStats.ts`.
 
 ---
 
@@ -146,28 +156,25 @@ These models depend on the tables from Part A, so we define them second.
 **Part C: Finalizing the Database**
 *   [x] **Task 21:** Generate and apply the database migration.
 *   **Task 22: Create Seeder Directory Structure & Main Script**
-    *   **22.1:** Create the `/scripts` and `/scripts/seeders` directories.
-    *   **22.2:** Create the main orchestrator script: `/scripts/seed.ts`.
-*   **Task 23: Create Individual Seeder Scripts for Foundational Data**
-    *   **23.1:** Create `/scripts/seeders/stats.ts`.
-    *   **23.2:** Create `/scripts/seeders/modSets.ts`.
-    *   **23.3:** Create `/scripts/seeders/modShapes.ts`.
-    *   **23.4:** Create `/scripts/seeders/modQualities.ts`.
-    *   **23.5:** Create `/scripts/seeders/modRarities.ts`.
-    *   **23.6:** Create `/scripts/seeders/materials.ts`.
-*   **Task 24: Create Individual Seeder Scripts for Relational Data**
-    *   **24.1:** Create `/scripts/seeders/modShapePrimaryStats.ts`.
-    *   **24.2:** Create `/scripts/seeders/statRollInfo.ts`.
-    *   **24.3:** Create `/scripts/seeders/levelingCosts.ts`.
-    *   **24.4:** Create `/scripts/seeders/slicingActions.ts`.
-    *   **24.5:** Create `/scripts/seeders/slicingCosts.ts`.
-    *   **24.6:** Create `/scripts/seeders/calibrationInfo.ts`.
-*   **Task 25: Implement Seeding Logic**
-    *   **25.1:** Write the logic in the main `seed.ts` to call each individual seeder in the correct order.
-    *   **25.2:** Write the data and insertion logic for each individual seeder script.
-*   **Task 26: Run Seeder and Verify Data**
-    *   **26.1:** Execute the main `seed.ts` script.
-    *   **26.2:** Connect to the database and verify all tables are populated correctly.
+    *   [x] **22.1:** Create the `/scripts` and `/scripts/seeders` directories.
+    *   [x] **22.2:** Create the main orchestrator script: `/scripts/seed.ts`.
+*   **Task 23: Create and Implement Foundational Data Seeders**
+    *   [x] **23.1:** Implement `/scripts/seeders/stats.ts`.
+    *   [x] **23.2:** Implement `/scripts/seeders/modSets.ts`.
+    *   [x] **23.3:** Implement `/scripts/seeders/modShapes.ts`.
+    *   [x] **23.4:** Implement `/scripts/seeders/modQualities.ts`.
+    *   [x] **23.5:** Implement `/scripts/seeders/modRarities.ts`.
+    *   [x] **23.6:** Implement `/scripts/seeders/materials.ts`.
+*   **Task 24: Create and Implement Relational Data Seeders**
+    *   [x] **24.1:** Implement `/scripts/seeders/modShapePrimaryStats.ts`.
+    *   [x] **24.2:** Implement `/scripts/seeders/statRollInfo.ts`.
+    *   [x] **24.3:** Implement `/scripts/seeders/levelingCosts.ts`.
+    *   [x] **24.4:** Implement `/scripts/seeders/slicingActions.ts`.
+    *   [x] **24.5:** Implement `/scripts/seeders/slicingCosts.ts`.
+    *   [x] **24.6:** Implement `/scripts/seeders/calibrationInfo.ts`.
+*   **Task 25: Run Seeder and Verify Data**
+    *   **25.1:** Execute the main `seed.ts` script.
+    *   **25.2:** Connect to the database and verify all tables are populated correctly.
 
 ---
 

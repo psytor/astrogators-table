@@ -22,7 +22,6 @@ model Stat {
   can_be_secondary     Boolean
   possible_primary_on  ModShapePrimaryStat[]
   roll_info            StatRollInfo[]
-  calibration_costs    CalibrationInfo[]
 }
 
 /// Defines the mod set bonuses (e.g., Health, Offense, Speed).
@@ -65,7 +64,7 @@ model Material {
   id   Int    @id @default(autoincrement())
   name String @unique
   slicing_costs SlicingCost[]
-  calibration_costs CalibrationInfo[]
+  calibration_costs CalibrationCost[]
 }
 
 /// Link table to define which primary stats can appear on which mod shapes.
@@ -108,11 +107,14 @@ model SlicingAction {
   from_quality_id Int
   to_rarity_id   Int
   to_quality_id  Int
+  credit_cost    Int
   from_rarity    ModRarity     @relation("from_rarity", fields: [from_rarity_id], references: [dot_value])
   from_quality   ModQuality    @relation("from_quality", fields: [from_quality_id], references: [id])
   to_rarity      ModRarity     @relation("to_rarity", fields: [to_rarity_id], references: [dot_value])
   to_quality     ModQuality    @relation("to_quality", fields: [to_quality_id], references: [id])
   costs          SlicingCost[]
+
+  @@unique([from_rarity_id, from_quality_id, to_rarity_id, to_quality_id], name: "slicing_path")
 }
 
 /// Link table to define the material costs for a specific SlicingAction.
@@ -124,15 +126,13 @@ model SlicingCost {
   material    Material      @relation(fields: [material_id], references: [id])
 
   @@id([action_id, material_id])
+  @@unique([action_id, material_id])
 }
 
-/// Defines the material cost to re-roll (calibrate) a secondary stat on a 6-dot mod.
-model CalibrationInfo {
-  stat_id     Int
-  material_id Int
-  quantity    Int
-  stat        Stat     @relation(fields: [stat_id], references: [id])
-  material    Material @relation(fields: [material_id], references: [id])
-
-  @@id([stat_id, material_id])
+/// Stores the material cost for each calibration attempt.
+model CalibrationCost {
+  attempt_number Int      @id
+  material_id    Int
+  quantity       Int
+  material       Material @relation(fields: [material_id], references: [id])
 }
