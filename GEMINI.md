@@ -230,9 +230,9 @@ This phase focuses on building the user interface to display the mod data.
     *   [x] **32.1:** Create a `PlayerHeader` component to show player name and mod count.
     *   [x] **32.2:** Create a `ModGrid` component to layout the mod cards.
     *   [x] **32.3:** Create a `ModCard` component with placeholders for recommendation and score.
-    *   [ ] **32.4:** Implement CSS placeholders for mod rarity (dots) and shape (icon).
-    *   [ ] **32.5:** Add a placeholder for the calibration count, styled based on mod rarity.
-    *   [ ] **32.6:** Add a placeholder for the equipped character's name.
+    *   [x] **32.4:** Implement sprite-based rendering for mod shape, set, and color tinting.
+    *   [x] **32.5:** Add styled placeholders for calibration count.
+    *   [x] **32.6:** Pass character ID to `ModCard` and display it.
     *   [x] **32.7:** Display primary and secondary stats using data from the `DbLookupsProvider`.
 
 ### Phase 5: Backend Data Refinement

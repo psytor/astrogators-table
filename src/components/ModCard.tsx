@@ -3,6 +3,8 @@
 import { HydratedPlayerData } from '@/services/modHydrationService';
 import { useDbLookups } from '@/contexts/DbLookupsContext';
 import styles from './ModCard.module.css';
+import ModVisual from './ModVisual';
+import { MOD_SETS, MOD_SLOTS, MOD_TIERS } from '@/lib/mod-constants';
 
 type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 
@@ -23,6 +25,11 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
   const isSixDot = mod.d[1] === 6;
   const totalRarityDots = 7;
 
+  // Derive props for ModVisual
+  const setType = MOD_SETS[mod.d[0]] || null;
+  const shapeType = MOD_SLOTS[mod.d[2]] || null;
+  const modTierName = MOD_TIERS[mod.t] || null;
+
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -39,11 +46,12 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
               ></span>
             ))}
           </div>
-          <div className={styles.modShape}>
-            <div className={styles.modSet}>
-              {lookups.sets[mod.d[0]]?.name || 'Unknown'}
-            </div>
-          </div>
+          <ModVisual
+            shapeType={shapeType}
+            setType={setType}
+            modTierName={modTierName}
+            is6Dot={isSixDot}
+          />
         </div>
         <div className={styles.stats}>
           <div className={styles.primaryStat}>
