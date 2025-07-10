@@ -95,6 +95,16 @@ This section tracks key technical decisions that need to be made at a later, mor
 *   **Mod Evaluation: Backend vs. Frontend?**
     *   **Context:** The JSON payload for a player's full mod inventory can be very large. Processing this on the frontend could lead to poor performance, especially on mobile devices.
     *   **Decision:** We will decide whether the complex mod evaluation logic should run on the backend (server) or the frontend (browser) after the basic data structures and API endpoints are in place.
+*   **Character Name Resolution:**
+    *   **Context:** The `swgoh-comlink` API returns a `definitionId` for characters (e.g., `JEDIKNIGHTLUKE:SEVEN_STAR`) that needs to be mapped to a human-readable name. This requires fetching additional game data to create a reliable lookup table.
+    *   **Decision:** This will be implemented in a later phase after the basic frontend is functional.
+*   **Mod Evaluation Engine:**
+    *   **Context:** The core feature of the application is to evaluate mods based on a set of rules and provide recommendations ("Keep", "Sell", "Slice") along with the reasons for the decision.
+    *   **Decision:** This complex engine will be built after the basic mod inventory can be successfully fetched and displayed.
+
+### 3.5. `swgoh-comlink` Security Model
+
+The `swgoh-comlink` service is intended to be an **internal service**, accessible only by the Next.js application, not the public internet. Therefore, we will use a simple `ACCESS_KEY` for authentication between the two services, as defined in the `swgoh-comlink` documentation. The more complex HMAC signing with a `SECRET_KEY` is not necessary for this internal-only architecture.
 
 ---
 
@@ -175,6 +185,38 @@ These models depend on the tables from Part A, so we define them second.
 *   **Task 25: Run Seeder and Verify Data**
     *   **25.1:** Execute the main `seed.ts` script.
     *   **25.2:** Connect to the database and verify all tables are populated correctly.
+
+### Phase 3: The Mod Ledger - API Foundation
+
+This phase focuses on creating the necessary API endpoints to serve our data to the frontend.
+
+*   **Task 26: Create Player Mods API Endpoint**
+    *   **26.1:** Create the API route file and structure for `GET /api/player/mods/[allycode]`.
+    *   **26.2:** Implement basic request handling and validation.
+*   **Task 27: Implement Data Hydration Service**
+    *   **27.1:** Configure environment variables for `swgoh-comlink`.
+    *   **27.2:** Create the `swgohComlinkService` to fetch raw player data.
+    *   **27.3:** Define the "V1" display-only JSON structure.
+    *   **27.4:** Implement the hydration logic to transform raw data into the V1 structure.
+    *   **27.5:** Integrate the service with the API route.
+*   **Task 28: Create Game Data API Endpoint**
+    *   **28.1:** Create the API route for `GET /api/game-data`.
+    *   **28.2:** Implement the logic to fetch and return all static lookup data (stats, sets, shapes).
+
+### Phase 4: Frontend - Basic Mod Display
+
+This phase focuses on building the user interface to display the mod data.
+
+*   **Task 29: Create the Game Data Provider**
+    *   Create a React Context that calls `/api/game-data` and makes the lookup tables available to the application.
+*   **Task 30: Create the Mod Display Page**
+    *   Create the main page at `/mods`.
+    *   Add an input field for the ally code and a "Fetch" button.
+*   **Task 31: Implement Player Data Fetching**
+    *   When the user clicks "Fetch," the page will call the `/api/player/mods/[allycode]` endpoint.
+*   **Task 32: Display the Mod Inventory**
+    *   Render the results in a nested format (characters and their equipped mods).
+    *   Use the game data provider to display human-readable names for stats, sets, and shapes.
 
 ---
 

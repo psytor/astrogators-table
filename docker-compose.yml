@@ -19,6 +19,7 @@ services:
     environment:
       - APP_NAME=TheAstrogatorsTable
       - LOG_LEVEL=info
+      - ACCESS_KEY=${SWGOH_COMLINK_ACCESS_KEY}
     ports:
       - "3200:3000"
     networks:
