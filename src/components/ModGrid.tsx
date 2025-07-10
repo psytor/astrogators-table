@@ -7,14 +7,13 @@ interface ModGridProps {
 }
 
 export default function ModGrid({ playerData }: ModGridProps) {
-  // Flatten the mods from all characters into a single array
-  const allMods = playerData.rosterUnit.flatMap(unit => unit.mods);
-
   return (
     <div className={styles.grid}>
-      {allMods.map(mod => (
-        <ModCard key={mod.id} mod={mod} />
-      ))}
+      {playerData.rosterUnit.map(unit =>
+        unit.mods.map(mod => (
+          <ModCard key={mod.id} mod={mod} characterId={unit.id} />
+        ))
+      )}
     </div>
   );
 }

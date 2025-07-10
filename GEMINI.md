@@ -52,7 +52,7 @@ This guide explains how to set up the project on a new machine.
 ## 2. Project Status
 
 *   **Current Stage:** Frontend - Basic Mod Display
-*   **Current Task:** Task 32.5: Display primary and secondary stats using data from the `DbLookupsProvider`.
+*   **Current Task:** Task 32.4: Implement CSS placeholders for mod rarity (dots) and shape (icon).
 
 ---
 
@@ -231,7 +231,9 @@ This phase focuses on building the user interface to display the mod data.
     *   [x] **32.2:** Create a `ModGrid` component to layout the mod cards.
     *   [x] **32.3:** Create a `ModCard` component with placeholders for recommendation and score.
     *   [ ] **32.4:** Implement CSS placeholders for mod rarity (dots) and shape (icon).
-    *   [ ] **32.5:** Display primary and secondary stats using data from the `DbLookupsProvider`.
+    *   [ ] **32.5:** Add a placeholder for the calibration count, styled based on mod rarity.
+    *   [ ] **32.6:** Add a placeholder for the equipped character's name.
+    *   [x] **32.7:** Display primary and secondary stats using data from the `DbLookupsProvider`.
 
 ### Phase 5: Backend Data Refinement
 

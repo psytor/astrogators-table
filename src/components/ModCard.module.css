@@ -5,6 +5,8 @@
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  min-height: 280px; /* Ensure consistent card height */
+  justify-content: space-between; /* Pushes footer to the bottom */
 }
 
 .loading {
@@ -43,12 +45,49 @@
   justify-content: center;
 }
 
+.modRarity {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 0.5rem;
+}
+
+.rarityDot {
+  width: 6px;
+  height: 6px;
+  background-color: #444; /* Inactive color */
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.rarityDotActive {
+  background-color: #ffd700; /* Gold color for active dots */
+}
+
+.modShape {
+  width: 80px; /* Increased size */
+  height: 80px; /* Increased size */
+  background-color: #555;
+  margin-bottom: 0.5rem;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* Diamond shape */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modSet {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+  position: absolute;
+}
+
 .stats {
   flex: 2;
   display: flex;
   flex-direction: column;
 }
-
 .primaryStat {
   font-size: 1.1rem;
   font-weight: bold;
@@ -64,4 +103,36 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+}
+
+.footer {
+  border-top: 1px solid #444;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #aaa;
+  text-align: center;
+}
+
+.calibration {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background-color: #1a202c;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-size: 13px;
+}
+
+.calibrationDisabled {
+  background-color: #2a2a2a;
+  color: #666;
+}
+
+.equippedCharacter {
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 10px;
 }

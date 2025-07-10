@@ -39,6 +39,7 @@ export interface DbLookups {
     stats: LookupTable<{ name: string; isPercentage: boolean }>;
     sets: LookupTable<{ name: string; bonus: string }>;
     shapes: LookupTable<{ name: string; formalName: string }>;
+    rarities: LookupTable<{ name: string }>;
 }
 
 
@@ -56,7 +57,7 @@ export async function getPlayerData(allyCode: string): Promise<HydratedPlayerDat
   }
 
   const rosterUnit: HydratedPlayerData['rosterUnit'] = rawPlayerData.rosterUnit.map(unit => {
-    const characterId = unit.definitionId.split(':')[0];
+    const characterId = unit.definitionId;
     const mods: CompactMod[] = unit.equippedStatMod?.map((mod: Mod) => ({
       id: mod.id,
       d: mod.definitionId,
@@ -75,7 +76,7 @@ export async function getPlayerData(allyCode: string): Promise<HydratedPlayerDat
     })) || [];
 
     return {
-      id: characterId,
+      id: unit.definitionId,
       mods,
     };
   });
@@ -93,16 +94,18 @@ export async function getPlayerData(allyCode: string): Promise<HydratedPlayerDat
  * @returns An object containing all static game data.
  */
 export async function getDbLookups(): Promise<DbLookups> {
-    const [dbStats, dbSets, dbShapes] = await Promise.all([
+    const [dbStats, dbSets, dbShapes, dbRarities] = await Promise.all([
         prisma.stat.findMany(),
         prisma.modSet.findMany(),
         prisma.modShape.findMany(),
+        prisma.modRarity.findMany(),
     ]);
 
     const dbLookups: DbLookups = {
         stats: Object.fromEntries(dbStats.map(s => [s.id, { name: s.name, isPercentage: s.is_percentage }])),
         sets: Object.fromEntries(dbSets.map(s => [s.id, { name: s.name, bonus: s.bonus_description }])),
         shapes: Object.fromEntries(dbShapes.map(s => [s.id, { name: s.name, formalName: s.formal_name }])),
+        rarities: Object.fromEntries(dbRarities.map(r => [r.dot_value, { name: r.dot_value.toString() }])),
     };
 
     return dbLookups;

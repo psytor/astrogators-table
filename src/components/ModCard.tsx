@@ -4,23 +4,24 @@ import { HydratedPlayerData } from '@/services/modHydrationService';
 import { useDbLookups } from '@/contexts/DbLookupsContext';
 import styles from './ModCard.module.css';
 
-// This is a temporary type definition until we define the CompactMod type properly
 type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 
 interface ModCardProps {
   mod: CompactMod;
+  characterId: string;
 }
 
-export default function ModCard({ mod }: ModCardProps) {
+export default function ModCard({ mod, characterId }: ModCardProps) {
   const { lookups, isLoading } = useDbLookups();
 
   if (isLoading || !lookups) {
     return <div className={`${styles.card} ${styles.loading}`}>Loading...</div>;
   }
 
-  // TODO: Replace these with real data and logic
   const recommendation = "Keep";
   const score = "95%";
+  const isSixDot = mod.d[1] === 6;
+  const totalRarityDots = 7;
 
   return (
     <div className={styles.card}>
@@ -30,9 +31,19 @@ export default function ModCard({ mod }: ModCardProps) {
       </div>
       <div className={styles.body}>
         <div className={styles.modVisual}>
-          {/* TODO: Add CSS placeholders for rarity and shape */}
-          <p>Shape: {lookups.shapes[mod.d[2]]?.name || 'Unknown'}</p>
-          <p>Set: {lookups.sets[mod.d[0]]?.name || 'Unknown'}</p>
+          <div className={styles.modRarity}>
+            {Array.from({ length: totalRarityDots }).map((_, i) => (
+              <span
+                key={i}
+                className={`${styles.rarityDot} ${i < mod.d[1] ? styles.rarityDotActive : ''}`}
+              ></span>
+            ))}
+          </div>
+          <div className={styles.modShape}>
+            <div className={styles.modSet}>
+              {lookups.sets[mod.d[0]]?.name || 'Unknown'}
+            </div>
+          </div>
         </div>
         <div className={styles.stats}>
           <div className={styles.primaryStat}>
@@ -45,6 +56,15 @@ export default function ModCard({ mod }: ModCardProps) {
               </li>
             ))}
           </ul>
+        </div>
+      </div>
+      <div className={styles.footer}>
+        <div className={`${styles.calibration} ${!isSixDot ? styles.calibrationDisabled : ''}`}>
+          <span>Calibration Count:</span>
+          <span>0/0</span>
+        </div>
+        <div className={styles.equippedCharacter}>
+          {characterId}
         </div>
       </div>
     </div>
