@@ -1,8 +1,6 @@
 import { HydratedPlayerData } from '@/services/modHydrationService';
+import ModCard from './ModCard';
 import styles from './ModGrid.module.css';
-
-// TODO: Import ModCard once it's created
-// import ModCard from './ModCard';
 
 interface ModGridProps {
   playerData: HydratedPlayerData;
@@ -15,11 +13,7 @@ export default function ModGrid({ playerData }: ModGridProps) {
   return (
     <div className={styles.grid}>
       {allMods.map(mod => (
-        // TODO: Replace this div with <ModCard mod={mod} />
-        <div key={mod.id} className={styles.cardPlaceholder}>
-          <p>Mod ID: {mod.id}</p>
-          <p>Level: {mod.l}</p>
-        </div>
+        <ModCard key={mod.id} mod={mod} />
       ))}
     </div>
   );

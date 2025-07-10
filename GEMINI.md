@@ -229,7 +229,7 @@ This phase focuses on building the user interface to display the mod data.
 *   **Task 32: Display the Mod Inventory**
     *   [x] **32.1:** Create a `PlayerHeader` component to show player name and mod count.
     *   [x] **32.2:** Create a `ModGrid` component to layout the mod cards.
-    *   [ ] **32.3:** Create a `ModCard` component with placeholders for recommendation and score.
+    *   [x] **32.3:** Create a `ModCard` component with placeholders for recommendation and score.
     *   [ ] **32.4:** Implement CSS placeholders for mod rarity (dots) and shape (icon).
     *   [ ] **32.5:** Display primary and secondary stats using data from the `DbLookupsProvider`.
 
