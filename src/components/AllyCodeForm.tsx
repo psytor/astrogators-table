@@ -8,17 +8,29 @@ interface AllyCodeFormProps {
   isLoading: boolean;
 }
 
+const formatAllyCode = (value: string) => {
+  const digits = value.replace(/\D/g, '');
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+  return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6, 9)}`;
+};
+
 export default function AllyCodeForm({ onFetch, isLoading }: AllyCodeFormProps) {
   const [allyCode, setAllyCode] = useState('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Basic validation before calling the fetch handler
-    if (/^\d{9}$/.test(allyCode)) {
-      onFetch(allyCode);
+    const digits = allyCode.replace(/\D/g, '');
+    if (/^\d{9}$/.test(digits)) {
+      onFetch(digits);
     } else {
       alert('Invalid Ally Code. Please enter 9 digits.');
     }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatAllyCode(e.target.value);
+    setAllyCode(formatted);
   };
 
   return (
@@ -26,9 +38,9 @@ export default function AllyCodeForm({ onFetch, isLoading }: AllyCodeFormProps) 
       <input
         type="text"
         value={allyCode}
-        onChange={(e) => setAllyCode(e.target.value.replace(/\D/g, ''))}
-        placeholder="Enter 9-digit Ally Code"
-        maxLength={9}
+        onChange={handleChange}
+        placeholder="123-456-789"
+        maxLength={11}
         className={styles.input}
         disabled={isLoading}
       />

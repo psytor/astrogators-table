@@ -221,13 +221,13 @@ This phase focuses on building the user interface to display the mod data.
 *   **Task 30: Create the Mod Display Page & Form**
     *   [x] **30.1:** Create the main page at `/src/app/mods/page.tsx` as a Client Component.
     *   [x] **30.2:** Implement state management for `allyCode`, `playerData`, `isLoading`, etc.
-    *   [ ] **30.3:** Create an `AllyCodeForm` component with an input and button.
+    *   [x] **30.3:** Create an `AllyCodeForm` component with an input and button.
 *   **Task 31: Implement Player Data Fetching**
-    *   [ ] **31.1:** Implement the `onSubmit` handler for the form.
-    *   [ ] **31.2:** Set loading state and call the `/api/player/mods/[allycode]` endpoint.
-    *   [ ] **31.3:** Handle success and error states, updating the page accordingly.
+    *   [x] **31.1:** Implement the `onSubmit` handler for the form.
+    *   [x] **31.2:** Set loading state and call the `/api/player/mods/[allycode]` endpoint.
+    *   [x] **31.3:** Handle success and error states, updating the page accordingly.
 *   **Task 32: Display the Mod Inventory**
-    *   [ ] **32.1:** Create a `PlayerHeader` component to show player name and mod count.
+    *   [x] **32.1:** Create a `PlayerHeader` component to show player name and mod count.
     *   [ ] **32.2:** Create a `ModGrid` component to layout the mod cards.
     *   [ ] **32.3:** Create a `ModCard` component with placeholders for recommendation and score.
     *   [ ] **32.4:** Implement CSS placeholders for mod rarity (dots) and shape (icon).
