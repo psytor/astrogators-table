@@ -52,7 +52,7 @@ This guide explains how to set up the project on a new machine.
 ## 2. Project Status
 
 *   **Current Stage:** Frontend - Basic Mod Display
-*   **Current Task:** Task 29: Create the Game Data Provider.
+*   **Current Task:** Task 32.5: Display primary and secondary stats using data from the `DbLookupsProvider`.
 
 ---
 
@@ -232,6 +232,16 @@ This phase focuses on building the user interface to display the mod data.
     *   [x] **32.3:** Create a `ModCard` component with placeholders for recommendation and score.
     *   [ ] **32.4:** Implement CSS placeholders for mod rarity (dots) and shape (icon).
     *   [ ] **32.5:** Display primary and secondary stats using data from the `DbLookupsProvider`.
+
+### Phase 5: Backend Data Refinement
+
+This phase focuses on improving the data sent from the backend to the frontend.
+
+*   **Task 33: Implement Backend Stat Formatting & Calculation**
+    *   [ ] **33.1:** In `modHydrationService.ts`, create a helper function to format stat values.
+    *   [ ] **33.2:** Convert all percentage-based stats from their decimal form (e.g., `0.085`) to a user-friendly number (e.g., `8.5`).
+    *   [ ] **33.3:** Ensure flat stats are returned as-is.
+    *   [ ] **33.4:** Update the `getPlayerData` function to use this new helper for both primary and secondary stats, ensuring the frontend receives clean, pre-formatted data.
 
 ---
 

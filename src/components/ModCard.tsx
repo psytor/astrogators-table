@@ -31,8 +31,8 @@ export default function ModCard({ mod }: ModCardProps) {
       <div className={styles.body}>
         <div className={styles.modVisual}>
           {/* TODO: Add CSS placeholders for rarity and shape */}
-          <p>Shape: {lookups.shapes[mod.d.split('_')[1]]?.name || 'Unknown'}</p>
-          <p>Set: {lookups.sets[mod.d.split('_')[0]]?.name || 'Unknown'}</p>
+          <p>Shape: {lookups.shapes[mod.d[2]]?.name || 'Unknown'}</p>
+          <p>Set: {lookups.sets[mod.d[0]]?.name || 'Unknown'}</p>
         </div>
         <div className={styles.stats}>
           <div className={styles.primaryStat}>
