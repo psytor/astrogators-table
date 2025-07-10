@@ -11,3 +11,6 @@ node_modules
 .prisma/client
 
 /src/generated/prisma
+
+# Ignore log files
+/logs
