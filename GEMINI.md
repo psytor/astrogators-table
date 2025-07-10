@@ -198,17 +198,17 @@ These models depend on the tables from Part A, so we define them second.
 This phase focuses on creating the necessary API endpoints to serve our data to the frontend.
 
 *   **Task 26: Create Player Mods API Endpoint**
-    *   **26.1:** Create the API route file and structure for `GET /api/player/mods/[allycode]`.
-    *   **26.2:** Implement basic request handling and validation.
+    *   [x] **26.1:** Create the API route file and structure for `GET /api/player/mods/[allycode]`.
+    *   [x] **26.2:** Implement basic request handling and validation for the 9-digit ally code.
 *   **Task 27: Implement Data Hydration Service**
-    *   **27.1:** Configure environment variables for `swgoh-comlink`.
-    *   **27.2:** Create the `swgohComlinkService` to fetch raw player data.
-    *   **27.3:** Define the "V1" display-only JSON structure.
-    *   **27.4:** Implement the hydration logic to transform raw data into the V1 structure.
-    *   **27.5:** Integrate the service with the API route.
+    *   [x] **27.1:** Configure environment variables for `swgoh-comlink`.
+    *   [x] **27.2:** Create the `swgohComlinkService` to fetch raw player data, including `zod` for schema validation.
+    *   [x] **27.3:** Define the "V1" display-only JSON structure (see `HydratedPlayerData` in `modHydrationService.ts`).
+    *   [x] **27.4:** Implement the hydration logic to transform raw data into the V1 structure.
+    *   [x] **27.5:** Integrate the service with the API route.
 *   **Task 28: Create Game Data API Endpoint**
-    *   **28.1:** Create the API route for `GET /api/game-data`.
-    *   **28.2:** Implement the logic to fetch and return all static lookup data (stats, sets, shapes).
+    *   [x] **28.1:** Create the API route at `GET /api/db-lookups` to serve static game data.
+    *   [x] **28.2:** Implement the logic to fetch and return all static lookup data (stats, sets, shapes).
 
 ### Phase 4: Frontend - Basic Mod Display
 
