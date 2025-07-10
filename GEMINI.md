@@ -51,8 +51,8 @@ This guide explains how to set up the project on a new machine.
 
 ## 2. Project Status
 
-*   **Current Stage:** Core Infrastructure
-*   **Current Task:** Task 9.1: Implement a robust, file-based logging system.
+*   **Current Stage:** Frontend - Basic Mod Display
+*   **Current Task:** Task 29: Create the Game Data Provider.
 
 ---
 
@@ -167,8 +167,8 @@ These models depend on the tables from Part A, so we define them second.
 *   [x] **Task 16:** Define the `ModShapePrimaryStat` model to link shapes to their possible primary stats.
 *   [x] **Task 17:** Define the `StatRollInfo` model to link stats and rarities to their specific roll values.
 *   [x] **Task 18:** Define the `LevelingCost` model to store credit costs for leveling mods.
-*   [x] **Task 19:** Define the `SlicingInfo` model to map slicing paths to material costs.
-*   [x] **Task 20:** Define the `CalibrationInfo` model to map calibration actions to material costs.
+*   [x] **Task 19:** Define the `SlicingAction` and `SlicingCost` models to map slicing paths to material costs.
+*   [x] **Task 20:** Define the `CalibrationCost` model to map calibration actions to material costs.
 
 **Part C: Finalizing the Database**
 *   [x] **Task 21:** Generate and apply the database migration.
@@ -188,7 +188,7 @@ These models depend on the tables from Part A, so we define them second.
     *   [x] **24.3:** Implement `/scripts/seeders/levelingCosts.ts`.
     *   [x] **24.4:** Implement `/scripts/seeders/slicingActions.ts`.
     *   [x] **24.5:** Implement `/scripts/seeders/slicingCosts.ts`.
-    *   [x] **24.6:** Implement `/scripts/seeders/calibrationInfo.ts`.
+    *   [x] **24.6:** Implement `/scripts/seeders/calibrationCosts.ts`.
 *   **Task 25: Run Seeder and Verify Data**
     *   [x] **25.1:** Execute the main `seed.ts` script.
     *   [x] **25.2:** Connect to the database and verify all tables are populated correctly.
@@ -206,7 +206,7 @@ This phase focuses on creating the necessary API endpoints to serve our data to 
     *   [x] **27.3:** Define the "V1" display-only JSON structure (see `HydratedPlayerData` in `modHydrationService.ts`).
     *   [x] **27.4:** Implement the hydration logic to transform raw data into the V1 structure.
     *   [x] **27.5:** Integrate the service with the API route.
-*   **Task 28: Create Game Data API Endpoint**
+*   **Task 28: Create DB Lookups API Endpoint**
     *   [x] **28.1:** Create the API route at `GET /api/db-lookups` to serve static game data.
     *   [x] **28.2:** Implement the logic to fetch and return all static lookup data (stats, sets, shapes).
 
@@ -214,16 +214,24 @@ This phase focuses on creating the necessary API endpoints to serve our data to 
 
 This phase focuses on building the user interface to display the mod data.
 
-*   **Task 29: Create the Game Data Provider**
-    *   Create a React Context that calls `/api/game-data` and makes the lookup tables available to the application.
-*   **Task 30: Create the Mod Display Page**
-    *   Create the main page at `/mods`.
-    *   Add an input field for the ally code and a "Fetch" button.
+*   **Task 29: Create the DB Lookups Provider**
+    *   [x] **29.1:** Create a React Context named `DbLookupsProvider`.
+    *   [x] **29.2:** Fetch data from `/api/db-lookups` on initial load.
+    *   [x] **29.3:** Make the lookup tables available to all child components.
+*   **Task 30: Create the Mod Display Page & Form**
+    *   [ ] **30.1:** Create the main page at `/src/app/mods/page.tsx` as a Client Component.
+    *   [ ] **30.2:** Implement state management for `allyCode`, `playerData`, `isLoading`, etc.
+    *   [ ] **30.3:** Create an `AllyCodeForm` component with an input and button.
 *   **Task 31: Implement Player Data Fetching**
-    *   When the user clicks "Fetch," the page will call the `/api/player/mods/[allycode]` endpoint.
+    *   [ ] **31.1:** Implement the `onSubmit` handler for the form.
+    *   [ ] **31.2:** Set loading state and call the `/api/player/mods/[allycode]` endpoint.
+    *   [ ] **31.3:** Handle success and error states, updating the page accordingly.
 *   **Task 32: Display the Mod Inventory**
-    *   Render the results in a nested format (characters and their equipped mods).
-    *   Use the game data provider to display human-readable names for stats, sets, and shapes.
+    *   [ ] **32.1:** Create a `PlayerHeader` component to show player name and mod count.
+    *   [ ] **32.2:** Create a `ModGrid` component to layout the mod cards.
+    *   [ ] **32.3:** Create a `ModCard` component with placeholders for recommendation and score.
+    *   [ ] **32.4:** Implement CSS placeholders for mod rarity (dots) and shape (icon).
+    *   [ ] **32.5:** Display primary and secondary stats using data from the `DbLookupsProvider`.
 
 ---
 
