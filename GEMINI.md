@@ -219,8 +219,8 @@ This phase focuses on building the user interface to display the mod data.
     *   [x] **29.2:** Fetch data from `/api/db-lookups` on initial load.
     *   [x] **29.3:** Make the lookup tables available to all child components.
 *   **Task 30: Create the Mod Display Page & Form**
-    *   [ ] **30.1:** Create the main page at `/src/app/mods/page.tsx` as a Client Component.
-    *   [ ] **30.2:** Implement state management for `allyCode`, `playerData`, `isLoading`, etc.
+    *   [x] **30.1:** Create the main page at `/src/app/mods/page.tsx` as a Client Component.
+    *   [x] **30.2:** Implement state management for `allyCode`, `playerData`, `isLoading`, etc.
     *   [ ] **30.3:** Create an `AllyCodeForm` component with an input and button.
 *   **Task 31: Implement Player Data Fetching**
     *   [ ] **31.1:** Implement the `onSubmit` handler for the form.
