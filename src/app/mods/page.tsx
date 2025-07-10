@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import { HydratedPlayerData } from '@/services/modHydrationService';
 import AllyCodeForm from '@/components/AllyCodeForm';
 import PlayerHeader from '@/components/PlayerHeader';
+import ModGrid from '@/components/ModGrid';
 import styles from './mods.module.css';
 
 export default function ModsPage() {
@@ -47,8 +48,7 @@ export default function ModsPage() {
       {playerData && (
         <>
           <PlayerHeader playerName={playerData.playerName} modCount={totalModCount} />
-          {/* TODO: Add ModGrid component to display results */}
-          <pre>{JSON.stringify(playerData, null, 2)}</pre>
+          <ModGrid playerData={playerData} />
         </>
       )}
     </main>
