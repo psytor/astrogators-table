@@ -51,8 +51,8 @@ This guide explains how to set up the project on a new machine.
 
 ## 2. Project Status
 
-*   **Current Stage:** Database Seeding
-*   **Current Task:** Task 24.1: Implement `/scripts/seeders/modShapePrimaryStats.ts`.
+*   **Current Stage:** Core Infrastructure
+*   **Current Task:** Task 9.1: Implement a robust, file-based logging system.
 
 ---
 
@@ -141,7 +141,14 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
 - [x] **Task 6:** Start the PostgreSQL container using `docker compose up -d`.
 - [x] **Task 7:** Initialize the Next.js project.
 - [x] **Task 8:** Install and configure Prisma to connect to the database.
-- [ ] **Task 9:** Confirm all key commands and update the `Key Commands` section.
+- [x] **Task 9:** Confirm all key commands and update the `Key Commands` section.
+- [x] **Task 9.1:** Implement a robust, file-based logging system using `winston`.
+    - [x] **9.1.1:** Install `winston` and `winston-daily-rotate-file`.
+    - [x] **9.1.2:** Create a centralized logger service at `/src/services/logger.ts`.
+    - [x] **9.1.3:** Configure the logger with the format: `YYYY-MM-DD HH:mm:ss [ProcessID] [ProcessName] [LEVEL] Message`.
+    - [x] **9.1.4:** Configure file and console output transports.
+    - [x] **9.1.5:** Add `/logs` directory to `.gitignore`.
+    - [x] **9.1.6:** Refactor all seeder scripts to use the new logger.
 
 ### Phase 2: The Mod Ledger - Data Foundation
 
@@ -183,8 +190,8 @@ These models depend on the tables from Part A, so we define them second.
     *   [x] **24.5:** Implement `/scripts/seeders/slicingCosts.ts`.
     *   [x] **24.6:** Implement `/scripts/seeders/calibrationInfo.ts`.
 *   **Task 25: Run Seeder and Verify Data**
-    *   **25.1:** Execute the main `seed.ts` script.
-    *   **25.2:** Connect to the database and verify all tables are populated correctly.
+    *   [x] **25.1:** Execute the main `seed.ts` script.
+    *   [x] **25.2:** Connect to the database and verify all tables are populated correctly.
 
 ### Phase 3: The Mod Ledger - API Foundation
 

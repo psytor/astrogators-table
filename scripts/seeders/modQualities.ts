@@ -1,17 +1,16 @@
 import { PrismaClient } from '@prisma/client';
+import { Logger } from 'winston';
 
-const prisma = new PrismaClient();
+export async function seedModQualities(prisma: PrismaClient, logger: Logger) {
+  logger.info('Seeding mod qualities...');
+  const modQualitiesData = [
+    { tier_letter: 'E', color_name: 'Grey', initial_secondaries: 0 },
+    { tier_letter: 'D', color_name: 'Green', initial_secondaries: 1 },
+    { tier_letter: 'C', color_name: 'Blue', initial_secondaries: 2 },
+    { tier_letter: 'B', color_name: 'Purple', initial_secondaries: 3 },
+    { tier_letter: 'A', color_name: 'Gold', initial_secondaries: 4 },
+  ];
 
-const modQualitiesData = [
-  { tier_letter: 'E', color_name: 'Grey', initial_secondaries: 0 },
-  { tier_letter: 'D', color_name: 'Green', initial_secondaries: 1 },
-  { tier_letter: 'C', color_name: 'Blue', initial_secondaries: 2 },
-  { tier_letter: 'B', color_name: 'Purple', initial_secondaries: 3 },
-  { tier_letter: 'A', color_name: 'Gold', initial_secondaries: 4 },
-];
-
-export async function seedModQualities() {
-  console.log('Seeding mod qualities...');
   for (const qualityData of modQualitiesData) {
     await prisma.modQuality.upsert({
       where: { tier_letter: qualityData.tier_letter },
@@ -19,5 +18,6 @@ export async function seedModQualities() {
       create: qualityData,
     });
   }
-  console.log('Mod qualities seeded.');
+  logger.info(`Upserted ${modQualitiesData.length} mod quality records.`);
+  logger.info('Finished seeding mod qualities.');
 }
