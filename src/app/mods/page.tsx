@@ -38,7 +38,7 @@ export default function ModsPage() {
   }, [playerData]);
 
   return (
-    <main className={styles.container}>
+    <div className={styles.modListContainer}>
       <h1 className={styles.title}>The Mod Ledger</h1>
       <AllyCodeForm onFetch={handleFetch} isLoading={isLoading} />
 
@@ -51,6 +51,6 @@ export default function ModsPage() {
           <ModGrid playerData={playerData} />
         </>
       )}
-    </main>
+    </div>
   );
 }
