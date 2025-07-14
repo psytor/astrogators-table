@@ -245,8 +245,8 @@ This phase focuses on incrementally redesigning the user interface to match the 
     *   **Verification:** Run `npm run dev`. The page background and font should be updated across the application.
 
 *   **Task 34: `ModCard` Redesign - Shape and Style**
-    *   [ ] **34.1:** Modify `ModCard.module.css` to give the card angled corners and a dark, semi-transparent background, inspired by the in-game UI.
-    *   [ ] **34.2:** Implement subtle, glowing borders based on the mod's quality color (e.g., a faint green glow for green mods).
+    *   [x] **34.1:** Modify `ModCard.module.css` to give the card angled corners and a dark, semi-transparent background, inspired by the in-game UI.
+    *   [x] **34.2:** Implement subtle, glowing borders based on the mod's quality color (e.g., a faint green glow for green mods).
     *   **Verification:** On the `/mods` page, the mod cards should have the new shape and glowing borders.
 
 *   **Task 35: `ModCard` Redesign - Header and Stats**

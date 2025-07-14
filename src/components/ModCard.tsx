@@ -31,7 +31,21 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
   const modTierName = MOD_TIERS[mod.t] || null;
 
   return (
-    <div className={styles.card}>
+    <div className={styles.modCard}>
+      <div className={styles.modBorders}>
+        <div className={styles.borderLeft}></div>
+        <div className={styles.borderRight}></div>
+        <div className={styles.borderTop}></div>
+        <div className={styles.borderBottom}></div>
+        <div className={`${styles.borderCornerWrap} ${styles.cornerWrapTl}`}></div>
+        <div className={`${styles.borderCornerWrap} ${styles.cornerWrapTr}`}></div>
+        <div className={`${styles.borderCornerWrap} ${styles.cornerWrapBl}`}></div>
+        <div className={`${styles.borderCornerWrap} ${styles.cornerWrapBr}`}></div>
+        <div className={`${styles.cornerDiagonal} ${styles.diagonalTl}`}></div>
+        <div className={`${styles.cornerDiagonal} ${styles.diagonalTr}`}></div>
+        <div className={`${styles.cornerDiagonal} ${styles.diagonalBl}`}></div>
+        <div className={`${styles.cornerDiagonal} ${styles.diagonalBr}`}></div>
+      </div>
       <div className={styles.header}>
         <span className={styles.recommendation}>{recommendation}</span>
         <span className={styles.score}>{score}</span>
