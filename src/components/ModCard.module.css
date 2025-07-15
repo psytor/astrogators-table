@@ -178,76 +178,90 @@
 .body {
   display: flex;
   gap: 1rem;
+  flex: 1; /* Allow body to grow and fill space */
 }
 
-.modVisual {
-  flex: 1;
-  border-right: 1px solid #444;
-  padding-right: 1rem;
+.leftColumn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 1rem;
+  flex: 0 0 90px; /* Fixed width for the left column */
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Allow right column to take remaining space */
 }
 
 .modRarity {
   display: flex;
-  gap: 3px;
-  margin-bottom: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  background-color: #1a2332; /* Darker background */
+  border: 1px solid #527f92;   /* Teal border */
+  border-radius: 12px; /* More pronounced rounding */
+  padding: 6px 8px;
+  width: 100%;
 }
 
 .rarityDot {
-  width: 6px;
-  height: 6px;
-  background-color: #444; /* Inactive color */
+  width: 8px;
+  height: 8px;
+  background-color: #2a4159; /* Inactive color */
   border-radius: 50%;
   transition: background-color 0.3s ease;
 }
 
 .rarityDotActive {
   background-color: #ffd700; /* Gold color for active dots */
+  box-shadow: 0 0 5px #ffd700;
 }
 
-.modShape {
-  width: 80px; /* Increased size */
-  height: 80px; /* Increased size */
-  background-color: #555;
-  margin-bottom: 0.5rem;
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* Diamond shape */
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.characterIcon {
+  width: 40px;
+  height: 40px;
+  background-color: #2a2a2a;
+  border: 2px solid #527f92;
+  border-radius: 50%;
 }
 
-.modSet {
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #fff;
-  text-shadow: 1px 1px 2px #000;
-  position: absolute;
-}
-
-.stats {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-}
 .primaryStat {
-  font-size: 1.1rem;
-  font-weight: bold;
+  font-size: 1.2rem; /* Slightly smaller to fit design */
+  font-weight: 700;
+  color: #e0e0e0;
+  text-align: left;
   margin-bottom: 0.5rem;
-  border-bottom: 1px solid #444;
-  padding-bottom: 0.5rem;
+  padding-left: 0.5rem; /* Indent to align with stats */
+}
+
+.separator {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, 
+    #527f92 0%, #527f92 10%, 
+    transparent 10%, transparent 12%, 
+    #527f92 12%, #527f92 15%, 
+    transparent 15%, transparent 17%,
+    #2a4159 17%, #2a4159 82%,
+    transparent 82%, transparent 85%,
+    #527f92 85%, #527f92 88%,
+    transparent 88%, transparent 90%,
+    #527f92 90%, #527f92 100%
+  );
+  margin: 0.5rem 0;
 }
 
 .secondaryStats {
   list-style: none;
-  padding: 0;
+  padding: 0 0.5rem; /* Indent to match primary stat */
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.5rem;
+  color: #b0b0b0; /* Lighter grey for stats */
 }
 
 .footer {

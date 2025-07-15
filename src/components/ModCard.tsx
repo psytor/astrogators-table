@@ -51,7 +51,7 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
         <span className={styles.score}>{score}</span>
       </div>
       <div className={styles.body}>
-        <div className={styles.modVisual}>
+        <div className={styles.leftColumn}>
           <div className={styles.modRarity}>
             {Array.from({ length: totalRarityDots }).map((_, i) => (
               <span
@@ -66,11 +66,13 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
             modTierName={modTierName}
             is6Dot={isSixDot}
           />
+          <div className={styles.characterIcon}></div>
         </div>
-        <div className={styles.stats}>
+        <div className={styles.rightColumn}>
           <div className={styles.primaryStat}>
             {lookups.stats[mod.p.i]?.name || 'Unknown Stat'}: {mod.p.v}
           </div>
+          <div className={styles.separator}></div>
           <ul className={styles.secondaryStats}>
             {mod.s.map((stat, index) => (
               <li key={index}>

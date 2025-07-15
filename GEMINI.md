@@ -235,42 +235,40 @@ This phase focuses on building the user interface to display the mod data.
     *   [x] **32.6:** Pass character ID to `ModCard` and display it.
     *   [x] **32.7:** Display primary and secondary stats using data from the `DbLookupsProvider`.
 
-### Phase 5: Visual Polish
+### Phase 5: Visual Polish - Mod Card Internals
 
-This phase focuses on incrementally redesigning the user interface to match the polished, futuristic aesthetic of the in-game UI and your previous project. Each task is a small, verifiable step.
+*   **Task 35: `ModCard` Redesign - Two-Column Layout**
+    *   [x] **35.1:** Restructure the `ModCard` body into a two-column layout.
+    *   [x] **35.2:** **Left Column:** Create a container for the `ModVisual` and a new placeholder for the equipped character icon.
+    *   [x] **35.3:** **Right Column:** Create a container for the primary stat and the list of secondary stats.
+    *   **Verification:** The card content below the header is split into two main columns.
 
-*   **Task 33: Global Styles & Layout**
-    *   [x] **33.1:** Update `globals.css` with a dark, textured background and a new primary font (e.g., Inter).
-    *   [x] **33.2:** Update `layout.tsx` to apply a centered, max-width container for the main content.
-    *   **Verification:** Run `npm run dev`. The page background and font should be updated across the application.
+*   **Task 36: `ModCard` Redesign - Left Column Details**
+    *   [x] **36.1:** Above the `ModVisual` shape, add a container for the rarity dots. Style this container as a rounded rectangle.
+    *   [x] **36.2:** Below the `ModVisual` shape, add a circular placeholder for the equipped character's icon.
+    *   **Verification:** The left column contains the rarity dots, the mod shape, and the character icon placeholder in a vertical stack.
 
-*   **Task 34: `ModCard` Redesign - Shape and Style**
-    *   [x] **34.1:** Modify `ModCard.module.css` to give the card angled corners and a dark, semi-transparent background, inspired by the in-game UI.
-    *   [x] **34.2:** Implement subtle, glowing borders based on the mod's quality color (e.g., a faint green glow for green mods).
-    *   **Verification:** On the `/mods` page, the mod cards should have the new shape and glowing borders.
+*   **Task 37: `ModCard` Redesign - Right Column Details**
+    *   [ ] **37.1:** Style the primary stat to be prominent.
+    *   [ ] **37.2:** Below the primary stat, implement the decorative separator line (`=== = --- = ===`).
+    *   [ ] **37.3:** Ensure the secondary stats are rendered as a single vertical list below the separator.
+    *   **Verification:** The right column should correctly display the primary stat, the new separator, and the list of secondary stats.
 
-*   **Task 35: `ModCard` Redesign - Header and Stats**
-    *   [ ] **35.1:** Rework the `ModCard.tsx` layout to feature a prominent primary stat in the header, similar to the reference images.
-    *   [ ] **35.2:** Re-organize the secondary stats into a two-column layout for better readability.
-    *   **Verification:** On the `/mods` page, the stats within each mod card should be reorganized into the new header and two-column format.
+*   **Task 38: `ModVisual` Enhancement**
+    *   [ ] **38.1:** Update `ModVisual.module.css` to add a subtle background glow and a 3D/bevel effect to the mod icon container, making it "pop" from the card.
+    *   **Verification:** The mod icons on the cards should appear more polished and visually distinct, similar to the gold arrow in the image.
 
-*   **Task 36: `ModVisual` Enhancement**
-    *   [ ] **36.1:** Update `ModVisual.module.css` to add a subtle background glow and bevel effect to the mod icon container, making it "pop" from the card.
-    *   **Verification:** The mod icons on the cards should appear more polished and visually distinct.
-
-*   **Task 37: Form and Header Polish**
-    *   [ ] **37.1:** Restyle `AllyCodeForm.tsx` and `PlayerHeader.tsx` and their CSS modules to align with the new dark, futuristic theme.
+*   **Task 39: Form and Header Polish**
+    *   [ ] **39.1:** Restyle `AllyCodeForm.tsx` and `PlayerHeader.tsx` and their CSS modules to align with the new dark, futuristic theme.
     *   **Verification:** The input form and player header on the `/mods` page should match the new aesthetic.
 
 ### Phase 6: Backend Data Refinement
 
-This phase focuses on improving the data sent from the backend to the frontend.
-
-*   **Task 38: Implement Backend Stat Formatting & Calculation**
-    *   [ ] **38.1:** In `modHydrationService.ts`, create a helper function to format stat values.
-    *   [ ] **38.2:** Convert all percentage-based stats from their decimal form (e.g., `0.085`) to a user-friendly number (e.g., `8.5`).
-    *   [ ] **38.3:** Ensure flat stats are returned as-is.
-    *   [ ] **38.4:** Update the `getPlayerData` function to use this new helper for both primary and secondary stats, ensuring the frontend receives clean, pre-formatted data.
+*   **Task 40: Implement Backend Stat Formatting & Calculation**
+    *   [ ] **40.1:** In `modHydrationService.ts`, create a helper function to format stat values.
+    *   [ ] **40.2:** Convert all percentage-based stats from their decimal form (e.g., `0.085`) to a user-friendly number (e.g., `8.5`).
+    *   [ ] **40.3:** Ensure flat stats are returned as-is.
+    *   [ ] **40.4:** Update the `getPlayerData` function to use this new helper for both primary and secondary stats, ensuring the frontend receives clean, pre-formatted data.
 
 ---
 
