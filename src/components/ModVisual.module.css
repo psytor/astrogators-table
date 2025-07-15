@@ -3,7 +3,7 @@
   width: 80px;
   height: 80px;
   position: relative;
-  margin-bottom: 1rem; /* Increased margin for more space */
+  margin-bottom: 1rem;
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;

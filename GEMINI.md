@@ -148,8 +148,8 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
 *   **Task 39: Display Fix - Character Icon Placement**
     *   [x] **39.1:** Adjust the CSS for the character icon placeholder in `ModCard.module.css` to ensure it is positioned correctly within the left column.
 
-*   **Task 40: `ModVisual` Enhancement**
-    *   [ ] **40.1:** Update `ModVisual.module.css` to add a subtle background glow and a 3D/bevel effect to the mod icon container.
+*   **Task 40: `ModCard` Background Enhancement**
+    *   [x] **40.1:** Add a subtle, futuristic, fading horizontal line pattern to the background of the `ModCard` component to add visual depth.
 
 *   **Task 41: Form and Header Polish**
     *   [ ] **41.1:** Restyle `AllyCodeForm.tsx` and `PlayerHeader.tsx` and their CSS modules to align with the new dark, futuristic theme.

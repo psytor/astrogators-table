@@ -246,8 +246,8 @@
 
 .modVisualContainer {
   position: relative;
-  width: 90px; /* Match the width of the left column */
-  height: 90px; /* Provide a defined size */
+  width: 90px;
+  height: 90px;
 }
 
 .characterIcon {
@@ -326,9 +326,8 @@
 .footer {
   position: relative;
   z-index: 1;
-  border-top: 1px solid #444;
-  padding-top: 1rem;
-  margin-top: 1rem;
+  padding-top: 0.25rem;
+  margin-top: 0.5rem;
   font-size: 0.9rem;
   color: #aaa;
   text-align: center;
@@ -337,10 +336,7 @@
 .calibration {
   display: flex;
   justify-content: space-between;
-  padding: 8px 12px;
-  background-color: #1a202c;
-  border-radius: 6px;
-  margin: 10px 0;
+  margin: 0.25rem 0;
   font-size: 13px;
 }
 
