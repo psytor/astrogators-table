@@ -10,11 +10,13 @@
 
 Whenever we work on this project, we already established phases, steps and things to do.
 Everytime a step is completed, we update GEMINI.md to follow our plan.
+After implementing a change, especially a visual one, I must pause and ask you to verify that the changes appear correctly before I mark the task as complete.
 Upon completion of a numbered task from the roadmap, your immediate next action must be to update this file to mark the task as complete before proceeding with any other step.
 Before writing any seeder script or file containing complex data, first present the data in a clear, visual Markdown table for my review and confirmation.
 Whenever we reach a new phase, we need to discuss of all the steps that we will take to advance.
 Everytime we discuss the plan, we write steps to complete and how to achieve them.
 Everytime we complete a phase, we need to take a break and git our changes.
+Once a phase is fully completed, we will move all its tasks to `ROADMAP_ARCHIVE.md` to keep this file clean and focused.
 
 ## 1. Local Development Setup
 
@@ -51,8 +53,8 @@ This guide explains how to set up the project on a new machine.
 
 ## 2. Project Status
 
-*   **Current Stage:** Frontend - Basic Mod Display
-*   **Current Task:** Task 32.4: Implement CSS placeholders for mod rarity (dots) and shape (icon).
+*   **Current Stage:** Visual Polish - Mod Card Internals
+*   **Current Task:** Task 37: `ModCard` Redesign - Right Column Details
 
 ---
 
@@ -131,136 +133,31 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
 
 ## 6. Roadmap
 
-### Phase 1: Project Definition & Setup
+### Phase 5: Visual Polish & Bug Fixes (Revised)
 
-- [x] **Task 1:** Define the project name and objective.
-- [x] **Task 2:** Decide on the core technology stack.
-- [x] **Task 3:** Refine tech stack to include Docker, Postgres, and Prisma.
-- [x] **Task 4:** Create `docker-compose.yml`, `.env.example`, and `.gitignore`.
-- [x] **Task 5:** Set up the Git repository on GitHub.
-- [x] **Task 6:** Start the PostgreSQL container using `docker compose up -d`.
-- [x] **Task 7:** Initialize the Next.js project.
-- [x] **Task 8:** Install and configure Prisma to connect to the database.
-- [x] **Task 9:** Confirm all key commands and update the `Key Commands` section.
-- [x] **Task 9.1:** Implement a robust, file-based logging system using `winston`.
-    - [x] **9.1.1:** Install `winston` and `winston-daily-rotate-file`.
-    - [x] **9.1.2:** Create a centralized logger service at `/src/services/logger.ts`.
-    - [x] **9.1.3:** Configure the logger with the format: `YYYY-MM-DD HH:mm:ss [ProcessID] [ProcessName] [LEVEL] Message`.
-    - [x] **9.1.4:** Configure file and console output transports.
-    - [x] **9.1.5:** Add `/logs` directory to `.gitignore`.
-    - [x] **9.1.6:** Refactor all seeder scripts to use the new logger.
+*   **Task 37: Implement New `ModCard` Stat Display**
+    *   [x] **37.1:** Refactor the JSX in `ModCard.tsx` to match the data-first layout from `Temp/components/ModCard.jsx`.
+        *   The primary stat will be in a container with the name and value separated.
+        *   The secondary stats will be looped to create containers with the elements in the specific order: **Value, Name, (Rolls)**.
+    *   [x] **37.2:** Replace the relevant styles in `ModCard.module.css` with the styles from `Temp/components/ModCard.css`, adapting class names to the module format. This will correctly style the new `primaryStat` and `secondaryStat` structures.
+    *   [x] **37.3:** The old decorative separator will be removed as it's now obsolete.
 
-### Phase 2: The Mod Ledger - Data Foundation
+*   **Task 38: Bug Fix - 6-Dot Mod Visual**
+    *   [x] **38.1:** Investigate and fix the logic in `ModVisual.tsx` that causes 6-dot mods to display the incorrect 5-dot shape.
 
-This phase creates our database schema one table at a time, starting with independent "lookup" tables.
+*   **Task 39: Display Fix - Character Icon Placement**
+    *   [ ] **39.1:** Adjust the CSS for the character icon placeholder in `ModCard.module.css` to ensure it is positioned correctly within the left column.
 
-**Part A: Foundational Data Models**
-*   [x] **Task 10:** Define the `Stat` model (simple version) in the Prisma schema.
-*   [x] **Task 11:** Define the `ModSet` model in the Prisma schema.
-*   [x] **Task 12:** Define the `ModShape` model in the Prisma schema.
-*   [x] **Task 13:** Define the `ModQuality` (Tier/Color) model in the Prisma schema.
-*   [x] **Task 14:** Define the `ModRarity` (Pips/Dots) model in the Prisma schema.
-*   [x] **Task 15:** Define the `Material` model for all non-credit resources.
+*   **Task 40: `ModVisual` Enhancement**
+    *   [ ] **40.1:** Update `ModVisual.module.css` to add a subtle background glow and a 3D/bevel effect to the mod icon container.
 
-**Part B: Relationship and Costing Models**
-These models depend on the tables from Part A, so we define them second.
-*   [x] **Task 16:** Define the `ModShapePrimaryStat` model to link shapes to their possible primary stats.
-*   [x] **Task 17:** Define the `StatRollInfo` model to link stats and rarities to their specific roll values.
-*   [x] **Task 18:** Define the `LevelingCost` model to store credit costs for leveling mods.
-*   [x] **Task 19:** Define the `SlicingAction` and `SlicingCost` models to map slicing paths to material costs.
-*   [x] **Task 20:** Define the `CalibrationCost` model to map calibration actions to material costs.
+*   **Task 41: Form and Header Polish**
+    *   [ ] **41.1:** Restyle `AllyCodeForm.tsx` and `PlayerHeader.tsx` and their CSS modules to align with the new dark, futuristic theme.
 
-**Part C: Finalizing the Database**
-*   [x] **Task 21:** Generate and apply the database migration.
-*   **Task 22: Create Seeder Directory Structure & Main Script**
-    *   [x] **22.1:** Create the `/scripts` and `/scripts/seeders` directories.
-    *   [x] **22.2:** Create the main orchestrator script: `/scripts/seed.ts`.
-*   **Task 23: Create and Implement Foundational Data Seeders**
-    *   [x] **23.1:** Implement `/scripts/seeders/stats.ts`.
-    *   [x] **23.2:** Implement `/scripts/seeders/modSets.ts`.
-    *   [x] **23.3:** Implement `/scripts/seeders/modShapes.ts`.
-    *   [x] **23.4:** Implement `/scripts/seeders/modQualities.ts`.
-    *   [x] **23.5:** Implement `/scripts/seeders/modRarities.ts`.
-    *   [x] **23.6:** Implement `/scripts/seeders/materials.ts`.
-*   **Task 24: Create and Implement Relational Data Seeders**
-    *   [x] **24.1:** Implement `/scripts/seeders/modShapePrimaryStats.ts`.
-    *   [x] **24.2:** Implement `/scripts/seeders/statRollInfo.ts`.
-    *   [x] **24.3:** Implement `/scripts/seeders/levelingCosts.ts`.
-    *   [x] **24.4:** Implement `/scripts/seeders/slicingActions.ts`.
-    *   [x] **24.5:** Implement `/scripts/seeders/slicingCosts.ts`.
-    *   [x] **24.6:** Implement `/scripts/seeders/calibrationCosts.ts`.
-*   **Task 25: Run Seeder and Verify Data**
-    *   [x] **25.1:** Execute the main `seed.ts` script.
-    *   [x] **25.2:** Connect to the database and verify all tables are populated correctly.
-
-### Phase 3: The Mod Ledger - API Foundation
-
-This phase focuses on creating the necessary API endpoints to serve our data to the frontend.
-
-*   **Task 26: Create Player Mods API Endpoint**
-    *   [x] **26.1:** Create the API route file and structure for `GET /api/player/mods/[allycode]`.
-    *   [x] **26.2:** Implement basic request handling and validation for the 9-digit ally code.
-*   **Task 27: Implement Data Hydration Service**
-    *   [x] **27.1:** Configure environment variables for `swgoh-comlink`.
-    *   [x] **27.2:** Create the `swgohComlinkService` to fetch raw player data, including `zod` for schema validation.
-    *   [x] **27.3:** Define the "V1" display-only JSON structure (see `HydratedPlayerData` in `modHydrationService.ts`).
-    *   [x] **27.4:** Implement the hydration logic to transform raw data into the V1 structure.
-    *   [x] **27.5:** Integrate the service with the API route.
-*   **Task 28: Create DB Lookups API Endpoint**
-    *   [x] **28.1:** Create the API route at `GET /api/db-lookups` to serve static game data.
-    *   [x] **28.2:** Implement the logic to fetch and return all static lookup data (stats, sets, shapes).
-
-### Phase 4: Frontend - Basic Mod Display
-
-This phase focuses on building the user interface to display the mod data.
-
-*   **Task 29: Create the DB Lookups Provider**
-    *   [x] **29.1:** Create a React Context named `DbLookupsProvider`.
-    *   [x] **29.2:** Fetch data from `/api/db-lookups` on initial load.
-    *   [x] **29.3:** Make the lookup tables available to all child components.
-*   **Task 30: Create the Mod Display Page & Form**
-    *   [x] **30.1:** Create the main page at `/src/app/mods/page.tsx` as a Client Component.
-    *   [x] **30.2:** Implement state management for `allyCode`, `playerData`, `isLoading`, etc.
-    *   [x] **30.3:** Create an `AllyCodeForm` component with an input and button.
-*   **Task 31: Implement Player Data Fetching**
-    *   [x] **31.1:** Implement the `onSubmit` handler for the form.
-    *   [x] **31.2:** Set loading state and call the `/api/player/mods/[allycode]` endpoint.
-    *   [x] **31.3:** Handle success and error states, updating the page accordingly.
-*   **Task 32: Display the Mod Inventory**
-    *   [x] **32.1:** Create a `PlayerHeader` component to show player name and mod count.
-    *   [x] **32.2:** Create a `ModGrid` component to layout the mod cards.
-    *   [x] **32.3:** Create a `ModCard` component with placeholders for recommendation and score.
-    *   [x] **32.4:** Implement sprite-based rendering for mod shape, set, and color tinting.
-    *   [x] **32.5:** Add styled placeholders for calibration count.
-    *   [x] **32.6:** Pass character ID to `ModCard` and display it.
-    *   [x] **32.7:** Display primary and secondary stats using data from the `DbLookupsProvider`.
-
-### Phase 5: Visual Polish - Mod Card Internals
-
-*   **Task 35: `ModCard` Redesign - Two-Column Layout**
-    *   [x] **35.1:** Restructure the `ModCard` body into a two-column layout.
-    *   [x] **35.2:** **Left Column:** Create a container for the `ModVisual` and a new placeholder for the equipped character icon.
-    *   [x] **35.3:** **Right Column:** Create a container for the primary stat and the list of secondary stats.
-    *   **Verification:** The card content below the header is split into two main columns.
-
-*   **Task 36: `ModCard` Redesign - Left Column Details**
-    *   [x] **36.1:** Above the `ModVisual` shape, add a container for the rarity dots. Style this container as a rounded rectangle.
-    *   [x] **36.2:** Below the `ModVisual` shape, add a circular placeholder for the equipped character's icon.
-    *   **Verification:** The left column contains the rarity dots, the mod shape, and the character icon placeholder in a vertical stack.
-
-*   **Task 37: `ModCard` Redesign - Right Column Details**
-    *   [ ] **37.1:** Style the primary stat to be prominent.
-    *   [ ] **37.2:** Below the primary stat, implement the decorative separator line (`=== = --- = ===`).
-    *   [ ] **37.3:** Ensure the secondary stats are rendered as a single vertical list below the separator.
-    *   **Verification:** The right column should correctly display the primary stat, the new separator, and the list of secondary stats.
-
-*   **Task 38: `ModVisual` Enhancement**
-    *   [ ] **38.1:** Update `ModVisual.module.css` to add a subtle background glow and a 3D/bevel effect to the mod icon container, making it "pop" from the card.
-    *   **Verification:** The mod icons on the cards should appear more polished and visually distinct, similar to the gold arrow in the image.
-
-*   **Task 39: Form and Header Polish**
-    *   [ ] **39.1:** Restyle `AllyCodeForm.tsx` and `PlayerHeader.tsx` and their CSS modules to align with the new dark, futuristic theme.
-    *   **Verification:** The input form and player header on the `/mods` page should match the new aesthetic.
+*   **Task 42: Final Visual Review**
+    *   [ ] **42.1:** Conduct a final review of the `ModCard` and surrounding components.
+    *   [ ] **42.2:** Identify and list any remaining minor visual bugs, alignment issues, or inconsistencies.
+    *   [ ] **42.3:** Create a plan to address the identified issues before concluding the phase.
 
 ### Phase 6: Backend Data Refinement
 

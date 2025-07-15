@@ -22,12 +22,17 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
 
   const recommendation = "Keep";
   const score = "95%";
-  const isSixDot = mod.d[1] === 6;
+
+  const setId = parseInt(mod.d.charAt(0), 10);
+  const rarity = parseInt(mod.d.charAt(1), 10);
+  const shapeId = parseInt(mod.d.charAt(2), 10);
+
+  const isSixDot = rarity === 6;
   const totalRarityDots = 7;
 
   // Derive props for ModVisual
-  const setType = MOD_SETS[mod.d[0]] || null;
-  const shapeType = MOD_SLOTS[mod.d[2]] || null;
+  const setType = MOD_SETS[setId] || null;
+  const shapeType = MOD_SLOTS[shapeId] || null;
   const modTierName = MOD_TIERS[mod.t] || null;
 
   return (
@@ -70,13 +75,15 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
         </div>
         <div className={styles.rightColumn}>
           <div className={styles.primaryStat}>
-            {lookups.stats[mod.p.i]?.name || 'Unknown Stat'}: {mod.p.v}
+            <span className={styles.statName}>{lookups.stats[mod.p.i]?.name || 'Unknown Stat'}</span>
+            <span className={styles.statValue}>{mod.p.v}</span>
           </div>
-          <div className={styles.separator}></div>
           <ul className={styles.secondaryStats}>
             {mod.s.map((stat, index) => (
-              <li key={index}>
-                ({stat.r}) {lookups.stats[stat.i]?.name || 'Unknown Stat'}: {stat.v}
+              <li key={index} className={styles.secondaryStat}>
+                <span className={styles.statValue}>{stat.v}</span>
+                <span className={styles.statName}>{lookups.stats[stat.i]?.name || 'Unknown Stat'}</span>
+                <span className={styles.statRolls}>({stat.r})</span>
               </li>
             ))}
           </ul>
