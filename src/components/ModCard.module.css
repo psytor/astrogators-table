@@ -1,6 +1,6 @@
 .modCard {
     position: relative;
-    background: linear-gradient(135deg, #1a2332 0%, #0f1823 100%);
+    background: #091b21;
     width: 100%;
     clip-path: polygon(
         15px 0,
@@ -17,6 +17,25 @@
     flex-direction: column;
     min-height: 280px; /* Ensure consistent card height */
     justify-content: space-between; /* Pushes footer to the bottom */
+}
+
+.modCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(14, 59, 76, 0.2),
+    rgba(14, 59, 76, 0.2) 1px,
+    transparent 1px,
+    transparent 5px
+  );
+  mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, transparent 60%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 10%, transparent 60%);
+  z-index: 0;
 }
 
 .modCard:hover .borderLeft,
@@ -161,6 +180,8 @@
 }
 
 .header {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
@@ -176,6 +197,8 @@
 }
 
 .body {
+  position: relative;
+  z-index: 1;
   display: flex;
   gap: 1rem;
   flex: 1; /* Allow body to grow and fill space */
@@ -301,6 +324,8 @@
 
 
 .footer {
+  position: relative;
+  z-index: 1;
   border-top: 1px solid #444;
   padding-top: 1rem;
   margin-top: 1rem;
