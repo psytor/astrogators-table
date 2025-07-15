@@ -220,13 +220,25 @@
   box-shadow: 0 0 5px #ffd700;
 }
 
+
+.modVisualContainer {
+  position: relative;
+  width: 90px; /* Match the width of the left column */
+  height: 90px; /* Provide a defined size */
+}
+
 .characterIcon {
+  position: absolute;
+  bottom: -5px;
+  left: -5px;
   width: 40px;
   height: 40px;
   background-color: #2a2a2a;
   border: 2px solid #527f92;
   border-radius: 50%;
+  z-index: 10;
 }
+
 
 
 .primaryStat {

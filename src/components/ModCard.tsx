@@ -61,17 +61,19 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
             {Array.from({ length: totalRarityDots }).map((_, i) => (
               <span
                 key={i}
-                className={`${styles.rarityDot} ${i < mod.d[1] ? styles.rarityDotActive : ''}`}
+                className={`${styles.rarityDot} ${i < rarity ? styles.rarityDotActive : ''}`}
               ></span>
             ))}
           </div>
-          <ModVisual
-            shapeType={shapeType}
-            setType={setType}
-            modTierName={modTierName}
-            is6Dot={isSixDot}
-          />
-          <div className={styles.characterIcon}></div>
+          <div className={styles.modVisualContainer}>
+            <ModVisual
+              shapeType={shapeType}
+              setType={setType}
+              modTierName={modTierName}
+              is6Dot={isSixDot}
+            />
+            <div className={styles.characterIcon}></div>
+          </div>
         </div>
         <div className={styles.rightColumn}>
           <div className={styles.primaryStat}>
