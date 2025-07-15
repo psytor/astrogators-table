@@ -146,7 +146,7 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
     *   [x] **38.1:** Investigate and fix the logic in `ModVisual.tsx` that causes 6-dot mods to display the incorrect 5-dot shape.
 
 *   **Task 39: Display Fix - Character Icon Placement**
-    *   [ ] **39.1:** Adjust the CSS for the character icon placeholder in `ModCard.module.css` to ensure it is positioned correctly within the left column.
+    *   [x] **39.1:** Adjust the CSS for the character icon placeholder in `ModCard.module.css` to ensure it is positioned correctly within the left column.
 
 *   **Task 40: `ModVisual` Enhancement**
     *   [ ] **40.1:** Update `ModVisual.module.css` to add a subtle background glow and a 3D/bevel effect to the mod icon container.
