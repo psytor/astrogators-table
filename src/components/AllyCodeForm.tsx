@@ -35,18 +35,22 @@ export default function AllyCodeForm({ onFetch, isLoading }: AllyCodeFormProps) 
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <input
-        type="text"
-        value={allyCode}
-        onChange={handleChange}
-        placeholder="123-456-789"
-        maxLength={11}
-        className={styles.input}
-        disabled={isLoading}
-      />
-      <button type="submit" className={styles.button} disabled={isLoading}>
-        {isLoading ? 'Loading...' : 'Analyse Mods'}
-      </button>
+      <div className={styles.inputWrapper}>
+        <input
+          type="text"
+          value={allyCode}
+          onChange={handleChange}
+          placeholder="123-456-789"
+          maxLength={11}
+          className={styles.input}
+          disabled={isLoading}
+        />
+      </div>
+      <div className={`${styles.buttonWrapper} ${isLoading ? styles.disabled : ''}`}>
+        <button type="submit" className={styles.button} disabled={isLoading}>
+          {isLoading ? 'Loading...' : 'Analyse Mods'}
+        </button>
+      </div>
     </form>
   );
 }

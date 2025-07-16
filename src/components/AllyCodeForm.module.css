@@ -1,38 +1,85 @@
 .form {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Stack elements vertically */
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+}
+
+/* New wrapper for input to handle border on clip-path */
+.inputWrapper, .buttonWrapper {
+  position: relative;
+  transition: transform 0.2s ease-in-out;
+}
+
+.buttonWrapper:hover:not(.disabled) {
+  transform: translateY(-2px);
+}
+
+.inputWrapper::before, .buttonWrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--border-default);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  transition: border-color 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.inputWrapper:hover::before, .buttonWrapper:hover:not(.disabled)::before {
+  border-color: var(--primary);
 }
 
 .input {
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  border: 1px solid #444;
-  background-color: #222;
-  color: #eee;
-  width: 200px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  width: 280px;
   text-align: center;
+  letter-spacing: 1.5px;
+  position: relative;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
 }
 
 .button {
+  font-family: 'Orbitron', sans-serif;
   font-size: 1rem;
-  padding: 0.5rem 1.5rem;
-  border-radius: 4px;
+  font-weight: 700;
+  padding: 0.8rem 1.75rem;
   border: none;
-  background-color: #0070f3;
-  color: white;
+  background: linear-gradient(145deg, var(--bg-medium), var(--bg-dark));
+  color: var(--primary);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background 0.2s ease-in-out;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.button:hover {
-  background-color: #005bb5;
+.button:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: linear-gradient(145deg, var(--border-hover), var(--bg-medium));
 }
 
 .button:disabled {
-  background-color: #555;
+  background: var(--bg-dark);
+  color: var(--text-muted);
   cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Add disabled class to wrapper to prevent hover effect */
+.buttonWrapper.disabled::before {
+    border-color: var(--border-default);
 }

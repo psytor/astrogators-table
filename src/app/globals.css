@@ -8,6 +8,56 @@
   --glow-sm: 0 0 4px rgba(77, 145, 255, 0.5), 0 0 8px rgba(77, 145, 255, 0.4);
   --glow-md: 0 0 8px rgba(77, 145, 255, 0.6), 0 0 16px rgba(77, 145, 255, 0.5);
   --glow-lg: 0 0 12px rgba(77, 145, 255, 0.7), 0 0 24px rgba(77, 145, 255, 0.6);
+
+  /* ===== NEW THEME COLORS FROM OTHER PROJECT ===== */
+  
+  /* Background Colors */
+  --bg-darkest: #0f172a;      /* Darkest background */
+  --bg-dark: #1e293b;         /* Card/panel backgrounds */
+  --bg-medium: #334155;       /* Hover states, borders */
+  --bg-accent: #1a202c;       /* Input fields, subtle backgrounds */
+  
+  /* Primary Brand Colors */
+  --primary: #3b82f6;         /* Main blue accent */
+  --primary-hover: #2563eb;   /* Hover state for primary */
+  --primary-dark: #1e3a8a;    /* Dark variant */
+  
+  /* Text Colors */
+  --text-primary: #e2e8f0;    /* Main text */
+  --text-secondary: #cbd5e1;  /* Secondary text */
+  --text-muted: #94a3b8;      /* Muted/label text */
+  --text-dim: #64748b;        /* Very muted text */
+  
+  /* Tier/Rarity Colors */
+  --tier-grey: #9ca3af;
+  --tier-grey-border: #6b7280;
+  --tier-green: #47c43c;
+  --tier-green-alt: #059669;
+  --tier-blue: #3b82f6;
+  --tier-purple: #8b5cf6;
+  --tier-gold: #f59e0b;
+  
+  /* Status Colors */
+  --status-success: #059669;
+  --status-error: #dc2626;
+  --status-warning: #d97706;
+  --status-info: #7c3aed;
+  
+  /* Border Colors */
+  --border-default: #334155;
+  --border-hover: #475569;
+  --border-active: #3b82f6;
+  
+  /* Shadow Colors */
+  --shadow-sm: rgba(0, 0, 0, 0.3);
+  --shadow-md: rgba(0, 0, 0, 0.4);
+  --shadow-lg: rgba(0, 0, 0, 0.5);
+  
+  /* Special Effects - Updated to use new primary color */
+  --glow-primary: rgba(59, 130, 246, 0.5);
+  --glow-gold: rgba(245, 158, 11, 0.5);
+  --glow-success: rgba(5, 150, 105, 0.5);
+  --glow-error: rgba(220, 38, 38, 0.5);
 }
 
 html,
@@ -25,7 +75,7 @@ body {
     )
     rgb(var(--background-end-rgb));
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke-width='2' stroke='rgba(200,200,255,0.05)'%3E%3Cpath d='M0 .5H31.5V32'/%3E%3C/svg%3E");
-  font-family: var(--font-sans);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

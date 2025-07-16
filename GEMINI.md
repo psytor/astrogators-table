@@ -152,7 +152,7 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
     *   [x] **40.1:** Add a subtle, futuristic, fading horizontal line pattern to the background of the `ModCard` component to add visual depth.
 
 *   **Task 41: Form and Header Polish**
-    *   [ ] **41.1:** Restyle `AllyCodeForm.tsx` and `PlayerHeader.tsx` and their CSS modules to align with the new dark, futuristic theme.
+    *   [x] **41.1:** Restyle `AllyCodeForm.tsx` and `PlayerHeader.tsx` and their CSS modules to align with the new dark, futuristic theme.
 
 *   **Task 42: Final Visual Review**
     *   [ ] **42.1:** Conduct a final review of the `ModCard` and surrounding components.

@@ -40,16 +40,17 @@ export default function ModsPage() {
   return (
     <div className={styles.modListContainer}>
       <h1 className={styles.title}>The Mod Ledger</h1>
-      <AllyCodeForm onFetch={handleFetch} isLoading={isLoading} />
+      <div className={styles.headerContainer}>
+        <AllyCodeForm onFetch={handleFetch} isLoading={isLoading} />
+        {playerData && (
+          <PlayerHeader playerName={playerData.playerName} modCount={totalModCount} />
+        )}
+      </div>
 
-      {isLoading && <p>Loading...</p>}
       {error && <p className={styles.error}>Error: {error}</p>}
       
       {playerData && (
-        <>
-          <PlayerHeader playerName={playerData.playerName} modCount={totalModCount} />
-          <ModGrid playerData={playerData} />
-        </>
+        <ModGrid playerData={playerData} />
       )}
     </div>
   );

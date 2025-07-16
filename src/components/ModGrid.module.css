@@ -8,7 +8,7 @@
 }
 
 .cardPlaceholder {
-  border: 1px dashed #555;
+  border: 1px dashed var(--border-default);
   border-radius: 8px;
   padding: 1rem;
   min-height: 150px;
@@ -16,5 +16,5 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #888;
+  color: var(--text-muted);
 }

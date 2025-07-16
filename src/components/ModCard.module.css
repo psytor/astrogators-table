@@ -1,6 +1,6 @@
 .modCard {
     position: relative;
-    background: #091b21;
+    background: var(--bg-dark);
     width: 100%;
     clip-path: polygon(
         15px 0,
@@ -28,8 +28,8 @@
   bottom: 0;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(14, 59, 76, 0.2),
-    rgba(14, 59, 76, 0.2) 1px,
+    rgba(51, 65, 85, 0.2),
+    rgba(51, 65, 85, 0.2) 1px,
     transparent 1px,
     transparent 5px
   );
@@ -42,14 +42,14 @@
 .modCard:hover .borderRight,
 .modCard:hover .cornerDiagonal,
 .modCard:hover .borderCornerWrap {
-    background: #6ACCE9;
-    box-shadow: 0 0 10px #6ACCE9;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
 }
 
 .modCard:hover .borderTop,
 .modCard:hover .borderBottom {
-    background: #527f92;
-    box-shadow: 0 0 3px #527f92;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary);
 }
 
 .modBorders {
@@ -64,8 +64,8 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: #527f92;
-    box-shadow: 0 0 5px #527f92;
+    background: var(--border-default);
+    box-shadow: 0 0 5px var(--border-default);
 }
 
 .borderLeft {
@@ -81,25 +81,25 @@
     left: 25px;
     right: 25px;
     height: 1px;
-    background: #2a4159;
-    box-shadow: 0 0 5px #2a4159;
+    background: var(--border-default);
+    box-shadow: 0 0 5px var(--border-default);
     top: 0;
 }
 
 .borderBottom {
     position: absolute;
     left: 25px;
-    right: 55px; /* Extend to meet the new corner */
+    right: 55px;
     height: 1px;
-    background: #2a4159;
-    box-shadow: 0 0 5px #2a4159;
+    background: var(--border-default);
+    box-shadow: 0 0 5px var(--border-default);
     bottom: 0;
 }
 
 .borderCornerWrap {
     position: absolute;
-    background: #527f92;
-    box-shadow: 0 0 5px #527f92;
+    background: var(--border-default);
+    box-shadow: 0 0 5px var(--border-default);
 }
 
 .cornerWrapTl {
@@ -132,8 +132,8 @@
 
 .cornerDiagonal {
     position: absolute;
-    background: #527f92;
-    box-shadow: 0 0 5px #527f92;
+    background: var(--border-default);
+    box-shadow: 0 0 5px var(--border-default);
 }
 
 .diagonalTl {
@@ -189,11 +189,11 @@
 }
 
 .recommendation {
-  color: #4caf50; /* Green for Keep */
+  color: var(--status-success);
 }
 
 .score {
-  color: #2196f3; /* Blue for score */
+  color: var(--primary);
 }
 
 .body {
@@ -208,7 +208,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   flex: 0 0 90px; /* Fixed width for the left column */
 }
 
@@ -223,24 +223,24 @@
   justify-content: center;
   align-items: center;
   gap: 4px;
-  background-color: #1a2332; /* Darker background */
-  border: 1px solid #527f92;   /* Teal border */
+  background-color: var(--bg-accent);
+  border: 1px solid var(--border-default);
   border-radius: 12px; /* More pronounced rounding */
   padding: 6px 8px;
   width: 100%;
 }
 
 .rarityDot {
-  width: 8px;
-  height: 8px;
-  background-color: #2a4159; /* Inactive color */
+  width: 6px;
+  height: 6px;
+  background-color: var(--bg-medium);
   border-radius: 50%;
   transition: background-color 0.3s ease;
 }
 
 .rarityDotActive {
-  background-color: #ffd700; /* Gold color for active dots */
-  box-shadow: 0 0 5px #ffd700;
+  background-color: var(--tier-gold);
+  box-shadow: 0 0 5px var(--tier-gold);
 }
 
 
@@ -256,20 +256,18 @@
   left: -5px;
   width: 40px;
   height: 40px;
-  background-color: #2a2a2a;
-  border: 2px solid #527f92;
+  background-color: var(--bg-dark);
+  border: 2px solid var(--border-default);
   border-radius: 50%;
   z-index: 10;
 }
-
-
 
 .primaryStat {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 6px 10px;
-  background-color: #1a202c;
+  background-color: var(--bg-accent);
   border-radius: 6px;
   margin-bottom: 0.5rem;
 }
@@ -288,36 +286,36 @@
   align-items: center;
   gap: 8px;
   padding: 4px 8px;
-  background-color: #1a202c;
+  background-color: var(--bg-accent);
   border-radius: 6px;
   font-size: 13px;
 }
 
 .statName {
-  color: #cbd5e1;
+  color: var(--text-secondary);
   flex: 1;
 }
 
 .statValue {
-  color: #f3f4f6;
+  color: var(--text-primary);
   font-weight: 600;
   min-width: 45px;
 }
 
 .primaryStat .statName {
   font-size: 13px;
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 .primaryStat .statValue {
   font-size: 14px;
   font-weight: 500;
-  color: #3b82f6;
+  color: var(--primary);
   text-align: right;
 }
 
 .statRolls {
-  color: #64748b;
+  color: var(--text-dim);
   font-size: 11px;
   margin-left: auto;
 }
@@ -329,20 +327,21 @@
   padding-top: 0.25rem;
   margin-top: 0.5rem;
   font-size: 0.9rem;
-  color: #aaa;
+  color: var(--text-muted);
   text-align: center;
 }
 
 .calibration {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Center the content */
+  gap: 0.5rem; /* Add space between label and value */
   margin: 0.25rem 0;
   font-size: 13px;
 }
 
 .calibrationDisabled {
-  background-color: #2a2a2a;
-  color: #666;
+  background-color: var(--bg-dark);
+  color: var(--text-dim);
 }
 
 .equippedCharacter {
