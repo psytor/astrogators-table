@@ -8,9 +8,9 @@ export async function seedModShapePrimaryStats(prisma: PrismaClient, logger: Log
     'Square': ['Offense %'],
     'Diamond': ['Defense %'],
     'Circle': ['Health %', 'Protection %'],
-    'Arrow': ['Speed', 'Accuracy', 'Critical Avoidance', 'Health %', 'Protection %', 'Offense %', 'Defense %'],
-    'Triangle': ['Critical Chance', 'Critical Damage', 'Health %', 'Protection %', 'Offense %', 'Defense %'],
-    'Cross': ['Tenacity', 'Potency', 'Health %', 'Protection %', 'Offense %', 'Defense %'],
+    'Arrow': ['Speed', 'Accuracy %', 'Critical Avoidance %', 'Health %', 'Protection %', 'Offense %', 'Defense %'],
+    'Triangle': ['Critical Chance %', 'Critical Damage %', 'Health %', 'Protection %', 'Offense %', 'Defense %'],
+    'Cross': ['Tenacity %', 'Potency %', 'Health %', 'Protection %', 'Offense %', 'Defense %'],
   };
 
   const shapes = await prisma.modShape.findMany();

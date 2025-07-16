@@ -169,6 +169,32 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
 *   **Task 54: Update the Project Roadmap**
     *   [x] **54.1:** Update `GEMINI.md` to add this new Phase 9 and mark all tasks as complete.
 
+### Phase 10: Advanced UI Controls & Filtering
+
+*   **Task 55: Implement the Advanced Top Bar**
+    *   [ ] **55.1:** Create a new `TopBar.tsx` component to house player account management and global controls.
+    *   [ ] **55.2:** Implement a player dropdown with add/delete functionality.
+    *   [ ] **55.3:** Implement a "Refresh" button with a disabled state during data fetching.
+    *   [ ] **55.4:** Add a mobile-friendly hamburger menu to the top bar.
+
+*   **Task 56: Implement the Advanced Filter Panel**
+    *   [ ] **56.1:** Create a new `FilterPanel.tsx` component.
+    *   [ ] **56.2:** Implement comprehensive filter controls, including sprite-based selectors for sets and slots.
+    *   [ ] **56.3:** Implement a unified `advancedFilters` state object to manage all filter values.
+    *   [ ] **56.4:** Add a "Clear Filters" button and an active filter count badge.
+
+*   **Task 57: Implement Filtering and Display Logic**
+    *   [ ] **57.1:** Implement the client-side logic to filter the mod list based on the `advancedFilters` state.
+    *   [ ] **57.2:** Create and integrate a `CollectionEfficiencyDisplay.tsx` component to show statistics for the filtered mods.
+
+*   **Task 58: Implement Mobile-Responsive Layout**
+    *   [ ] **58.1:** Use CSS media queries to make the `FilterPanel` collapse into a button-triggered side tab on mobile viewports.
+    *   [ ] **58.2:** Ensure the `TopBar` and `ModGrid` adapt cleanly to smaller screens.
+
+*   **Task 59: Implement the Mod Detail Modal**
+    *   [ ] **59.1:** Create a `ModDetailModal.tsx` component to show an enlarged view of a mod.
+    *   [ ] **59.2:** Add the logic to the `ModCard` to open the modal on click, passing the selected mod's data.
+
 ---
 
 ## 7. Development Log
