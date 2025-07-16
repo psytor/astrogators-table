@@ -13,7 +13,7 @@ export const EVALUATION_WORKFLOWS = {
             "onFail": { "action": "CONTINUE" }
           },
           {
-            "check": "default",
+            "check": "defaultRule",
             "onPass": { "action": "STOP", "result": "LVL_9" },
             "onFail": { "action": "ERROR", "result": "ERROR" } // Should be unreachable
           }
@@ -25,13 +25,13 @@ export const EVALUATION_WORKFLOWS = {
             "onFail": { "action": "CONTINUE" }
           },
           {
-            "check": "hasStat",
-            "params": { "stat": "Speed" },
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "any": true },
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
           {
-            "check": "default",
+            "check": "defaultRule",
             "onPass": { "action": "STOP", "result": "SELL" },
             "onFail": { "action": "ERROR", "result": "ERROR" }
           }

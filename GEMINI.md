@@ -133,29 +133,41 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
 ### Phase 8: The Bidirectional Workflow Engine
 
 *   **Task 47: Define the Workflow Configuration**
-    *   [ ] **47.1:** Create the new configuration file at `src/config/evaluationWorkflows.ts`.
-    *   [ ] **47.2:** Create the `EVALUATION_WORKFLOWS` object using the hierarchical structure and `onPass`/`onFail` logic.
-    *   [ ] **47.3:** Create the `RESULT_CODES` object, ensuring it includes all necessary level-up and result codes (`LVL_6`, `LVL_9`, `LVL_12`, `LVL_15`, `ERROR`, etc.).
+    *   [x] **47.1:** Create the new configuration file at `src/config/evaluationWorkflows.ts`.
+    *   [x] **47.2:** Create the `EVALUATION_WORKFLOWS` object using the hierarchical structure and `onPass`/`onFail` logic.
+    *   [x] **47.3:** Create the `RESULT_CODES` object, ensuring it includes all necessary level-up and result codes (`LVL_6`, `LVL_9`, `LVL_12`, `LVL_15`, `ERROR`, etc.).
 
 *   **Task 48: Implement the Library of Rule Functions**
-    *   [ ] **48.1:** Create the service file `src/services/modRuleFunctions.ts`.
-    *   [ ] **48.2:** Implement the `isSpeedArrow` check function.
-    *   [ ] **48.3:** Implement the `hasStat` check function.
-    *   [ ] **48.4:** Implement the `default` check function.
+    *   [x] **48.1:** Create the service file `src/services/modRuleFunctions.ts`.
+    *   [x] **48.2:** Implement the `isSpeedArrow` check function.
+    *   [x] **48.3:** Implement the `hasStat` check function.
+    *   [x] **48.4:** Implement the `default` check function.
 
 *   **Task 49: Build the Frontend Workflow Executor**
-    *   [ ] **49.1:** Create `src/services/modWorkflowService.ts`.
-    *   [ ] **49.2:** Implement the executor logic that reads the config, calls the rule functions, and follows the `onPass`/`onFail` directives. It will return an `ERROR` result for unreachable states.
+    *   [x] **49.1:** Create `src/services/modWorkflowService.ts`.
+    *   [x] **49.2:** Implement the executor logic that reads the config, calls the rule functions, and follows the `onPass`/`onFail` directives. It will return an `ERROR` result for unreachable states.
 
 *   **Task 50: Create API Endpoint for Workflows**
-    *   [ ] **50.1:** Create a new API route at `src/app/api/workflows/route.ts`.
-    *   [ ] **50.2:** This route will simply read and return the `evaluationWorkflows.ts` configuration file.
+    *   [x] **50.1:** Create a new API route at `src/app/api/workflows/route.ts`.
+    *   [x] **50.2:** This route will simply read and return the `evaluationWorkflows.ts` configuration file.
 
 *   **Task 51: Integrate Workflow on the Frontend**
-    *   [ ] **51.1:** Create a new React Context (`WorkflowContext`) to fetch and store the workflow configuration once per page load.
-    *   [ ] **51.2:** Update the `ModCard.tsx` component to use this context.
-    *   [ ] **51.3:** In `ModCard.tsx`, call the workflow executor for the mod as it renders.
-    *   [ ] **51.4:** Use the result to dynamically set the recommendation text and color.
+    *   [x] **51.1:** Create a new React Context (`WorkflowContext`) to fetch and store the workflow configuration once per page load.
+    *   [x] **51.2:** Update the `ModCard.tsx` component to use this context.
+    *   [x] **51.3:** In `ModCard.tsx`, call the workflow executor for the mod as it renders.
+    *   [x] **51.4:** Use the result to dynamically set the recommendation text and color.
+
+### Phase 9: Workflow Engine Documentation
+
+*   **Task 52: Correct the Existing Workflow Configuration**
+    *   [x] **52.1:** Update `src/config/evaluationWorkflows.ts` to use the correct rule function names (`statThreshold`, `defaultRule`).
+
+*   **Task 53: Create the Evaluation Guide**
+    *   [x] **53.1:** Create a new file in the project root named `EVALUATION_GUIDE.md`.
+    *   [x] **53.2:** Write the full content for this guide, explaining the structure, the available rule functions, their parameters, and providing a complete, correct example.
+
+*   **Task 54: Update the Project Roadmap**
+    *   [x] **54.1:** Update `GEMINI.md` to add this new Phase 9 and mark all tasks as complete.
 
 ---
 
