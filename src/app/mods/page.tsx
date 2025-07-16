@@ -1,16 +1,40 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { HydratedPlayerData } from '@/services/modHydrationService';
+import TopBar from '@/components/TopBar';
 import AllyCodeForm from '@/components/AllyCodeForm';
 import PlayerHeader from '@/components/PlayerHeader';
 import ModGrid from '@/components/ModGrid';
 import styles from './mods.module.css';
 
+interface Player {
+  allyCode: string;
+  name: string;
+  lastUpdated?: number;
+}
+
 export default function ModsPage() {
   const [playerData, setPlayerData] = useState<HydratedPlayerData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  const [savedPlayers, setSavedPlayers] = useState<Player[]>([]);
+  const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
+
+  useEffect(() => {
+    const storedPlayers = localStorage.getItem('savedPlayers');
+    if (storedPlayers) {
+      const players: Player[] = JSON.parse(storedPlayers);
+      setSavedPlayers(players);
+      if (players.length > 0) {
+        const lastPlayerAllyCode = localStorage.getItem('lastPlayer');
+        const playerToLoad = players.find(p => p.allyCode === lastPlayerAllyCode) || players[0];
+        setCurrentPlayer(playerToLoad);
+        handleFetch(playerToLoad.allyCode);
+      }
+    }
+  }, []);
 
   const handleFetch = async (allyCode: string) => {
     setIsLoading(true);
@@ -25,10 +49,63 @@ export default function ModsPage() {
       }
       const data: HydratedPlayerData = await response.json();
       setPlayerData(data);
+
+      const now = Date.now();
+      const newPlayer = { allyCode, name: data.playerName, lastUpdated: now };
+      
+      setSavedPlayers(prev => {
+        const existingPlayerIndex = prev.findIndex(p => p.allyCode === allyCode);
+        let newPlayers;
+        if (existingPlayerIndex > -1) {
+          newPlayers = [...prev];
+          newPlayers[existingPlayerIndex] = newPlayer;
+        } else {
+          newPlayers = [...prev, newPlayer];
+        }
+        localStorage.setItem('savedPlayers', JSON.stringify(newPlayers));
+        return newPlayers;
+      });
+      
+      setCurrentPlayer(newPlayer);
+      localStorage.setItem('lastPlayer', allyCode);
+
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred.');
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handlePlayerSwitch = (allyCode: string) => {
+    const player = savedPlayers.find(p => p.allyCode === allyCode);
+    if (player) {
+      setCurrentPlayer(player);
+      handleFetch(allyCode);
+    }
+  };
+
+  const handleRefresh = () => {
+    if (currentPlayer) {
+      handleFetch(currentPlayer.allyCode);
+    }
+  };
+
+  const handleAddNew = () => {
+    setCurrentPlayer(null);
+    setPlayerData(null);
+  };
+
+  const handleDeletePlayer = (allyCode: string) => {
+    setSavedPlayers(prev => {
+      const newPlayers = prev.filter(p => p.allyCode !== allyCode);
+      localStorage.setItem('savedPlayers', JSON.stringify(newPlayers));
+      return newPlayers;
+    });
+
+    if (currentPlayer?.allyCode === allyCode) {
+      setCurrentPlayer(null);
+      setPlayerData(null);
+      localStorage.removeItem('lastPlayer');
     }
   };
 
@@ -39,19 +116,35 @@ export default function ModsPage() {
 
   return (
     <div className={styles.modListContainer}>
-      <h1 className={styles.title}>The Mod Ledger</h1>
-      <div className={styles.headerContainer}>
-        <AllyCodeForm onFetch={handleFetch} isLoading={isLoading} />
+      <TopBar
+        currentPlayer={currentPlayer}
+        savedPlayers={savedPlayers}
+        onPlayerSwitch={handlePlayerSwitch}
+        onRefresh={handleRefresh}
+        onAddNew={handleAddNew}
+        isRefreshing={isLoading}
+        onDeletePlayer={handleDeletePlayer}
+      />
+      
+      <div className={styles.contentWrapper}>
+        {!currentPlayer && !isLoading && (
+          <div className={styles.formContainer}>
+            <h1 className={styles.title}>The Mod Ledger</h1>
+            <p>Enter an ally code to get started.</p>
+            <AllyCodeForm onFetch={handleFetch} isLoading={isLoading} />
+          </div>
+        )}
+
+        {isLoading && <p className={styles.loading}>Loading player data...</p>}
+        {error && <p className={styles.error}>Error: {error}</p>}
+        
         {playerData && (
-          <PlayerHeader playerName={playerData.playerName} modCount={totalModCount} />
+          <>
+            <PlayerHeader playerName={playerData.playerName} modCount={totalModCount} />
+            <ModGrid playerData={playerData} />
+          </>
         )}
       </div>
-
-      {error && <p className={styles.error}>Error: {error}</p>}
-      
-      {playerData && (
-        <ModGrid playerData={playerData} />
-      )}
     </div>
   );
 }

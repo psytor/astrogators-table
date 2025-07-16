@@ -172,10 +172,10 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
 ### Phase 10: Advanced UI Controls & Filtering
 
 *   **Task 55: Implement the Advanced Top Bar**
-    *   [ ] **55.1:** Create a new `TopBar.tsx` component to house player account management and global controls.
-    *   [ ] **55.2:** Implement a player dropdown with add/delete functionality.
-    *   [ ] **55.3:** Implement a "Refresh" button with a disabled state during data fetching.
-    *   [ ] **55.4:** Add a mobile-friendly hamburger menu to the top bar.
+    *   [x] **55.1:** Create a new `TopBar.tsx` component to house player account management and global controls.
+    *   [x] **55.2:** Implement a player dropdown with add/delete functionality.
+    *   [x] **55.3:** Implement a "Refresh" button with a disabled state during data fetching.
+    *   [x] **55.4:** Add a mobile-friendly hamburger menu to the top bar.
 
 *   **Task 56: Implement the Advanced Filter Panel**
     *   [ ] **56.1:** Create a new `FilterPanel.tsx` component.

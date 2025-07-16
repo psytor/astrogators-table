@@ -1,26 +1,55 @@
 .modListContainer {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.contentWrapper {
+  flex-grow: 1;
   padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+}
+
+.formContainer {
+  text-align: center;
+  padding: 3rem 2rem;
+  background-color: var(--bg-dark);
+  border-radius: 8px;
+  border: 1px solid var(--border-default);
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 12px var(--shadow-md);
 }
 
 .title {
   font-size: 2.1rem;
   margin-bottom: 1.2rem;
-  text-align: center;
   color: var(--primary);
 }
 
+.loading {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
 
-.headerContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  margin-bottom: 2rem;
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 
 .error {
-  color: #ff4d4d;
-  margin-top: 1rem;
   text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: #ff4d4d;
 }
