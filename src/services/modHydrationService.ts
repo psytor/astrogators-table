@@ -9,6 +9,7 @@ interface CompactStat {
   i: number; // statId
   v: number; // value
   r?: number; // rolls (only for secondary stats)
+  e?: number; // efficiency (only for secondary stats)
 }
 
 interface CompactMod {
@@ -44,6 +45,39 @@ export interface DbLookups {
 
 
 // --- Service Implementation ---
+
+/**
+ * Calculates the average roll efficiency for a single secondary stat.
+ * @param stat The secondary stat object from the comlink response.
+ * @returns The average efficiency as a percentage (0-100), or 0 if data is missing.
+ */
+function calculateStatEfficiency(stat: SecondaryStat): number {
+  const { unscaledRollValue, statRollerBoundsMin, statRollerBoundsMax } = stat;
+
+  if (!unscaledRollValue || !statRollerBoundsMin || !statRollerBoundsMax || unscaledRollValue.length === 0) {
+    return 0;
+  }
+
+  const minBound = parseInt(statRollerBoundsMin, 10);
+  const maxBound = parseInt(statRollerBoundsMax, 10);
+  const range = maxBound - minBound;
+
+  if (range < 0) {
+    return 0; // Invalid bounds
+  }
+
+  let totalEfficiency = 0;
+  unscaledRollValue.forEach(rollStr => {
+    const rollValue = parseInt(rollStr, 10);
+    // The formula is ((value - min + 1) / (max - min + 1)) * 100
+    // This distributes the efficiency evenly across the possible roll values.
+    const efficiency = ((rollValue - minBound + 1) / (range + 1)) * 100;
+    totalEfficiency += efficiency;
+  });
+
+  return totalEfficiency / unscaledRollValue.length;
+}
+
 
 /**
  * Formats a raw stat value from the API into a display-friendly number.
@@ -98,6 +132,7 @@ export async function getPlayerData(allyCode: string): Promise<HydratedPlayerDat
         i: stat.stat.unitStatId,
         v: formatStatValue(stat.stat.unitStatId, stat.stat.statValueDecimal, dbLookups),
         r: stat.statRolls,
+        e: calculateStatEfficiency(stat),
       })),
     })) || [];
 

@@ -16,6 +16,9 @@ const PrimaryStatSchema = z.object({
 const SecondaryStatSchema = z.object({
   stat: StatSchema,
   statRolls: z.number(),
+  unscaledRollValue: z.array(z.string()).optional(),
+  statRollerBoundsMin: z.string().optional(),
+  statRollerBoundsMax: z.string().optional(),
 }).passthrough();
 
 const ModSchema = z.object({

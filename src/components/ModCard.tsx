@@ -93,7 +93,7 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
                 <li key={index} className={styles.secondaryStat}>
                   <span className={styles.statValue}>{statValue}</span>
                   <span className={styles.statName}>{statName}</span>
-                  <span className={styles.statRolls}>({stat.r})</span>
+                  <span className={styles.statRolls}>({stat.r}) {stat.e ? `${stat.e.toFixed(0)}%` : ''}</span>
                 </li>
               );
             })}
