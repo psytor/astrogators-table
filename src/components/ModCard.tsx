@@ -2,6 +2,8 @@
 
 import { HydratedPlayerData } from '@/services/modHydrationService';
 import { useDbLookups } from '@/contexts/DbLookupsContext';
+import { useWorkflows } from '@/contexts/WorkflowContext';
+import { executeWorkflow } from '@/services/modWorkflowService';
 import styles from './ModCard.module.css';
 import ModVisual from './ModVisual';
 import { MOD_SETS, MOD_SLOTS, MOD_TIERS } from '@/lib/mod-constants';
@@ -14,14 +16,30 @@ interface ModCardProps {
 }
 
 export default function ModCard({ mod, characterId }: ModCardProps) {
-  const { lookups, isLoading } = useDbLookups();
+  const { lookups, isLoading: isDbLoading } = useDbLookups();
+  const workflowConfig = useWorkflows();
 
-  if (isLoading || !lookups) {
+  if (isDbLoading || !lookups || !workflowConfig) {
     return <div className={`${styles.card} ${styles.loading}`}>Loading...</div>;
   }
 
-  const recommendation = "Keep";
-  const score = mod.oe ? `${mod.oe.toFixed(1)}%` : "0.0%";
+  const evaluationResultCode = executeWorkflow(mod, 'beginner_speed_chaser');
+  const evaluation = workflowConfig.results[evaluationResultCode] || workflowConfig.results['ERROR'];
+
+  const overallEfficiency = mod.oe ? `${mod.oe.toFixed(1)}%` : "0.0%";
+
+  const getRecommendationClass = (className: string) => {
+    switch (className) {
+      case 'keep':
+      case 'slice':
+      case 'level':
+        return styles.recommendationKeep;
+      case 'sell':
+        return styles.recommendationSell;
+      default:
+        return '';
+    }
+  };
 
   const setId = parseInt(mod.d.charAt(0), 10);
   const rarity = parseInt(mod.d.charAt(1), 10);
@@ -52,8 +70,10 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
         <div className={`${styles.cornerDiagonal} ${styles.diagonalBr}`}></div>
       </div>
       <div className={styles.header}>
-        <span className={styles.recommendation}>{recommendation}</span>
-        <span className={styles.score}>{score}</span>
+        <span className={`${styles.recommendation} ${getRecommendationClass(evaluation.className)}`}>
+          {evaluation.text}
+        </span>
+        <span className={styles.score}>{overallEfficiency}</span>
       </div>
       <div className={styles.body}>
         <div className={styles.leftColumn}>
@@ -72,6 +92,7 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
               modTierName={modTierName}
               is6Dot={isSixDot}
             />
+            <div className={styles.modLevel}>{mod.l}</div>
             <div className={styles.characterIcon}></div>
           </div>
         </div>

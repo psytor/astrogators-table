@@ -53,8 +53,8 @@ This guide explains how to set up the project on a new machine.
 
 ## 2. Project Status
 
-*   **Current Stage:** Visual Polish - Mod Card Internals
-*   **Current Task:** Task 37: `ModCard` Redesign - Right Column Details
+*   **Current Stage:** Phase 8: The Bidirectional Workflow Engine
+*   **Current Task:** Task 47: Define the Workflow Configuration
 
 ---
 
@@ -96,13 +96,10 @@ This section tracks key technical decisions that need to be made at a later, mor
 
 *   **Mod Evaluation: Backend vs. Frontend?**
     *   **Context:** The JSON payload for a player's full mod inventory can be very large. Processing this on the frontend could lead to poor performance, especially on mobile devices.
-    *   **Decision:** We will decide whether the complex mod evaluation logic should run on the backend (server) or the frontend (browser) after the basic data structures and API endpoints are in place.
+    *   **Decision:** We have decided to implement the mod evaluation logic on the **frontend**. The backend will provide the raw mod data and a separate configuration file containing the evaluation rules. The browser will then execute the evaluation logic on-demand.
 *   **Character Name Resolution:**
     *   **Context:** The `swgoh-comlink` API returns a `definitionId` for characters (e.g., `JEDIKNIGHTLUKE:SEVEN_STAR`) that needs to be mapped to a human-readable name. This requires fetching additional game data to create a reliable lookup table.
     *   **Decision:** This will be implemented in a later phase after the basic frontend is functional.
-*   **Mod Evaluation Engine:**
-    *   **Context:** The core feature of the application is to evaluate mods based on a set of rules and provide recommendations ("Keep", "Sell", "Slice") along with the reasons for the decision.
-    *   **Decision:** This complex engine will be built after the basic mod inventory can be successfully fetched and displayed.
 
 ### 3.5. `swgoh-comlink` Security Model
 
@@ -133,60 +130,32 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
 
 ## 6. Roadmap
 
-### Phase 5: Visual Polish & Bug Fixes (Revised)
+### Phase 8: The Bidirectional Workflow Engine
 
-*   **Task 37: Implement New `ModCard` Stat Display**
-    *   [x] **37.1:** Refactor the JSX in `ModCard.tsx` to match the data-first layout from `Temp/components/ModCard.jsx`.
-        *   The primary stat will be in a container with the name and value separated.
-        *   The secondary stats will be looped to create containers with the elements in the specific order: **Value, Name, (Rolls)**.
-    *   [x] **37.2:** Replace the relevant styles in `ModCard.module.css` with the styles from `Temp/components/ModCard.css`, adapting class names to the module format. This will correctly style the new `primaryStat` and `secondaryStat` structures.
-    *   [x] **37.3:** The old decorative separator will be removed as it's now obsolete.
+*   **Task 47: Define the Workflow Configuration**
+    *   [ ] **47.1:** Create the new configuration file at `src/config/evaluationWorkflows.ts`.
+    *   [ ] **47.2:** Create the `EVALUATION_WORKFLOWS` object using the hierarchical structure and `onPass`/`onFail` logic.
+    *   [ ] **47.3:** Create the `RESULT_CODES` object, ensuring it includes all necessary level-up and result codes (`LVL_6`, `LVL_9`, `LVL_12`, `LVL_15`, `ERROR`, etc.).
 
-*   **Task 38: Bug Fix - 6-Dot Mod Visual**
-    *   [x] **38.1:** Investigate and fix the logic in `ModVisual.tsx` that causes 6-dot mods to display the incorrect 5-dot shape.
+*   **Task 48: Implement the Library of Rule Functions**
+    *   [ ] **48.1:** Create the service file `src/services/modRuleFunctions.ts`.
+    *   [ ] **48.2:** Implement the `isSpeedArrow` check function.
+    *   [ ] **48.3:** Implement the `hasStat` check function.
+    *   [ ] **48.4:** Implement the `default` check function.
 
-*   **Task 39: Display Fix - Character Icon Placement**
-    *   [x] **39.1:** Adjust the CSS for the character icon placeholder in `ModCard.module.css` to ensure it is positioned correctly within the left column.
+*   **Task 49: Build the Frontend Workflow Executor**
+    *   [ ] **49.1:** Create `src/services/modWorkflowService.ts`.
+    *   [ ] **49.2:** Implement the executor logic that reads the config, calls the rule functions, and follows the `onPass`/`onFail` directives. It will return an `ERROR` result for unreachable states.
 
-*   **Task 40: `ModCard` Background Enhancement**
-    *   [x] **40.1:** Add a subtle, futuristic, fading horizontal line pattern to the background of the `ModCard` component to add visual depth.
+*   **Task 50: Create API Endpoint for Workflows**
+    *   [ ] **50.1:** Create a new API route at `src/app/api/workflows/route.ts`.
+    *   [ ] **50.2:** This route will simply read and return the `evaluationWorkflows.ts` configuration file.
 
-*   **Task 41: Form and Header Polish**
-    *   [x] **41.1:** Restyle `AllyCodeForm.tsx` and `PlayerHeader.tsx` and their CSS modules to align with the new dark, futuristic theme.
-
-*   **Task 42: Final Visual Review (Paused)**
-    *   [ ] **42.1:** Conduct a final review of the `ModCard` and surrounding components.
-    *   [ ] **42.2:** Identify and list any remaining minor visual bugs, alignment issues, or inconsistencies.
-    *   [ ] **42.3:** Create a plan to address the identified issues before concluding the phase.
-
-### Phase 6: Backend Data Refinement
-
-*   **Task 40: Implement Backend Stat Formatting & Calculation**
-    *   [x] **40.1:** In `modHydrationService.ts`, create a helper function to format stat values.
-    *   [x] **40.2:** Convert all percentage-based stats from their decimal form (e.g., `0.085`) to a user-friendly number (e.g., `8.5`).
-    *   [x] **40.3:** Ensure flat stats are returned as-is.
-    *   [x] **40.4:** Update the `getPlayerData` function to use this new helper for both primary and secondary stats, ensuring the frontend receives clean, pre-formatted data.
-
-### Phase 7: Mod Roll Efficiency
-
-*   **Task 43: Backend - Calculate Roll Efficiency**
-    *   [x] **43.1:** Update `swgohComlinkService.ts` to fetch detailed roll data (`unscaledRollValue`, `statRollerBoundsMin`, `statRollerBoundsMax`).
-    *   [x] **43.2:** Create a `calculateStatEfficiency` helper in `modHydrationService.ts` to calculate the average efficiency of a secondary stat's rolls.
-    *   [x] **43.3:** Update the `CompactStat` interface to include a new property for this efficiency score (`e: number`).
-    *   [x] **43.4:** Integrate the new function into `getPlayerData` to send the pre-calculated efficiency to the frontend.
-
-*   **Task 44: Frontend - Display Roll Efficiency**
-    *   [x] **44.1:** In `ModCard.tsx`, access the new efficiency property (`e`) for each secondary stat.
-    *   [x] **44.2:** Display the efficiency percentage next to the roll count (e.g., `(4) 82%`).
-
-*   **Task 45: Backend - Calculate Overall Mod Efficiency**
-    *   [x] **45.1:** In `modHydrationService.ts`, create a `calculateOverallModEfficiency` helper function to average the individual secondary stat efficiencies.
-    *   [x] **45.2:** Update the `CompactMod` interface to include a new property for the overall efficiency score (`oe: number`).
-    *   [x] **45.3:** Integrate the new function into `getPlayerData` to attach the overall score to each mod object.
-
-*   **Task 46: Frontend - Display Overall Mod Efficiency**
-    *   [x] **46.1:** In `ModCard.tsx`, access the new overall efficiency property (`oe`).
-    *   [x] **46.2:** Replace the hardcoded "Score" placeholder with the new value, formatted as a percentage.
+*   **Task 51: Integrate Workflow on the Frontend**
+    *   [ ] **51.1:** Create a new React Context (`WorkflowContext`) to fetch and store the workflow configuration once per page load.
+    *   [ ] **51.2:** Update the `ModCard.tsx` component to use this context.
+    *   [ ] **51.3:** In `ModCard.tsx`, call the workflow executor for the mod as it renders.
+    *   [ ] **51.4:** Use the result to dynamically set the recommendation text and color.
 
 ---
 

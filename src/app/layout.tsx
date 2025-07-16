@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { DbLookupsProvider } from "@/contexts/DbLookupsContext";
+import { WorkflowProvider } from "@/contexts/WorkflowContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -22,7 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.variable}>
         <main className="main-container">
-          <DbLookupsProvider>{children}</DbLookupsProvider>
+          <WorkflowProvider>
+            <DbLookupsProvider>{children}</DbLookupsProvider>
+          </WorkflowProvider>
         </main>
       </body>
     </html>

@@ -110,6 +110,61 @@ This phase focuses on building the user interface to display the mod data.
     *   [x] **32.6:** Pass character ID to `ModCard` and display it.
     *   [x] **32.7:** Display primary and secondary stats using data from the `DbLookupsProvider`.
 
+### Phase 5: Visual Polish & Bug Fixes (Revised)
+
+*   **Task 37: Implement New `ModCard` Stat Display**
+    *   [x] **37.1:** Refactor the JSX in `ModCard.tsx` to match the data-first layout from `Temp/components/ModCard.jsx`.
+        *   The primary stat will be in a container with the name and value separated.
+        *   The secondary stats will be looped to create containers with the elements in the specific order: **Value, Name, (Rolls)**.
+    *   [x] **37.2:** Replace the relevant styles in `ModCard.module.css` with the styles from `Temp/components/ModCard.css`, adapting class names to the module format. This will correctly style the new `primaryStat` and `secondaryStat` structures.
+    *   [x] **37.3:** The old decorative separator will be removed as it's now obsolete.
+
+*   **Task 38: Bug Fix - 6-Dot Mod Visual**
+    *   [x] **38.1:** Investigate and fix the logic in `ModVisual.tsx` that causes 6-dot mods to display the incorrect 5-dot shape.
+
+*   **Task 39: Display Fix - Character Icon Placement**
+    *   [x] **39.1:** Adjust the CSS for the character icon placeholder in `ModCard.module.css` to ensure it is positioned correctly within the left column.
+
+*   **Task 40: `ModCard` Background Enhancement**
+    *   [x] **40.1:** Add a subtle, futuristic, fading horizontal line pattern to the background of the `ModCard` component to add visual depth.
+
+*   **Task 41: Form and Header Polish**
+    *   [x] **41.1:** Restyle `AllyCodeForm.tsx` and `PlayerHeader.tsx` and their CSS modules to align with the new dark, futuristic theme.
+
+*   **Task 42: Final Visual Review (Paused)**
+    *   [ ] **42.1:** Conduct a final review of the `ModCard` and surrounding components.
+    *   [ ] **42.2:** Identify and list any remaining minor visual bugs, alignment issues, or inconsistencies.
+    *   [ ] **42.3:** Create a plan to address the identified issues before concluding the phase.
+
+### Phase 6: Backend Data Refinement
+
+*   **Task 40: Implement Backend Stat Formatting & Calculation**
+    *   [x] **40.1:** In `modHydrationService.ts`, create a helper function to format stat values.
+    *   [x] **40.2:** Convert all percentage-based stats from their decimal form (e.g., `0.085`) to a user-friendly number (e.g., `8.5`).
+    *   [x] **40.3:** Ensure flat stats are returned as-is.
+    *   [x] **40.4:** Update the `getPlayerData` function to use this new helper for both primary and secondary stats, ensuring the frontend receives clean, pre-formatted data.
+
+### Phase 7: Mod Roll Efficiency
+
+*   **Task 43: Backend - Calculate Roll Efficiency**
+    *   [x] **43.1:** Update `swgohComlinkService.ts` to fetch detailed roll data (`unscaledRollValue`, `statRollerBoundsMin`, `statRollerBoundsMax`).
+    *   [x] **43.2:** Create a `calculateStatEfficiency` helper in `modHydrationService.ts` to calculate the average efficiency of a secondary stat's rolls.
+    *   [x] **43.3:** Update the `CompactStat` interface to include a new property for this efficiency score (`e: number`).
+    *   [x] **43.4:** Integrate the new function into `getPlayerData` to send the pre-calculated efficiency to the frontend.
+
+*   **Task 44: Frontend - Display Roll Efficiency**
+    *   [x] **44.1:** In `ModCard.tsx`, access the new efficiency property (`e`) for each secondary stat.
+    *   [x] **44.2:** Display the efficiency percentage next to the roll count (e.g., `(4) 82%`).
+
+*   **Task 45: Backend - Calculate Overall Mod Efficiency**
+    *   [x] **45.1:** In `modHydrationService.ts`, create a `calculateOverallModEfficiency` helper function to average the individual secondary stat efficiencies.
+    *   [x] **45.2:** Update the `CompactMod` interface to include a new property for the overall efficiency score (`oe: number`).
+    *   [x] **45.3:** Integrate the new function into `getPlayerData` to attach the overall score to each mod object.
+
+*   **Task 46: Frontend - Display Overall Mod Efficiency**
+    *   [x] **46.1:** In `ModCard.tsx`, access the new overall efficiency property (`oe`).
+    *   [x] **46.2:** Replace the hardcoded "Score" placeholder with the new value, formatted as a percentage.
+
 ---
 ## 7. Development Log
 

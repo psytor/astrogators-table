@@ -253,6 +253,24 @@
   align-items: center;
 }
 
+.modLevel {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  width: 28px;
+  height: 28px;
+  background-color: var(--bg-dark);
+  border: 2px solid var(--border-default);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  z-index: 10;
+}
+
 .characterIcon {
   position: absolute;
   bottom: -5px;
