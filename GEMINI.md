@@ -154,7 +154,7 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
 *   **Task 41: Form and Header Polish**
     *   [x] **41.1:** Restyle `AllyCodeForm.tsx` and `PlayerHeader.tsx` and their CSS modules to align with the new dark, futuristic theme.
 
-*   **Task 42: Final Visual Review**
+*   **Task 42: Final Visual Review (Paused)**
     *   [ ] **42.1:** Conduct a final review of the `ModCard` and surrounding components.
     *   [ ] **42.2:** Identify and list any remaining minor visual bugs, alignment issues, or inconsistencies.
     *   [ ] **42.3:** Create a plan to address the identified issues before concluding the phase.
