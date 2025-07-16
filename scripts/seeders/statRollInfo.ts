@@ -54,13 +54,13 @@ export async function seedStatRollInfo(prisma: PrismaClient, logger: Logger) {
     { statName: 'Offense %', rarity: 4, min: 0.25, max: 0.5, target: 0.38 },
     { statName: 'Offense %', rarity: 5, min: 0.281, max: 0.563, target: 0.4 },
     { statName: 'Offense %', rarity: 6, min: 0.85, max: 1.7, target: 1.21 },
-    // --- Potency ---
-    { statName: 'Potency', rarity: 1, min: 0.5, max: 1, target: 0.75 },
-    { statName: 'Potency', rarity: 2, min: 0.625, max: 1.25, target: 0.94 },
-    { statName: 'Potency', rarity: 3, min: 0.75, max: 1.5, target: 1.13 },
-    { statName: 'Potency', rarity: 4, min: 1, max: 2, target: 1.5 },
-    { statName: 'Potency', rarity: 5, min: 1.125, max: 2.25, target: 1.75 },
-    { statName: 'Potency', rarity: 6, min: 1.5, max: 3, target: 2.33 },
+    // --- Potency % ---
+    { statName: 'Potency %', rarity: 1, min: 0.5, max: 1, target: 0.75 },
+    { statName: 'Potency %', rarity: 2, min: 0.625, max: 1.25, target: 0.94 },
+    { statName: 'Potency %', rarity: 3, min: 0.75, max: 1.5, target: 1.13 },
+    { statName: 'Potency %', rarity: 4, min: 1, max: 2, target: 1.5 },
+    { statName: 'Potency %', rarity: 5, min: 1.125, max: 2.25, target: 1.75 },
+    { statName: 'Potency %', rarity: 6, min: 1.5, max: 3, target: 2.33 },
     // --- Protection ---
     { statName: 'Protection', rarity: 1, min: 99, max: 199, target: 149 },
     { statName: 'Protection', rarity: 2, min: 154, max: 309, target: 231.5 },
@@ -82,13 +82,13 @@ export async function seedStatRollInfo(prisma: PrismaClient, logger: Logger) {
     { statName: 'Speed', rarity: 4, min: 2, max: 5, target: 3.5 },
     { statName: 'Speed', rarity: 5, min: 3, max: 6, target: 4 },
     { statName: 'Speed', rarity: 6, min: 3, max: 6, target: 4 },
-    // --- Tenacity ---
-    { statName: 'Tenacity', rarity: 1, min: 0.5, max: 1, target: 0.75 },
-    { statName: 'Tenacity', rarity: 2, min: 0.625, max: 1.25, target: 0.94 },
-    { statName: 'Tenacity', rarity: 3, min: 0.75, max: 1.5, target: 1.13 },
-    { statName: 'Tenacity', rarity: 4, min: 1, max: 2, target: 1.5 },
-    { statName: 'Tenacity', rarity: 5, min: 1.125, max: 2.25, target: 1.75 },
-    { statName: 'Tenacity', rarity: 6, min: 1.5, max: 3, target: 2.33 },
+    // --- Tenacity % ---
+    { statName: 'Tenacity %', rarity: 1, min: 0.5, max: 1, target: 0.75 },
+    { statName: 'Tenacity %', rarity: 2, min: 0.625, max: 1.25, target: 0.94 },
+    { statName: 'Tenacity %', rarity: 3, min: 0.75, max: 1.5, target: 1.13 },
+    { statName: 'Tenacity %', rarity: 4, min: 1, max: 2, target: 1.5 },
+    { statName: 'Tenacity %', rarity: 5, min: 1.125, max: 2.25, target: 1.75 },
+    { statName: 'Tenacity %', rarity: 6, min: 1.5, max: 3, target: 2.33 },
   ];
 
   const stats = await prisma.stat.findMany();
