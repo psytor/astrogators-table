@@ -167,6 +167,27 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
     *   [x] **40.3:** Ensure flat stats are returned as-is.
     *   [x] **40.4:** Update the `getPlayerData` function to use this new helper for both primary and secondary stats, ensuring the frontend receives clean, pre-formatted data.
 
+### Phase 7: Mod Roll Efficiency
+
+*   **Task 43: Backend - Calculate Roll Efficiency**
+    *   [x] **43.1:** Update `swgohComlinkService.ts` to fetch detailed roll data (`unscaledRollValue`, `statRollerBoundsMin`, `statRollerBoundsMax`).
+    *   [x] **43.2:** Create a `calculateStatEfficiency` helper in `modHydrationService.ts` to calculate the average efficiency of a secondary stat's rolls.
+    *   [x] **43.3:** Update the `CompactStat` interface to include a new property for this efficiency score (`e: number`).
+    *   [x] **43.4:** Integrate the new function into `getPlayerData` to send the pre-calculated efficiency to the frontend.
+
+*   **Task 44: Frontend - Display Roll Efficiency**
+    *   [x] **44.1:** In `ModCard.tsx`, access the new efficiency property (`e`) for each secondary stat.
+    *   [x] **44.2:** Display the efficiency percentage next to the roll count (e.g., `(4) 82%`).
+
+*   **Task 45: Backend - Calculate Overall Mod Efficiency**
+    *   [x] **45.1:** In `modHydrationService.ts`, create a `calculateOverallModEfficiency` helper function to average the individual secondary stat efficiencies.
+    *   [x] **45.2:** Update the `CompactMod` interface to include a new property for the overall efficiency score (`oe: number`).
+    *   [x] **45.3:** Integrate the new function into `getPlayerData` to attach the overall score to each mod object.
+
+*   **Task 46: Frontend - Display Overall Mod Efficiency**
+    *   [x] **46.1:** In `ModCard.tsx`, access the new overall efficiency property (`oe`).
+    *   [x] **46.2:** Replace the hardcoded "Score" placeholder with the new value, formatted as a percentage.
+
 ---
 
 ## 7. Development Log

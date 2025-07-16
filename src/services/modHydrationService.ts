@@ -20,6 +20,7 @@ interface CompactMod {
   c: string; // characterId
   p: CompactStat;
   s: CompactStat[];
+  oe: number; // overall efficiency
 }
 
 interface LookupTable<T> {
@@ -45,6 +46,20 @@ export interface DbLookups {
 
 
 // --- Service Implementation ---
+
+/**
+ * Calculates the overall efficiency of a mod based on its secondary stats.
+ * @param secondaryStats An array of compact secondary stats.
+ * @returns The average efficiency of all secondary stats.
+ */
+function calculateOverallModEfficiency(secondaryStats: CompactStat[]): number {
+  if (!secondaryStats || secondaryStats.length === 0) {
+    return 0;
+  }
+
+  const totalEfficiency = secondaryStats.reduce((sum, stat) => sum + (stat.e || 0), 0);
+  return totalEfficiency / secondaryStats.length;
+}
 
 /**
  * Calculates the average roll efficiency for a single secondary stat.
@@ -118,23 +133,28 @@ export async function getPlayerData(allyCode: string): Promise<HydratedPlayerDat
 
   const rosterUnit: HydratedPlayerData['rosterUnit'] = rawPlayerData.rosterUnit.map(unit => {
     const characterId = unit.definitionId;
-    const mods: CompactMod[] = unit.equippedStatMod?.map((mod: Mod) => ({
-      id: mod.id,
-      d: mod.definitionId,
-      l: mod.level,
-      t: mod.tier,
-      c: characterId,
-      p: {
-        i: mod.primaryStat.stat.unitStatId,
-        v: formatStatValue(mod.primaryStat.stat.unitStatId, mod.primaryStat.stat.statValueDecimal, dbLookups),
-      },
-      s: mod.secondaryStat.map((stat: SecondaryStat) => ({
+    const mods: CompactMod[] = unit.equippedStatMod?.map((mod: Mod) => {
+      const secondaryStats = mod.secondaryStat.map((stat: SecondaryStat) => ({
         i: stat.stat.unitStatId,
         v: formatStatValue(stat.stat.unitStatId, stat.stat.statValueDecimal, dbLookups),
         r: stat.statRolls,
         e: calculateStatEfficiency(stat),
-      })),
-    })) || [];
+      }));
+
+      return {
+        id: mod.id,
+        d: mod.definitionId,
+        l: mod.level,
+        t: mod.tier,
+        c: characterId,
+        p: {
+          i: mod.primaryStat.stat.unitStatId,
+          v: formatStatValue(mod.primaryStat.stat.unitStatId, mod.primaryStat.stat.statValueDecimal, dbLookups),
+        },
+        s: secondaryStats,
+        oe: calculateOverallModEfficiency(secondaryStats),
+      };
+    }) || [];
 
     return {
       id: unit.definitionId,

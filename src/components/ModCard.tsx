@@ -21,7 +21,7 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
   }
 
   const recommendation = "Keep";
-  const score = "95%";
+  const score = mod.oe ? `${mod.oe.toFixed(1)}%` : "0.0%";
 
   const setId = parseInt(mod.d.charAt(0), 10);
   const rarity = parseInt(mod.d.charAt(1), 10);
