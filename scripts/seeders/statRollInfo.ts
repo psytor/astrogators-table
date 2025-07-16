@@ -6,12 +6,12 @@ export async function seedStatRollInfo(prisma: PrismaClient, logger: Logger) {
 
   const statRollData = [
     // --- Critical Chance ---
-    { statName: 'Critical Chance', rarity: 1, min: 0.5, max: 1, target: 0.75 },
-    { statName: 'Critical Chance', rarity: 2, min: 0.625, max: 1.25, target: 0.94 },
-    { statName: 'Critical Chance', rarity: 3, min: 0.75, max: 1.5, target: 1.13 },
-    { statName: 'Critical Chance', rarity: 4, min: 1, max: 2, target: 1.5 },
-    { statName: 'Critical Chance', rarity: 5, min: 1.125, max: 2.25, target: 1.75 },
-    { statName: 'Critical Chance', rarity: 6, min: 1.175, max: 2.35, target: 1.83 },
+    { statName: 'Critical Chance %', rarity: 1, min: 0.5, max: 1, target: 0.75 },
+    { statName: 'Critical Chance %', rarity: 2, min: 0.625, max: 1.25, target: 0.94 },
+    { statName: 'Critical Chance %', rarity: 3, min: 0.75, max: 1.5, target: 1.13 },
+    { statName: 'Critical Chance %', rarity: 4, min: 1, max: 2, target: 1.5 },
+    { statName: 'Critical Chance %', rarity: 5, min: 1.125, max: 2.25, target: 1.75 },
+    { statName: 'Critical Chance %', rarity: 6, min: 1.175, max: 2.35, target: 1.83 },
     // --- Defense ---
     { statName: 'Defense', rarity: 1, min: 2, max: 4, target: 3 },
     { statName: 'Defense', rarity: 2, min: 2, max: 5, target: 3.5 },
