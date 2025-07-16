@@ -54,23 +54,25 @@
 
 .filterToggleTab {
   position: fixed;
-  top: 50%;
+  top: 25%;
   right: 0;
   transform: translateY(-50%);
   background-color: var(--primary);
   color: var(--text-primary);
-  padding: 1rem 0.5rem;
+  padding: 15px 8px;
   border-radius: 8px 0 0 8px;
   cursor: pointer;
   z-index: 901;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+  writing-mode: vertical;
+  text-orientation: upright;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.2rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 2px;
   transition: right 0.3s ease-in-out;
+  font-weight: 600;
+  font-size: 12px;
 }
 
 .filterToggleTab.open {
