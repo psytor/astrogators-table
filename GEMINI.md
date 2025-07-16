@@ -179,13 +179,13 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
 
 *   **Task 56: Implement the Advanced Filter Panel**
     *   [x] **56.1:** Create a new `FilterPanel.tsx` component.
-    *   [ ] **56.2:** Implement comprehensive filter controls, including sprite-based selectors for sets and slots.
-    *   [ ] **56.3:** Implement a unified `advancedFilters` state object to manage all filter values.
-    *   [ ] **56.4:** Add a "Clear Filters" button and an active filter count badge.
+    *   [x] **56.2:** Implement comprehensive filter controls, including sprite-based selectors for sets and slots.
+    *   [x] **56.3:** Implement a unified `advancedFilters` state object to manage all filter values.
+    *   [x] **56.4:** Add a "Clear Filters" button and an active filter count badge.
 
 *   **Task 57: Implement Filtering and Display Logic**
-    *   [ ] **57.1:** Implement the client-side logic to filter the mod list based on the `advancedFilters` state.
-    *   [ ] **57.2:** Create and integrate a `CollectionEfficiencyDisplay.tsx` component to show statistics for the filtered mods.
+    *   [x] **57.1:** Implement the client-side logic to filter the mod list based on the `advancedFilters` state.
+    *   [x] **57.2:** Create and integrate a `CollectionEfficiencyDisplay.tsx` component to show statistics for the filtered mods.
 
 *   **Task 58: Implement Mobile-Responsive Layout**
     *   [ ] **58.1:** Use CSS media queries to make the `FilterPanel` collapse into a button-triggered side tab on mobile viewports.

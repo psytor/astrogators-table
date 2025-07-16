@@ -3,35 +3,24 @@
 
 import { useState } from 'react';
 import styles from './FilterPanel.module.css';
+import { MOD_SLOTS, MOD_SETS, MOD_TIER_NAMES, MOD_TIER_COLORS, STAT_NAMES, MOD_SHAPE_SPRITES, MOD_SET_SPRITES } from '@/lib/mod-constants';
 
-// These would typically be imported from a central config or context
-const MOD_SLOTS = { '1': 'Square', '2': 'Arrow', '3': 'Diamond', '4': 'Triangle', '5': 'Circle', '6': 'Cross' };
-const MOD_SETS = { '1': 'Health', '2': 'Offense', '3': 'Defense', '4': 'Speed', '5': 'Crit Chance', '6': 'Crit Damage', '7': 'Potency', '8': 'Tenacity' };
-const MOD_TIERS = { '1': 'E', '2': 'D', '3': 'C', '4': 'B', '5': 'A' };
-const STAT_NAMES: Record<number, string> = {
-  1: 'Health', 5: 'Speed', 16: 'Crit Damage %', 17: 'Potency %', 18: 'Tenacity %',
-  28: 'Protection', 41: 'Offense', 42: 'Defense', 48: 'Offense %', 49: 'Defense %',
-  52: 'Accuracy %', 53: 'Crit Chance %', 54: 'Crit Avoidance %', 55: 'Health %', 56: 'Protection %'
-};
-
-// Placeholder for sprite data - this should be moved to a more appropriate location
-const MOD_SHAPE_SPRITES: Record<string, any> = {};
-const MOD_SET_SPRITES: Record<string, any> = {};
-
-interface FilterPanelProps {
-  // Define props here
+interface AdvancedFilters {
+  slots: string[];
+  sets: string[];
+  tiers: number[];
+  rarities: string[];
+  primaryStats: number[];
+  secondaryStats: number[];
 }
 
-export default function FilterPanel({}: FilterPanelProps) {
+interface FilterPanelProps {
+  advancedFilters: AdvancedFilters;
+  setAdvancedFilters: React.Dispatch<React.SetStateAction<AdvancedFilters>>;
+}
+
+export default function FilterPanel({ advancedFilters, setAdvancedFilters }: FilterPanelProps) {
   const [filterPanelOpen, setFilterPanelOpen] = useState(false);
-  const [advancedFilters, setAdvancedFilters] = useState({
-    slots: [],
-    sets: [],
-    tiers: [],
-    rarities: [],
-    primaryStats: [],
-    secondaryStats: [],
-  });
 
   const clearAdvancedFilters = () => {
     setAdvancedFilters({
@@ -44,7 +33,13 @@ export default function FilterPanel({}: FilterPanelProps) {
     });
   };
 
-  const activeFilterCount = 0; // Placeholder
+  const activeFilterCount =
+    advancedFilters.slots.length +
+    advancedFilters.sets.length +
+    advancedFilters.tiers.length +
+    advancedFilters.rarities.length +
+    advancedFilters.primaryStats.length +
+    advancedFilters.secondaryStats.length;
 
   return (
     <>
@@ -58,7 +53,7 @@ export default function FilterPanel({}: FilterPanelProps) {
         )}
       </div>
 
-      <div className={`${styles.filterPanel} ${styles.enhanced} ${filterPanelOpen ? styles.open : ''}`}>
+      <div className={`${styles.filterPanel} ${filterPanelOpen ? styles.open : ''}`}>
         <div className={styles.filterPanelContent}>
           <button
             className={styles.filterPanelClose}
@@ -79,6 +74,209 @@ export default function FilterPanel({}: FilterPanelProps) {
               >
                 Clear
               </button>
+            </div>
+            <div className={styles.filterSection}>
+              <h4>Slots</h4>
+              <div className={styles.filterSpritesGrid}>
+                {Object.entries(MOD_SLOTS).map(([key, name]) => {
+                  const sprite = MOD_SHAPE_SPRITES[name];
+                  if (!sprite) return null;
+                  
+                  const scale = Math.min(30 / sprite.w, 30 / sprite.h);
+                  const scaledWidth = sprite.w * scale;
+                  const scaledHeight = sprite.h * scale;
+                  
+                  return (
+                    <div
+                      key={key}
+                      className={`${styles.spriteFilterItem} ${advancedFilters.slots.includes(name) ? styles.active : ''}`}
+                      onClick={() => setAdvancedFilters(prev => ({
+                        ...prev,
+                        slots: prev.slots.includes(name)
+                          ? prev.slots.filter(s => s !== name)
+                          : [...prev.slots, name]
+                      }))}
+                    >
+                      <div className={styles.filterSpriteContainer}>
+                        <div
+                          className={styles.filterSpriteShape}
+                          style={{
+                            width: `${scaledWidth}px`,
+                            height: `${scaledHeight}px`,
+                            backgroundImage: `url(/images/charactermods_datacard_atlas.png)`,
+                            backgroundPosition: `-${sprite.x * scale}px -${sprite.y * scale}px`,
+                            backgroundSize: `${1024 * scale}px auto`,
+                            imageRendering: 'pixelated'
+                          }}
+                        />
+                      </div>
+                      <span>{name}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className={styles.filterSection}>
+              <h4>Sets</h4>
+              <div className={`${styles.filterSpritesGrid} ${styles.sets}`}>
+                {Object.entries(MOD_SETS).map(([key, name]) => {
+                  const sprite = MOD_SET_SPRITES[name];
+                  if (!sprite) return null;
+                  
+                  const scale = Math.min(30 / sprite.w, 120 / sprite.h);
+                  const scaledWidth = sprite.w * scale;
+                  const scaledHeight = sprite.h * scale;
+                  
+                  return (
+                    <div
+                      key={key}
+                      className={`${styles.spriteFilterItem} ${advancedFilters.sets.includes(name) ? styles.active : ''}`}
+                      onClick={() => setAdvancedFilters(prev => ({
+                        ...prev,
+                        sets: prev.sets.includes(name)
+                          ? prev.sets.filter(s => s !== name)
+                          : [...prev.sets, name]
+                      }))}
+                    >
+                      <div className={styles.filterSpriteContainer}>
+                        <div
+                          className={styles.filterSpriteSet}
+                          style={{
+                            width: `${scaledWidth}px`,
+                            height: `${scaledHeight}px`,
+                            backgroundImage: `url(/images/misc_atlas.png)`,
+                            backgroundPosition: `-${sprite.x * scale}px -${sprite.y * scale}px`,
+                            backgroundSize: `${2048 * scale}px auto`,
+                            imageRendering: 'pixelated'
+                          }}
+                        />
+                      </div>
+                      <span>{name.split(' ').map(word => word.charAt(0)).join('')}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className={styles.filterSection}>
+              <h4>Tier</h4>
+              <div className={styles.filterButtonsRow}>
+                {Object.entries(MOD_TIER_NAMES).map(([tier, name]) => (
+                  <button
+                    key={tier}
+                    className={`${styles.filterButton} ${styles['tier-' + MOD_TIER_COLORS[parseInt(tier)].toLowerCase()]} ${
+                      advancedFilters.tiers.includes(parseInt(tier)) ? styles.active : ''
+                    }`}
+                    onClick={() => {
+                      const tierNum = parseInt(tier);
+                      setAdvancedFilters(prev => ({
+                        ...prev,
+                        tiers: prev.tiers.includes(tierNum)
+                          ? prev.tiers.filter(t => t !== tierNum)
+                          : [...prev.tiers, tierNum]
+                      }));
+                    }}
+                  >
+                    {name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.filterSection}>
+              <h4>Primary Stats</h4>
+              <div className={styles.statFilterGrid}>
+                {[5, 48, 49, 52, 53, 54, 55, 56, 16, 17, 18].map(statId => (
+                  <button
+                    key={statId}
+                    className={`${styles.statFilterChip} ${
+                      advancedFilters.primaryStats.includes(statId) ? styles.active : ''
+                    }`}
+                    onClick={() => setAdvancedFilters(prev => ({
+                      ...prev,
+                      primaryStats: prev.primaryStats.includes(statId)
+                        ? prev.primaryStats.filter(s => s !== statId)
+                        : [...prev.primaryStats, statId]
+                    }))}
+                  >
+                    {STAT_NAMES[statId]}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.filterSection}>
+              <h4>Secondary Stats</h4>
+              <div className={styles.statFilterGrid}>
+                {Object.entries(STAT_NAMES).map(([id, name]) => (
+                  <button
+                    key={id}
+                    className={`${styles.statFilterChip} ${
+                      advancedFilters.secondaryStats.includes(parseInt(id)) ? styles.active : ''
+                    }`}
+                    onClick={() => {
+                      const statId = parseInt(id);
+                      setAdvancedFilters(prev => ({
+                        ...prev,
+                        secondaryStats: prev.secondaryStats.includes(statId)
+                          ? prev.secondaryStats.filter(s => s !== statId)
+                          : [...prev.secondaryStats, statId]
+                      }))
+                    }}
+                  >
+                    {name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.filterSection}>
+              <h4>Rarity (Dots)</h4>
+              <div className={styles.filterButtonsRow}>
+                <button
+                  className={`${styles.filterButton} ${styles.rarity} ${
+                    advancedFilters.rarities.includes('1-4') ? styles.active : ''
+                  }`}
+                  onClick={() => setAdvancedFilters(prev => ({
+                    ...prev,
+                    rarities: prev.rarities.includes('1-4')
+                      ? prev.rarities.filter(r => r !== '1-4')
+                      : [...prev.rarities, '1-4']
+                  }))}
+                >
+                  <span className={styles.dots}>●●●●</span>
+                  <span>1-4</span>
+                </button>
+                <button
+                  className={`${styles.filterButton} ${styles.rarity} ${
+                    advancedFilters.rarities.includes('5') ? styles.active : ''
+                  }`}
+                  onClick={() => setAdvancedFilters(prev => ({
+                    ...prev,
+                    rarities: prev.rarities.includes('5')
+                      ? prev.rarities.filter(r => r !== '5')
+                      : [...prev.rarities, '5']
+                  }))}
+                >
+                  <span className={styles.dots}>●●●●●</span>
+                  <span>5</span>
+                </button>
+                <button
+                  className={`${styles.filterButton} ${styles.rarity} ${
+                    advancedFilters.rarities.includes('6') ? styles.active : ''
+                  }`}
+                  onClick={() => setAdvancedFilters(prev => ({
+                    ...prev,
+                    rarities: prev.rarities.includes('6')
+                      ? prev.rarities.filter(r => r !== '6')
+                      : [...prev.rarities, '6']
+                  }))}
+                >
+                  <span className={styles.dots}>●●●●●●</span>
+                  <span>6</span>
+                </button>
+              </div>
             </div>
             {/* Filter sections will be added here */}
           </div>

@@ -35,8 +35,137 @@ export const EVALUATION_WORKFLOWS = {
             "onPass": { "action": "STOP", "result": "SELL" },
             "onFail": { "action": "ERROR", "result": "ERROR" }
           }
+        ],
+        "level_15": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "SLICE" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "any": true },
+            "onPass": { "action": "STOP", "result": "SLICE" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "SELL" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
         ]
-        // We will add level_15 and other colors later
+      },
+"green": {
+        "level_1": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "LVL_15" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "LVL_9" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ],
+        "level_9": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "LVL_15" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "any": true },
+            "onPass": { "action": "STOP", "result": "LVL_15" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "SELL" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ],
+        "level_15": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "SLICE" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "min": 5 },
+            "onPass": { "action": "STOP", "result": "SLICE" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "any": true },
+            "onPass": { "action": "STOP", "result": "KEEP" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "SELL" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ]
+      },
+"blue": {
+        "level_1": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "LVL_15" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "LVL_9" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ],
+        "level_9": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "LVL_15" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "any": true },
+            "onPass": { "action": "STOP", "result": "LVL_15" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "SELL" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ],
+        "level_15": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "SLICE" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "min": 5 },
+            "onPass": { "action": "STOP", "result": "SLICE" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "any": true },
+            "onPass": { "action": "STOP", "result": "KEEP" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "SELL" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ]
       }
     }
     // We will add dot_1-4 and dot_6 later

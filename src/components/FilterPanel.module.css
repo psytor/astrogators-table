@@ -90,6 +90,132 @@
   margin-top: 0.5rem;
 }
 
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filterSection h4 {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-default);
+  padding-bottom: 0.5rem;
+}
+
+.filterSpritesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  gap: 0.5rem;
+}
+
+.spriteFilterItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.spriteFilterItem:hover {
+  background-color: var(--bg-accent);
+  border-color: var(--border-default);
+}
+
+.spriteFilterItem.active {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: var(--primary);
+}
+
+.spriteFilterItem span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.spriteFilterItem.active span {
+  color: var(--text-primary);
+}
+
+.filterSpriteContainer {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filterButtonsRow {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filterButton {
+  background-color: var(--bg-accent);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterButton:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.filterButton.active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.statFilterGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.statFilterChip {
+  background-color: var(--bg-accent);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  padding: 0.3rem 0.6rem;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.statFilterChip:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.statFilterChip.active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.filterButton.rarity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.filterButton .dots {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
 .filterPanelClose {
   position: absolute;
   top: 1rem;

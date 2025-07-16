@@ -3,7 +3,7 @@
   padding: 2rem 2.5rem;
   background: var(--bg-darkest);
   text-align: center;
-  width: 100%; /* Reverted to full width */
+  width: 100%;
   clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
 }
 
@@ -24,8 +24,6 @@
   clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
 }
 
-/* All border and corner styles have been removed */
-
 .content {
   position: relative;
   z-index: 1;
@@ -45,12 +43,4 @@
   color: var(--text-primary);
   font-size: 1.1rem;
   font-weight: 500;
-}
-
-.averageScore {
-  margin: 0.5rem 0 0 0;
-  color: var(--text-muted);
-  font-style: italic;
-  font-size: 0.9rem;
-  letter-spacing: 0.5px;
 }

@@ -6,7 +6,7 @@ import { useWorkflows } from '@/contexts/WorkflowContext';
 import { executeWorkflow } from '@/services/modWorkflowService';
 import styles from './ModCard.module.css';
 import ModVisual from './ModVisual';
-import { MOD_SETS, MOD_SLOTS, MOD_TIERS } from '@/lib/mod-constants';
+import { MOD_SETS, MOD_SLOTS, MOD_TIER_COLORS } from '@/lib/mod-constants';
 
 type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 
@@ -51,7 +51,7 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
   // Derive props for ModVisual
   const setType = MOD_SETS[setId] || null;
   const shapeType = MOD_SLOTS[shapeId] || null;
-  const modTierName = MOD_TIERS[mod.t] || null;
+  const modTierName = MOD_TIER_COLORS[mod.t] || null;
 
   return (
     <div className={styles.modCard}>

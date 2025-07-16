@@ -1,0 +1,60 @@
+/* src/components/CollectionEfficiencyDisplay.module.css */
+.collectionEfficiency {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.collectionOverall {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.efficiencyLabel {
+  color: var(--text-secondary);
+}
+
+.efficiencyValue {
+  color: var(--primary);
+}
+
+.collectionBreakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+
+.breakdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.breakdownKeep {
+  background-color: rgba(5, 150, 105, 0.1);
+  color: #059669;
+}
+
+.breakdownSell {
+  background-color: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+}
+
+.breakdownSlice {
+  background-color: rgba(217, 119, 6, 0.1);
+  color: #d97706;
+}
+
+.breakdownLevel {
+  background-color: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
+}

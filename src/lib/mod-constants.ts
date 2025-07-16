@@ -11,11 +11,30 @@ export const MOD_SLOTS: { [key: number]: string } = {
   4: "Triangle", 5: "Circle", 6: "Cross"
 };
 
-export const MOD_TIERS: { [key: number]: string } = {
+export const MOD_TIER_COLORS: { [key: number]: string } = {
   1: "Grey", 2: "Green", 3: "Blue", 4: "Purple", 5: "Gold"
 };
 
+export const MOD_TIER_NAMES: { [key: number]: string } = {
+  1: "E", 2: "D", 3: "C", 4: "B", 5: "A"
+};
+
+export const STAT_NAMES: Record<number, string> = {
+  1: 'Health', 5: 'Speed', 16: 'Crit Damage %', 17: 'Potency %', 18: 'Tenacity %',
+  28: 'Protection', 41: 'Offense', 42: 'Defense', 48: 'Offense %', 49: 'Defense %',
+  52: 'Accuracy %', 53: 'Crit Chance %', 54: 'Crit Avoidance %', 55: 'Health %', 56: 'Protection %'
+};
+
 // 2. Sprite Coordinate Data
+export const MOD_SHAPE_SPRITES: Record<string, any> = {
+  "Square":   { x: 696, y: 117, w: 79, h: 77 },
+  "Arrow":    { x: 696, y: 195, w: 79, h: 77 },
+  "Diamond":  { x: 696, y: 433, w: 79, h: 79 },
+  "Triangle": { x: 854, y: 212, w: 78, h: 64 },
+  "Circle":   { x: 775, y: 354, w: 79, h: 78 },
+  "Cross":    { x: 729, y: 37,  w: 76, h: 79 }
+};
+
 export const MOD_SHAPE_SPRITES_5DOT = {
   "Square":   { "Main": { "x": 696, "y": 117, "w": 79, "h": 77 }, "Inner": { "x": 647, "y": 31, "w": 80, "h": 80 } },
   "Arrow":    { "Main": { "x": 696, "y": 195, "w": 79, "h": 77 }, "Inner": { "x": 566, "y": 31, "w": 80, "h": 80 } },
@@ -34,16 +53,17 @@ export const MOD_SHAPE_SPRITES_6DOT = {
   "Cross":    { "Main": { "x": 776, "y": 275, "w": 76, "h": 78 }, "Inner": { "x": 696, "y": 352, "w": 78, "h": 80 } }
 };
 
-export const MOD_SET_SPRITES = {
-  "Critical Chance": { "x": 1265, "y": 358, "w": 120, "h": 120 },
-  "Critical Damage": { "x": 1195, "y": 992, "w": 120, "h": 120 },
-  "Defense": { "x": 1250, "y": 1255, "w": 120, "h": 120 },
-  "Health": { "x": 1278, "y": 1128, "w": 120, "h": 120 },
-  "Offense": { "x": 1408, "y": 1126, "w": 120, "h": 120 },
-  "Potency": { "x": 1143, "y": 1117, "w": 120, "h": 120 },
-  "Speed": { "x": 1107, "y": 747, "w": 120, "h": 120 },
-  "Tenacity": { "x": 1288, "y": 1385, "w": 120, "h": 120 }
+export const MOD_SET_SPRITES: Record<string, any> = {
+  "Critical Chance": { x: 1265, y: 358, w: 120, h: 120 },
+  "Critical Damage": { x: 1195, y: 992, w: 120, h: 120 },
+  "Defense": { x: 1250, y: 1255, w: 120, h: 120 },
+  "Health": { x: 1278, y: 1128, w: 120, h: 120 },
+  "Offense": { x: 1408, y: 1126, w: 120, h: 120 },
+  "Potency": { x: 1143, y: 1117, w: 120, h: 120 },
+  "Speed": { x: 1107, y: 747, w: 120, h: 120 },
+  "Tenacity": { x: 1288, y: 1385, w: 120, h: 120 }
 };
+
 
 // 3. Layout Configuration for Set Icons
 export const SET_ICON_LAYOUT_CONFIG = {

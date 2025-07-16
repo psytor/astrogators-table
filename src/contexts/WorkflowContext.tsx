@@ -12,6 +12,7 @@ const WorkflowContext = createContext<WorkflowConfig | null>(null);
 
 export function WorkflowProvider({ children }: { children: ReactNode }) {
   const [config, setConfig] = useState<WorkflowConfig | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchConfig() {
@@ -24,11 +25,19 @@ export function WorkflowProvider({ children }: { children: ReactNode }) {
         setConfig(data);
       } catch (error) {
         console.error(error);
+        // Handle error state if necessary
+      } finally {
+        setIsLoading(false);
       }
     }
 
     fetchConfig();
   }, []);
+
+  if (isLoading) {
+    // You can return a loader here if you want
+    return null;
+  }
 
   return (
     <WorkflowContext.Provider value={config}>
