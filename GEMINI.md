@@ -178,7 +178,7 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
     *   [x] **55.4:** Add a mobile-friendly hamburger menu to the top bar.
 
 *   **Task 56: Implement the Advanced Filter Panel**
-    *   [ ] **56.1:** Create a new `FilterPanel.tsx` component.
+    *   [x] **56.1:** Create a new `FilterPanel.tsx` component.
     *   [ ] **56.2:** Implement comprehensive filter controls, including sprite-based selectors for sets and slots.
     *   [ ] **56.3:** Implement a unified `advancedFilters` state object to manage all filter values.
     *   [ ] **56.4:** Add a "Clear Filters" button and an active filter count badge.

@@ -5,6 +5,7 @@ import { HydratedPlayerData } from '@/services/modHydrationService';
 import TopBar from '@/components/TopBar';
 import AllyCodeForm from '@/components/AllyCodeForm';
 import PlayerHeader from '@/components/PlayerHeader';
+import FilterPanel from '@/components/FilterPanel';
 import ModGrid from '@/components/ModGrid';
 import styles from './mods.module.css';
 
@@ -139,10 +140,13 @@ export default function ModsPage() {
         {error && <p className={styles.error}>Error: {error}</p>}
         
         {playerData && (
-          <>
-            <PlayerHeader playerName={playerData.playerName} modCount={totalModCount} />
-            <ModGrid playerData={playerData} />
-          </>
+          <div className={styles.mainContent}>
+            <div className={styles.modDisplay}>
+              <PlayerHeader playerName={playerData.playerName} modCount={totalModCount} />
+              <ModGrid playerData={playerData} />
+            </div>
+            <FilterPanel />
+          </div>
         )}
       </div>
     </div>

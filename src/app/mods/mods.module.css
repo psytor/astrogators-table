@@ -47,6 +47,16 @@
   }
 }
 
+.mainContent {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+.modDisplay {
+  flex-grow: 1;
+}
+
 .error {
   text-align: center;
   margin-top: 2rem;
