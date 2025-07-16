@@ -46,12 +46,38 @@ export interface DbLookups {
 // --- Service Implementation ---
 
 /**
+ * Formats a raw stat value from the API into a display-friendly number.
+ * @param statId The ID of the stat.
+ * @param decimalValue The raw value from `statValueDecimal`.
+ * @param lookups The database lookups containing stat metadata.
+ * @returns A formatted number (e.g., 8.5 for 8.5% or 25 for Speed).
+ */
+function formatStatValue(statId: number, decimalValue: number, lookups: DbLookups): number {
+  const realValue = Number(decimalValue) / 10000;
+  const statInfo = lookups.stats[statId];
+
+  if (statInfo && statInfo.isPercentage) {
+    // For percentage stats, convert to a percentage number (e.g., 0.085 -> 8.5)
+    // Round to 3 decimal places to handle floating point inaccuracies.
+    return Math.round(realValue * 100 * 1000) / 1000;
+  }
+
+  // For flat stats, return the integer value
+  return Math.floor(realValue);
+}
+
+
+/**
  * Fetches and processes a player's mod data into a display-ready format.
  * @param allyCode The player's ally code.
  * @returns The player's structured data, or null if an error occurs.
  */
 export async function getPlayerData(allyCode: string): Promise<HydratedPlayerData | null> {
-  const rawPlayerData = await fetchPlayer(allyCode);
+  const [rawPlayerData, dbLookups] = await Promise.all([
+    fetchPlayer(allyCode),
+    getDbLookups()
+  ]);
+
   if (!rawPlayerData) {
     return null;
   }
@@ -66,11 +92,11 @@ export async function getPlayerData(allyCode: string): Promise<HydratedPlayerDat
       c: characterId,
       p: {
         i: mod.primaryStat.stat.unitStatId,
-        v: mod.primaryStat.stat.statValueDecimal,
+        v: formatStatValue(mod.primaryStat.stat.unitStatId, mod.primaryStat.stat.statValueDecimal, dbLookups),
       },
       s: mod.secondaryStat.map((stat: SecondaryStat) => ({
         i: stat.stat.unitStatId,
-        v: stat.stat.statValueDecimal,
+        v: formatStatValue(stat.stat.unitStatId, stat.stat.statValueDecimal, dbLookups),
         r: stat.statRolls,
       })),
     })) || [];

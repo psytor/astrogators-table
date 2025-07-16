@@ -78,16 +78,25 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
         <div className={styles.rightColumn}>
           <div className={styles.primaryStat}>
             <span className={styles.statName}>{lookups.stats[mod.p.i]?.name || 'Unknown Stat'}</span>
-            <span className={styles.statValue}>{mod.p.v}</span>
+            <span className={styles.statValue}>
+              {lookups.stats[mod.p.i]?.isPercentage ? `${mod.p.v}%` : mod.p.v}
+            </span>
           </div>
           <ul className={styles.secondaryStats}>
-            {mod.s.map((stat, index) => (
-              <li key={index} className={styles.secondaryStat}>
-                <span className={styles.statValue}>{stat.v}</span>
-                <span className={styles.statName}>{lookups.stats[stat.i]?.name || 'Unknown Stat'}</span>
-                <span className={styles.statRolls}>({stat.r})</span>
-              </li>
-            ))}
+            {mod.s.map((stat, index) => {
+              const statInfo = lookups.stats[stat.i];
+              const statName = statInfo?.name || 'Unknown Stat';
+              const isPercentage = statInfo?.isPercentage || false;
+              const statValue = isPercentage ? `${stat.v.toFixed(2)}%` : stat.v;
+
+              return (
+                <li key={index} className={styles.secondaryStat}>
+                  <span className={styles.statValue}>{statValue}</span>
+                  <span className={styles.statName}>{statName}</span>
+                  <span className={styles.statRolls}>({stat.r})</span>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

@@ -162,10 +162,10 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
 ### Phase 6: Backend Data Refinement
 
 *   **Task 40: Implement Backend Stat Formatting & Calculation**
-    *   [ ] **40.1:** In `modHydrationService.ts`, create a helper function to format stat values.
-    *   [ ] **40.2:** Convert all percentage-based stats from their decimal form (e.g., `0.085`) to a user-friendly number (e.g., `8.5`).
-    *   [ ] **40.3:** Ensure flat stats are returned as-is.
-    *   [ ] **40.4:** Update the `getPlayerData` function to use this new helper for both primary and secondary stats, ensuring the frontend receives clean, pre-formatted data.
+    *   [x] **40.1:** In `modHydrationService.ts`, create a helper function to format stat values.
+    *   [x] **40.2:** Convert all percentage-based stats from their decimal form (e.g., `0.085`) to a user-friendly number (e.g., `8.5`).
+    *   [x] **40.3:** Ensure flat stats are returned as-is.
+    *   [x] **40.4:** Update the `getPlayerData` function to use this new helper for both primary and secondary stats, ensuring the frontend receives clean, pre-formatted data.
 
 ---
 
