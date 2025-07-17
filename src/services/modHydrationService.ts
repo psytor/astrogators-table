@@ -10,6 +10,7 @@ interface CompactStat {
   v: number; // value
   r?: number; // rolls (only for secondary stats)
   e?: number; // efficiency (only for secondary stats)
+  rv?: number[]; // roll values (only for secondary stats)
 }
 
 interface CompactMod {
@@ -42,6 +43,12 @@ export interface DbLookups {
     sets: LookupTable<{ name: string; bonus: string }>;
     shapes: LookupTable<{ name: string; formalName: string }>;
     rarities: LookupTable<{ name: string }>;
+    statRollInfo: {
+        stat: { name: string };
+        rarity_id: number;
+        min_roll: number;
+        max_roll: number;
+    }[];
 }
 
 
@@ -139,6 +146,7 @@ export async function getPlayerData(allyCode: string): Promise<HydratedPlayerDat
         v: formatStatValue(stat.stat.unitStatId, stat.stat.statValueDecimal, dbLookups),
         r: stat.statRolls,
         e: calculateStatEfficiency(stat),
+        rv: stat.unscaledRollValue?.map(v => parseInt(v, 10)) || [],
       }));
 
       return {
@@ -175,11 +183,19 @@ export async function getPlayerData(allyCode: string): Promise<HydratedPlayerDat
  * @returns An object containing all static game data.
  */
 export async function getDbLookups(): Promise<DbLookups> {
-    const [dbStats, dbSets, dbShapes, dbRarities] = await Promise.all([
+    const [dbStats, dbSets, dbShapes, dbRarities, dbStatRollInfo] = await Promise.all([
         prisma.stat.findMany(),
         prisma.modSet.findMany(),
         prisma.modShape.findMany(),
         prisma.modRarity.findMany(),
+        prisma.statRollInfo.findMany({
+            select: {
+                stat: { select: { name: true } },
+                rarity_id: true,
+                min_roll: true,
+                max_roll: true,
+            }
+        }),
     ]);
 
     const dbLookups: DbLookups = {
@@ -187,6 +203,7 @@ export async function getDbLookups(): Promise<DbLookups> {
         sets: Object.fromEntries(dbSets.map(s => [s.id, { name: s.name, bonus: s.bonus_description }])),
         shapes: Object.fromEntries(dbShapes.map(s => [s.id, { name: s.name, formalName: s.formal_name }])),
         rarities: Object.fromEntries(dbRarities.map(r => [r.dot_value, { name: r.dot_value.toString() }])),
+        statRollInfo: dbStatRollInfo,
     };
 
     return dbLookups;

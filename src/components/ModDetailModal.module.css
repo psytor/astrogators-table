@@ -1,0 +1,220 @@
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--shadow-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modalContent {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  border-radius: 8px;
+  border: 1px solid var(--border-default);
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0 5px 15px var(--shadow-lg);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-title);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modInfoBar {
+  display: flex;
+  justify-content: space-around;
+  background-color: var(--bg-darkest);
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.modInfoBar span {
+  font-size: 0.9rem;
+}
+
+.modInfoBar strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.modalBody {
+  padding: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  color: var(--text-title);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.secondaryStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.statContainer {
+  background-color: var(--bg-accent);
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-default);
+  display: flex;
+  flex-direction: column;
+}
+
+.statHeader {
+  display: grid;
+  grid-template-areas:
+    "name value"
+    "rolls rolls";
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.statName {
+  grid-area: name;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.statValue {
+  grid-area: value;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--text-title);
+  text-align: right;
+}
+
+.statRolls {
+  grid-area: rolls;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: left;
+  padding-top: 4px;
+}
+
+.rollsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto; /* Pushes the bars to the bottom */
+}
+
+.rollBar, .rollBarPlaceholder {
+  background-color: var(--bg-accent);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  height: 20px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.rollBarPlaceholder {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--bg-dark),
+    var(--bg-dark) 4px,
+    var(--bg-accent) 4px,
+    var(--bg-accent) 8px
+  );
+  opacity: 0.5;
+}
+
+.rollBarFill {
+  background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px 0 0 4px;
+  transition: width 0.5s ease-in-out;
+}
+
+.rollBarText {
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px var(--shadow-sm);
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+
+.evaluationSection {
+  background-color: var(--bg-accent);
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-default);
+}
+
+.verdictBox {
+  background-color: var(--status-success-bg);
+  border: 1px solid var(--status-success);
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.verdictBox strong {
+  color: var(--status-success);
+  font-weight: bold;
+}
+
+.evaluationSteps p {
+  margin: 0 0 0.5rem 0;
+  font-weight: bold;
+}
+
+.evaluationSteps ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.evaluationSteps li {
+  color: var(--text-muted);
+}

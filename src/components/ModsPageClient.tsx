@@ -1,13 +1,15 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { HydratedPlayerData } from '@/services/modHydrationService';
+import { HydratedPlayerData, HydratedMod } from '@/services/modHydrationService';
 import TopBar from '@/components/TopBar';
 import AllyCodeForm from '@/components/AllyCodeForm';
 import PlayerHeader from '@/components/PlayerHeader';
 import FilterPanel from '@/components/FilterPanel';
 import ModGrid from '@/components/ModGrid';
+import ModDetailModal from '@/components/ModDetailModal';
 import { useWorkflows } from '@/contexts/WorkflowContext';
+import { useDbLookups } from '@/contexts/DbLookupsContext';
 import { MOD_SETS, MOD_SLOTS } from '@/lib/mod-constants';
 import styles from '@/app/mods/mods.module.css';
 
@@ -34,8 +36,10 @@ export default function ModsPageClient() {
     secondaryStats: [],
   });
   const [filterPanelOpen, setFilterPanelOpen] = useState(false);
+  const [selectedMod, setSelectedMod] = useState<HydratedMod | null>(null);
 
   const workflowConfig = useWorkflows();
+  const { lookups: dbLookups, isLoading: isLookupsLoading } = useDbLookups();
 
   useEffect(() => {
     const storedPlayers = localStorage.getItem('savedPlayers');
@@ -126,6 +130,14 @@ export default function ModsPageClient() {
     }
   };
 
+  const handleModSelect = (mod: HydratedMod) => {
+    setSelectedMod(mod);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedMod(null);
+  };
+
   const filteredPlayerData = useMemo(() => {
     if (!playerData) return null;
 
@@ -198,7 +210,7 @@ export default function ModsPageClient() {
           <div className={styles.mainContent}>
             <div className={styles.modDisplay}>
               <PlayerHeader playerName={filteredPlayerData.playerName} modCount={filteredModCount} />
-              <ModGrid playerData={filteredPlayerData} />
+              <ModGrid playerData={filteredPlayerData} onModSelect={handleModSelect} />
             </div>
             <FilterPanel
               advancedFilters={advancedFilters}
@@ -209,6 +221,7 @@ export default function ModsPageClient() {
           </div>
         )}
       </div>
+      <ModDetailModal mod={selectedMod} onClose={handleCloseModal} dbLookups={dbLookups} />
     </div>
   );
 }

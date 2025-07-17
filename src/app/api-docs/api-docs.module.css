@@ -1,0 +1,197 @@
+/* src/app/api-docs/api-docs.module.css */
+.pageContainer {
+  background-color: var(--bg-darkest);
+  color: var(--text-primary);
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+/* --- Comprehensive Swagger UI Dark Theme --- */
+
+/* Main container and top bar */
+.pageContainer :global(#swagger-ui .swagger-ui) {
+  background-color: var(--bg-dark);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-default);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .information-container) {
+  background-color: var(--bg-darkest);
+  border-radius: 6px;
+  padding: 1rem;
+  border: 1px solid var(--border-default);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .info .title) {
+  color: var(--text-title);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .info .description),
+.pageContainer :global(#swagger-ui .swagger-ui .info .base-url) {
+  color: var(--text-secondary);
+}
+
+/* Section headers (e.g., "Player Data", "Lookups") */
+.pageContainer :global(#swagger-ui .swagger-ui .opblock-tag-section .opblock-tag) {
+  color: var(--text-title);
+  border-bottom: 2px solid var(--primary);
+}
+
+/* Individual endpoint containers */
+.pageContainer :global(#swagger-ui .swagger-ui .opblock) {
+  background-color: var(--bg-accent);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .opblock .opblock-summary) {
+  border-color: var(--border-default);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .opblock .opblock-summary-description) {
+  color: var(--text-secondary);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .opblock .opblock-summary-path) {
+  color: var(--text-primary);
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Expanded endpoint body */
+.pageContainer :global(#swagger-ui .swagger-ui .opblock.is-open .opblock-body) {
+  border-top: 1px solid var(--border-default);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .opblock-section-header) {
+  background: var(--bg-dark);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .opblock-section-header h4) {
+  color: var(--text-primary);
+}
+
+/* Parameters section */
+.pageContainer :global(#swagger-ui .swagger-ui .parameters-col_description p) {
+  color: var(--text-secondary);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .parameter__in) {
+  color: var(--text-muted);
+}
+
+/* Responses section */
+.pageContainer :global(#swagger-ui .swagger-ui .responses-inner h4) {
+  color: var(--text-primary);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .response-col_status) {
+  color: var(--text-primary);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .response-col_description p) {
+  color: var(--text-secondary);
+}
+
+/* Response schema / example styling */
+.pageContainer :global(#swagger-ui .swagger-ui .model-example) {
+  background: var(--bg-darkest);
+  border-radius: 4px;
+  border: 1px solid var(--border-default);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .tab-links) {
+  background: var(--bg-dark);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .tab-links .tab-item.active) {
+  background: var(--bg-darkest);
+  color: var(--text-primary);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .tab-links .tab-item) {
+  color: var(--text-muted);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .model-example .tab-content) {
+  background: var(--bg-darkest);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui code),
+.pageContainer :global(#swagger-ui .swagger-ui pre) {
+  color: var(--text-primary);
+  background: transparent;
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .response-control-media-type__accept-message) {
+  color: var(--text-muted);
+}
+
+/* JSON syntax highlighting */
+.pageContainer :global(#swagger-ui .swagger-ui .prop-name) {
+  color: var(--primary);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .prop-type) {
+  color: var(--text-muted);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .string) {
+  color: var(--status-success);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .number) {
+  color: var(--status-info);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .boolean) {
+  color: var(--status-warning);
+}
+
+/* Buttons */
+.pageContainer :global(#swagger-ui .swagger-ui .btn) {
+  border-color: var(--border-default);
+  color: var(--text-primary);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .btn:hover) {
+  border-color: var(--border-hover);
+  background: var(--bg-medium);
+}
+
+/* --- Schemas Section --- */
+.pageContainer :global(#swagger-ui .swagger-ui .schemas-section .opblock-tag) {
+  color: var(--text-title);
+  border-bottom: 2px solid var(--primary);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .schemas-section .schema-container) {
+  background-color: var(--bg-accent);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .schemas-section .model-container) {
+  background-color: var(--bg-dark);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .schemas-section .model-title) {
+  color: var(--text-primary);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .schemas-section .model .prop-name) {
+  color: var(--primary);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .schemas-section .model .prop-type) {
+  color: var(--text-muted);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .schemas-section .model .prop-format) {
+  color: var(--text-dim);
+}
+
+.pageContainer :global(#swagger-ui .swagger-ui .schemas-section .model .prop-description) {
+  color: var(--text-secondary);
+}

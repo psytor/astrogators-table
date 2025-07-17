@@ -13,15 +13,20 @@ type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 interface ModCardProps {
   mod: CompactMod;
   characterId: string;
+  onSelect: (mod: CompactMod) => void;
 }
 
-export default function ModCard({ mod, characterId }: ModCardProps) {
+export default function ModCard({ mod, characterId, onSelect }: ModCardProps) {
   const { lookups, isLoading: isDbLoading } = useDbLookups();
   const workflowConfig = useWorkflows();
 
   if (isDbLoading || !lookups || !workflowConfig) {
     return <div className={`${styles.card} ${styles.loading}`}>Loading...</div>;
   }
+
+  const handleCardClick = () => {
+    onSelect(mod);
+  };
 
   const evaluationResultCode = executeWorkflow(mod, 'beginner_speed_chaser');
   const evaluation = workflowConfig.results[evaluationResultCode] || workflowConfig.results['ERROR'];
@@ -54,7 +59,7 @@ export default function ModCard({ mod, characterId }: ModCardProps) {
   const modTierName = MOD_TIER_COLORS[mod.t] || null;
 
   return (
-    <div className={styles.modCard}>
+    <div className={styles.modCard} onClick={handleCardClick}>
       <div className={styles.modBorders}>
         <div className={styles.borderLeft}></div>
         <div className={styles.borderRight}></div>

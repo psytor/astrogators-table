@@ -23,6 +23,7 @@
   --primary-dark: #1e3a8a;    /* Dark variant */
   
   /* Text Colors */
+  --text-title: #3b82f6;
   --text-primary: #e2e8f0;    /* Main text */
   --text-secondary: #cbd5e1;  /* Secondary text */
   --text-muted: #94a3b8;      /* Muted/label text */
@@ -42,6 +43,12 @@
   --status-error: #dc2626;
   --status-warning: #d97706;
   --status-info: #7c3aed;
+
+  /* Transparent Status Backgrounds */
+  --status-success-bg: rgba(5, 150, 105, 0.1);
+  --status-error-bg: rgba(220, 38, 38, 0.1);
+  --status-warning-bg: rgba(217, 119, 6, 0.1);
+  --status-info-bg: rgba(124, 58, 237, 0.1);
   
   /* Border Colors */
   --border-default: #334155;

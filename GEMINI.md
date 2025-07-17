@@ -11,7 +11,7 @@
 Whenever we work on this project, we already established phases, steps and things to do.
 Everytime a step is completed, we update GEMINI.md to follow our plan.
 After implementing a change, especially a visual one, I must pause and ask you to verify that the changes appear correctly before I mark the task as complete.
-Upon completion of a numbered task from the roadmap, your immediate next action must be to update this file to mark the task as complete before proceeding with any other step.
+Upon completing the implementation for a numbered task, I must pause and ask you to verify the changes. After you confirm that everything is working as expected, my immediate next action must be to update this file to mark the task as complete.
 Before writing any seeder script or file containing complex data, first present the data in a clear, visual Markdown table for my review and confirmation.
 Whenever we reach a new phase, we need to discuss of all the steps that we will take to advance.
 Everytime we discuss the plan, we write steps to complete and how to achieve them.
