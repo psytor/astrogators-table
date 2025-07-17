@@ -33,6 +33,7 @@ export default function ModsPageClient() {
     primaryStats: [],
     secondaryStats: [],
   });
+  const [filterPanelOpen, setFilterPanelOpen] = useState(false);
 
   const workflowConfig = useWorkflows();
 
@@ -202,6 +203,8 @@ export default function ModsPageClient() {
             <FilterPanel
               advancedFilters={advancedFilters}
               setAdvancedFilters={setAdvancedFilters}
+              isOpen={filterPanelOpen}
+              setIsOpen={setFilterPanelOpen}
             />
           </div>
         )}

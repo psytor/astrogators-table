@@ -228,3 +228,13 @@
   font-size: 1.5rem;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .filterPanel {
+    width: 85%;
+  }
+
+  .filterToggleTab.open {
+    right: 85%;
+  }
+}

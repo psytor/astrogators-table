@@ -188,8 +188,8 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
     *   [x] **57.2:** Create and integrate a `CollectionEfficiencyDisplay.tsx` component to show statistics for the filtered mods.
 
 *   **Task 58: Implement Mobile-Responsive Layout**
-    *   [ ] **58.1:** Use CSS media queries to make the `FilterPanel` collapse into a button-triggered side tab on mobile viewports.
-    *   [ ] **58.2:** Ensure the `TopBar` and `ModGrid` adapt cleanly to smaller screens.
+    *   [x] **58.1:** Use CSS media queries to make the `FilterPanel` collapse into a button-triggered side tab on mobile viewports.
+    *   [x] **58.2:** Ensure the `TopBar` and `ModGrid` adapt cleanly to smaller screens.
 
 *   **Task 59: Implement the Mod Detail Modal**
     *   [ ] **59.1:** Create a `ModDetailModal.tsx` component to show an enlarged view of a mod.

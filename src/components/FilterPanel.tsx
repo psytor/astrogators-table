@@ -1,7 +1,6 @@
 // src/components/FilterPanel.tsx
 'use client';
 
-import { useState } from 'react';
 import styles from './FilterPanel.module.css';
 import { MOD_SLOTS, MOD_SETS, MOD_TIER_NAMES, MOD_TIER_COLORS, STAT_NAMES, MOD_SHAPE_SPRITES, MOD_SET_SPRITES } from '@/lib/mod-constants';
 
@@ -17,11 +16,11 @@ interface AdvancedFilters {
 interface FilterPanelProps {
   advancedFilters: AdvancedFilters;
   setAdvancedFilters: React.Dispatch<React.SetStateAction<AdvancedFilters>>;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function FilterPanel({ advancedFilters, setAdvancedFilters }: FilterPanelProps) {
-  const [filterPanelOpen, setFilterPanelOpen] = useState(false);
-
+export default function FilterPanel({ advancedFilters, setAdvancedFilters, isOpen, setIsOpen }: FilterPanelProps) {
   const clearAdvancedFilters = () => {
     setAdvancedFilters({
       slots: [],
@@ -44,8 +43,8 @@ export default function FilterPanel({ advancedFilters, setAdvancedFilters }: Fil
   return (
     <>
       <div
-        className={`${styles.filterToggleTab} ${filterPanelOpen ? styles.open : ''}`}
-        onClick={() => setFilterPanelOpen(!filterPanelOpen)}
+        className={`${styles.filterToggleTab} ${isOpen ? styles.open : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
       >
         <span>F</span><span>I</span><span>L</span><span>T</span><span>E</span><span>R</span><span>S</span>
         {activeFilterCount > 0 && (
@@ -53,11 +52,11 @@ export default function FilterPanel({ advancedFilters, setAdvancedFilters }: Fil
         )}
       </div>
 
-      <div className={`${styles.filterPanel} ${filterPanelOpen ? styles.open : ''}`}>
+      <div className={`${styles.filterPanel} ${isOpen ? styles.open : ''}`}>
         <div className={styles.filterPanelContent}>
           <button
             className={styles.filterPanelClose}
-            onClick={() => setFilterPanelOpen(false)}
+            onClick={() => setIsOpen(false)}
           >
             ×
           </button>
