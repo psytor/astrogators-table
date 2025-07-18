@@ -104,34 +104,29 @@
 }
 
 .statHeader {
-  display: grid;
-  grid-template-areas:
-    "name value"
-    "rolls rolls";
+  display: flex;
+  flex-direction: column;
   align-items: center;
   margin-bottom: 0.75rem;
+  width: 100%;
 }
 
 .statName {
-  grid-area: name;
   font-size: 1rem;
   font-weight: 600;
   color: var(--text-secondary);
 }
 
 .statValue {
-  grid-area: value;
   font-size: 1.25rem;
   font-weight: bold;
   color: var(--text-title);
-  text-align: right;
+  padding-top: 4px;
 }
 
 .statRolls {
-  grid-area: rolls;
   font-size: 0.8rem;
   color: var(--text-muted);
-  text-align: left;
   padding-top: 4px;
 }
 
@@ -166,9 +161,6 @@
 .rollBarFill {
   background: linear-gradient(90deg, var(--primary-dark), var(--primary));
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 4px 0 0 4px;
   transition: width 0.5s ease-in-out;
 }
@@ -179,6 +171,9 @@
   font-weight: bold;
   text-shadow: 1px 1px 2px var(--shadow-sm);
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
 }

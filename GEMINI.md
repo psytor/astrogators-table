@@ -192,8 +192,8 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
     *   [x] **58.2:** Ensure the `TopBar` and `ModGrid` adapt cleanly to smaller screens.
 
 *   **Task 59: Implement the Mod Detail Modal**
-    *   [ ] **59.1:** Create a `ModDetailModal.tsx` component to show an enlarged view of a mod.
-    *   [ ] **59.2:** Add the logic to the `ModCard` to open the modal on click, passing the selected mod's data.
+    *   [x] **59.1:** Create a `ModDetailModal.tsx` component to show an enlarged view of a mod.
+    *   [x] **59.2:** Add the logic to the `ModCard` to open the modal on click, passing the selected mod's data.
 
 ---
 
