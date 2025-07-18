@@ -107,6 +107,12 @@ import { getPlayerData } from '@/services/modHydrationService';
  *           items:
  *             type: integer
  *           description: "An array of the raw, unscaled values for each individual roll."
+ *         re:
+ *           type: array
+ *           items:
+ *             type: number
+ *             format: float
+ *           description: "An array of the calculated efficiency for each individual roll (0-100)."
  */
 export async function GET(request: NextRequest) {
   const rawAllyCode = request.nextUrl.pathname.split('/').pop() || '';

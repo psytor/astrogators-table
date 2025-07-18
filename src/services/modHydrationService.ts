@@ -11,6 +11,7 @@ interface CompactStat {
   r?: number; // rolls (only for secondary stats)
   e?: number; // efficiency (only for secondary stats)
   rv?: number[]; // roll values (only for secondary stats)
+  re?: number[]; // roll efficiencies (only for secondary stats)
 }
 
 interface CompactMod {
@@ -73,11 +74,11 @@ function calculateOverallModEfficiency(secondaryStats: CompactStat[]): number {
  * @param stat The secondary stat object from the comlink response.
  * @returns The average efficiency as a percentage (0-100), or 0 if data is missing.
  */
-function calculateStatEfficiency(stat: SecondaryStat): number {
+function calculateStatEfficiency(stat: SecondaryStat): { average: number; rolls: number[] } {
   const { unscaledRollValue, statRollerBoundsMin, statRollerBoundsMax } = stat;
 
   if (!unscaledRollValue || !statRollerBoundsMin || !statRollerBoundsMax || unscaledRollValue.length === 0) {
-    return 0;
+    return { average: 0, rolls: [] };
   }
 
   const minBound = parseInt(statRollerBoundsMin, 10);
@@ -85,19 +86,23 @@ function calculateStatEfficiency(stat: SecondaryStat): number {
   const range = maxBound - minBound;
 
   if (range < 0) {
-    return 0; // Invalid bounds
+    return { average: 0, rolls: [] }; // Invalid bounds
   }
 
+  const rollEfficiencies: number[] = [];
   let totalEfficiency = 0;
+
   unscaledRollValue.forEach(rollStr => {
     const rollValue = parseInt(rollStr, 10);
     // The formula is ((value - min + 1) / (max - min + 1)) * 100
     // This distributes the efficiency evenly across the possible roll values.
     const efficiency = ((rollValue - minBound + 1) / (range + 1)) * 100;
+    rollEfficiencies.push(efficiency);
     totalEfficiency += efficiency;
   });
 
-  return totalEfficiency / unscaledRollValue.length;
+  const averageEfficiency = totalEfficiency / unscaledRollValue.length;
+  return { average: averageEfficiency, rolls: rollEfficiencies };
 }
 
 
@@ -141,13 +146,17 @@ export async function getPlayerData(allyCode: string): Promise<HydratedPlayerDat
   const rosterUnit: HydratedPlayerData['rosterUnit'] = rawPlayerData.rosterUnit.map(unit => {
     const characterId = unit.definitionId;
     const mods: CompactMod[] = unit.equippedStatMod?.map((mod: Mod) => {
-      const secondaryStats = mod.secondaryStat.map((stat: SecondaryStat) => ({
-        i: stat.stat.unitStatId,
-        v: formatStatValue(stat.stat.unitStatId, stat.stat.statValueDecimal, dbLookups),
-        r: stat.statRolls,
-        e: calculateStatEfficiency(stat),
-        rv: stat.unscaledRollValue?.map(v => parseInt(v, 10)) || [],
-      }));
+      const secondaryStats = mod.secondaryStat.map((stat: SecondaryStat) => {
+        const efficiencyData = calculateStatEfficiency(stat);
+        return {
+          i: stat.stat.unitStatId,
+          v: formatStatValue(stat.stat.unitStatId, stat.stat.statValueDecimal, dbLookups),
+          r: stat.statRolls,
+          e: efficiencyData.average,
+          rv: stat.unscaledRollValue?.map(v => parseInt(v, 10)) || [],
+          re: efficiencyData.rolls,
+        };
+      });
 
       return {
         id: mod.id,
