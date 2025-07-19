@@ -53,8 +53,8 @@ This guide explains how to set up the project on a new machine.
 
 ## 2. Project Status
 
-*   **Current Stage:** Phase 8: The Bidirectional Workflow Engine
-*   **Current Task:** Task 47: Define the Workflow Configuration
+*   **Current Stage:** Phase 11: Planning Next Steps
+*   **Current Task:** Define the next development phase and tasks.
 
 ---
 
@@ -130,10 +130,13 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
 
 ## 6. Roadmap
 
+*(The next phase of development will be defined here.)*
+
 ---
 
 ## 7. Development Log
 
+*   **2025-07-18:** Completed major development phases, including the database schema, data seeders, API endpoints, the frontend display, a full-featured workflow engine, and advanced UI controls. The application is now a functional prototype.
 *   **2025-07-06:** Created `GEMINI.md` to establish a clear, step-by-step project plan.
 *   **2025-07-06:** Completed Task 1: Defined project name as "The Astrogator's Table" and set the core objective.
 *   **2025-07-06:** Completed Task 2 & 3: Selected and refined the full tech stack.

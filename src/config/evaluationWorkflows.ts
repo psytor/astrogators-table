@@ -174,7 +174,7 @@ export const EVALUATION_WORKFLOWS = {
         "level_6":[
           {
             "check": "isSpeedArrow",
-            "onPass": { "action": "STOP", "result": "LVL15"},
+            "onPass": { "action": "STOP", "result": "LVL_15"},
             "onFail": { "action": "CONTINUE"}
           },
           {
@@ -248,7 +248,7 @@ export const EVALUATION_WORKFLOWS = {
         "level_3":[
           {
             "check": "isSpeedArrow",
-            "onPass": { "action": "STOP", "result": "LVL15"},
+            "onPass": { "action": "STOP", "result": "LVL_15"},
             "onFail": { "action": "CONTINUE"}
           },
           {
@@ -321,7 +321,7 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "defaultRule",
-            "onPass": { "action": "STOP", "result": "LVL_3" },
+            "onPass": { "action": "STOP", "result": "SELL" },
             "onFail": { "action": "ERROR", "result": "ERROR" }
           }
         ],
@@ -493,7 +493,7 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "any": true },
+            "params": { "stat": "Speed", "min": 5 },
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -511,13 +511,13 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "min": 5 },
+            "params": { "stat": "Speed", "min": 6 },
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "any": true },
+            "params": { "stat": "Speed", "min": 5 },
             "onPass": { "action": "STOP", "result": "KEEP" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -544,7 +544,7 @@ export const EVALUATION_WORKFLOWS = {
         "level_6":[
           {
             "check": "isSpeedArrow",
-            "onPass": { "action": "STOP", "result": "LVL15"},
+            "onPass": { "action": "STOP", "result": "LVL_15"},
             "onFail": { "action": "CONTINUE"}
           },
           {
@@ -567,7 +567,7 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "min": 6 },
+            "params": { "stat": "Speed", "min": 8 },
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -585,13 +585,13 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "min": 8 },
+            "params": { "stat": "Speed", "min": 10 },
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "min": 6 },
+            "params": { "stat": "Speed", "min": 8 },
             "onPass": { "action": "STOP", "result": "KEEP" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -618,7 +618,7 @@ export const EVALUATION_WORKFLOWS = {
         "level_3":[
           {
             "check": "isSpeedArrow",
-            "onPass": { "action": "STOP", "result": "LVL15"},
+            "onPass": { "action": "STOP", "result": "LVL_15"},
             "onFail": { "action": "CONTINUE"}
           },
           {
@@ -641,7 +641,7 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "min": 6 },
+            "params": { "stat": "Speed", "min": 10 },
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -659,13 +659,13 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "min": 10 },
+            "params": { "stat": "Speed", "min": 12 },
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "min": 6 },
+            "params": { "stat": "Speed", "min": 10 },
             "onPass": { "action": "STOP", "result": "KEEP" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -691,7 +691,7 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "defaultRule",
-            "onPass": { "action": "STOP", "result": "LVL_3" },
+            "onPass": { "action": "STOP", "result": "SELL" },
             "onFail": { "action": "ERROR", "result": "ERROR" }
           }
         ],
@@ -703,7 +703,7 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "min": 8 },
+            "params": { "stat": "Speed", "min": 12 },
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -721,13 +721,13 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "min": 12 },
+            "params": { "stat": "Speed", "min": 14 },
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "min": 8 },
+            "params": { "stat": "Speed", "min": 12 },
             "onPass": { "action": "STOP", "result": "KEEP" },
             "onFail": { "action": "CONTINUE" }
           },
