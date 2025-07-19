@@ -5,7 +5,7 @@ import { EVALUATION_WORKFLOWS, RESULT_CODES } from '@/config/evaluationWorkflows
 import * as ruleFunctions from './modRuleFunctions';
 
 type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
-type RuleFunction = (mod: CompactMod, params?: any) => boolean;
+type RuleFunction = (mod: CompactMod, params?: any) => boolean | null;
 
 /**
  * Describes a single step in the evaluation process for tracing.
@@ -110,7 +110,14 @@ export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowR
       return { resultCode: "ERROR", trace };
     }
 
-    const passed = ruleFunc(mod, check.params);
+    const result = ruleFunc(mod, check.params);
+
+    // If the rule is not applicable, skip it and continue to the next check.
+    if (result === null) {
+      continue;
+    }
+
+    const passed = result;
     const outcome = passed ? 'Pass' : 'Fail';
     const directive = passed ? check.onPass : check.onFail;
     const description = generateStepDescription(check.check, check.params, outcome);

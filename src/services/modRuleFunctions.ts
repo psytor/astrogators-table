@@ -5,21 +5,27 @@ import { HydratedPlayerData } from './modHydrationService';
 type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 
 // --- Type definition for a Rule Function ---
-export type RuleFunction = (mod: CompactMod, params?: any) => boolean;
+export type RuleFunction = (mod: CompactMod, params?: any) => boolean | null;
 
 // --- Library of Rule Functions ---
 
 /**
  * Checks if a mod is an Arrow with Speed as its primary stat.
+ * If the mod is not an Arrow, the rule is not applicable and returns null.
  * @param mod The mod to check.
- * @returns True if the mod is a Speed Arrow, false otherwise.
+ * @returns True if the mod is a Speed Arrow, false if it's an Arrow but not Speed primary, and null if it's not an Arrow.
  */
 export const isSpeedArrow: RuleFunction = (mod) => {
   const shapeId = parseInt(mod.d.charAt(2), 10);
-  const primaryStatId = mod.p.i;
+  
+  // Shape ID 2 is Arrow
+  if (shapeId !== 2) {
+    return null; // Rule is not applicable to non-Arrow mods
+  }
 
-  // Shape ID 2 is Arrow, Stat ID 5 is Speed
-  return shapeId === 2 && primaryStatId === 5;
+  const primaryStatId = mod.p.i;
+  // Stat ID 5 is Speed
+  return primaryStatId === 5;
 };
 
 /**
