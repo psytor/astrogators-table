@@ -20,7 +20,14 @@ export function executeWorkflow(mod: CompactMod, profileName: string): string {
     return "ERROR";
   }
 
-  const rarityKey = `dot_${mod.d.charAt(1)}`;
+  const rarity = parseInt(mod.d.charAt(1), 10);
+  let rarityKey: string;
+
+  if (rarity >= 1 && rarity <= 4) {
+    rarityKey = "dot_1-4";
+  } else {
+    rarityKey = `dot_${rarity}`;
+  }
   const tier = mod.t; // Assuming tier is 1-5 for grey-gold
   const level = mod.l;
 
