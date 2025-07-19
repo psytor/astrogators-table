@@ -165,6 +165,71 @@ This phase focuses on building the user interface to display the mod data.
     *   [x] **46.1:** In `ModCard.tsx`, access the new overall efficiency property (`oe`).
     *   [x] **46.2:** Replace the hardcoded "Score" placeholder with the new value, formatted as a percentage.
 
+### Phase 8: The Bidirectional Workflow Engine
+
+*   **Task 47: Define the Workflow Configuration**
+    *   [x] **47.1:** Create the new configuration file at `src/config/evaluationWorkflows.ts`.
+    *   [x] **47.2:** Create the `EVALUATION_WORKFLOWS` object using the hierarchical structure and `onPass`/`onFail` logic.
+    *   [x] **47.3:** Create the `RESULT_CODES` object, ensuring it includes all necessary level-up and result codes (`LVL_6`, `LVL_9`, `LVL_12`, `LVL_15`, `ERROR`, etc.).
+
+*   **Task 48: Implement the Library of Rule Functions**
+    *   [x] **48.1:** Create the service file `src/services/modRuleFunctions.ts`.
+    *   [x] **48.2:** Implement the `isSpeedArrow` check function.
+    *   [x] **48.3:** Implement the `hasStat` check function.
+    *   [x] **48.4:** Implement the `default` check function.
+
+*   **Task 49: Build the Frontend Workflow Executor**
+    *   [x] **49.1:** Create `src/services/modWorkflowService.ts`.
+    *   [x] **49.2:** Implement the executor logic that reads the config, calls the rule functions, and follows the `onPass`/`onFail` directives. It will return an `ERROR` result for unreachable states.
+
+*   **Task 50: Create API Endpoint for Workflows**
+    *   [x] **50.1:** Create a new API route at `src/app/api/workflows/route.ts`.
+    *   [x] **50.2:** This route will simply read and return the `evaluationWorkflows.ts` configuration file.
+
+*   **Task 51: Integrate Workflow on the Frontend**
+    *   [x] **51.1:** Create a new React Context (`WorkflowContext`) to fetch and store the workflow configuration once per page load.
+    *   [x] **51.2:** Update the `ModCard.tsx` component to use this context.
+    *   [x] **51.3:** In `ModCard.tsx`, call the workflow executor for the mod as it renders.
+    *   [x] **51.4:** Use the result to dynamically set the recommendation text and color.
+
+### Phase 9: Workflow Engine Documentation
+
+*   **Task 52: Correct the Existing Workflow Configuration**
+    *   [x] **52.1:** Update `src/config/evaluationWorkflows.ts` to use the correct rule function names (`statThreshold`, `defaultRule`).
+
+*   **Task 53: Create the Evaluation Guide**
+    *   [x] **53.1:** Create a new file in the project root named `EVALUATION_GUIDE.md`.
+    *   [x] **53.2:** Write the full content for this guide, explaining the structure, the available rule functions, their parameters, and providing a complete, correct example.
+
+*   **Task 54: Update the Project Roadmap**
+    *   [x] **54.1:** Update `GEMINI.md` to add this new Phase 9 and mark all tasks as complete.
+
+### Phase 10: Advanced UI Controls & Filtering
+
+*   **Task 55: Implement the Advanced Top Bar**
+    *   [x] **55.1:** Create a new `TopBar.tsx` component to house player account management and global controls.
+    *   [x] **55.2:** Implement a player dropdown with add/delete functionality.
+    *   [x] **55.3:** Implement a "Refresh" button with a disabled state during data fetching.
+    *   [x] **55.4:** Add a mobile-friendly hamburger menu to the top bar.
+
+*   **Task 56: Implement the Advanced Filter Panel**
+    *   [x] **56.1:** Create a new `FilterPanel.tsx` component.
+    *   [x] **56.2:** Implement comprehensive filter controls, including sprite-based selectors for sets and slots.
+    *   [x] **56.3:** Implement a unified `advancedFilters` state object to manage all filter values.
+    *   [x] **56.4:** Add a "Clear Filters" button and an active filter count badge.
+
+*   **Task 57: Implement Filtering and Display Logic**
+    *   [x] **57.1:** Implement the client-side logic to filter the mod list based on the `advancedFilters` state.
+    *   [x] **57.2:** Create and integrate a `CollectionEfficiencyDisplay.tsx` component to show statistics for the filtered mods.
+
+*   **Task 58: Implement Mobile-Responsive Layout**
+    *   [x] **58.1:** Use CSS media queries to make the `FilterPanel` collapse into a button-triggered side tab on mobile viewports.
+    *   [x] **58.2:** Ensure the `TopBar` and `ModGrid` adapt cleanly to smaller screens.
+
+*   **Task 59: Implement the Mod Detail Modal**
+    *   [x] **59.1:** Create a `ModDetailModal.tsx` component to show an enlarged view of a mod.
+    *   [x] **59.2:** Add the logic to the `ModCard` to open the modal on click, passing the selected mod's data.
+
 ---
 ## 7. Development Log
 
@@ -172,3 +237,4 @@ This phase focuses on building the user interface to display the mod data.
 *   **2025-07-06:** Completed Task 1: Defined project name as "The Astrogator's Table" and set the core objective.
 *   **2025-07-06:** Completed Task 2 & 3: Selected and refined the full tech stack.
 *   **2025-07-06:** Completed Task 4 & 5: Created Docker/env files and set up the GitHub repository.
+*   **2025-07-18:** Completed major development phases, including the database schema, data seeders, API endpoints, the frontend display, a full-featured workflow engine, and advanced UI controls. The application is now a functional prototype.
