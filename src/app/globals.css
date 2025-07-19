@@ -44,6 +44,20 @@
   --status-warning: #d97706;
   --status-info: #7c3aed;
 
+  /* Verdict Colors */
+  --verdict-keep: var(--status-success);
+  --verdict-sell: var(--status-error);
+  --verdict-slice: var(--status-info);
+  --verdict-level: var(--status-warning);
+  --verdict-error: var(--status-error);
+
+  /* Verdict Background Colors */
+  --verdict-keep-bg: var(--status-success-bg);
+  --verdict-sell-bg: var(--status-error-bg);
+  --verdict-slice-bg: var(--status-info-bg);
+  --verdict-level-bg: var(--status-warning-bg);
+  --verdict-error-bg: var(--status-error-bg);
+
   /* Transparent Status Backgrounds */
   --status-success-bg: rgba(5, 150, 105, 0.1);
   --status-error-bg: rgba(220, 38, 38, 0.1);

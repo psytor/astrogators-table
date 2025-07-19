@@ -33,19 +33,6 @@ export default function ModCard({ mod, characterId, onSelect }: ModCardProps) {
 
   const overallEfficiency = mod.oe ? `${mod.oe.toFixed(1)}%` : "0.0%";
 
-  const getRecommendationClass = (className: string) => {
-    switch (className) {
-      case 'keep':
-      case 'slice':
-      case 'level':
-        return styles.recommendationKeep;
-      case 'sell':
-        return styles.recommendationSell;
-      default:
-        return '';
-    }
-  };
-
   const setId = parseInt(mod.d.charAt(0), 10);
   const rarity = parseInt(mod.d.charAt(1), 10);
   const shapeId = parseInt(mod.d.charAt(2), 10);
@@ -88,7 +75,7 @@ export default function ModCard({ mod, characterId, onSelect }: ModCardProps) {
         <div className={`${styles.cornerDiagonal} ${styles.diagonalBr}`}></div>
       </div>
       <div className={styles.header}>
-        <span className={`${styles.recommendation} ${getRecommendationClass(evaluation.className)}`}>
+        <span className={styles.recommendation} style={{ color: evaluation.colorVar }}>
           {evaluation.text}
         </span>
         <span className={styles.score}>{overallEfficiency}</span>

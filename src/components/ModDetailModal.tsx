@@ -78,8 +78,17 @@ const ModDetailModal: React.FC<ModDetailModalProps> = ({ mod, evaluation, onClos
           </div>
           <h3 className={styles.sectionTitle}>Evaluation</h3>
           <div className={styles.evaluationSection}>
-            <div className={styles.verdictBox}>
-              Verdict: <strong>{evaluation?.text || 'N/A'}</strong>
+            <div 
+              className={styles.verdictBox} 
+              style={{ 
+                backgroundColor: evaluation?.colorBgVar,
+                borderColor: evaluation?.colorVar 
+              }}
+            >
+              <span>Verdict:</span>
+              <strong style={{ color: evaluation?.colorVar }}>
+                {evaluation?.text || 'N/A'}
+              </strong>
             </div>
             <div className={styles.evaluationSteps}>
               <p>Evaluation Steps:</p>

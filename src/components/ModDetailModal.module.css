@@ -186,16 +186,20 @@
 }
 
 .verdictBox {
-  background-color: var(--status-success-bg);
-  border: 1px solid var(--status-success);
-  color: var(--text-primary);
+  display: flex;
+  gap: 0.5rem;
+  border: 1px solid; /* Color will be set by inline style */
   padding: 0.75rem 1rem;
   border-radius: 4px;
   margin-bottom: 1rem;
 }
 
+.verdictBox span {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
 .verdictBox strong {
-  color: var(--status-success);
   font-weight: bold;
 }
 

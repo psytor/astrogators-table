@@ -15,7 +15,7 @@ export const EVALUATION_WORKFLOWS = {
           {
             "check": "defaultRule",
             "onPass": { "action": "STOP", "result": "LVL_9" },
-            "onFail": { "action": "ERROR", "result": "ERROR" } // Should be unreachable
+            "onFail": { "action": "ERROR", "result": "ERROR" }
           }
         ],
         "level_9": [
@@ -120,11 +120,29 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "defaultRule",
-            "onPass": { "action": "STOP", "result": "LVL_9" },
+            "onPass": { "action": "STOP", "result": "LVL_6" },
             "onFail": { "action": "ERROR", "result": "ERROR" }
           }
         ],
-        "level_9": [
+        "level_6":[
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "LVL15"},
+            "onFail": { "action": "CONTINUE"}
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "any": true },
+            "onPass": { "action": "STOP", "result": "LVL_12" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "SELL" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ],
+        "level_12": [
           {
             "check": "isSpeedArrow",
             "onPass": { "action": "STOP", "result": "LVL_15" },
@@ -132,7 +150,7 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "any": true },
+            "params": { "stat": "Speed", "min": 6 },
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -150,13 +168,149 @@ export const EVALUATION_WORKFLOWS = {
           },
           {
             "check": "statThreshold",
-            "params": { "stat": "Speed", "min": 5 },
+            "params": { "stat": "Speed", "min": 8 },
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
           {
             "check": "statThreshold",
+            "params": { "stat": "Speed", "min": 6 },
+            "onPass": { "action": "STOP", "result": "KEEP" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "SELL" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ]
+      },
+"purple": {
+        "level_1": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "LVL_15" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "LVL_3" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ],
+        "level_3":[
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "LVL15"},
+            "onFail": { "action": "CONTINUE"}
+          },
+          {
+            "check": "statThreshold",
             "params": { "stat": "Speed", "any": true },
+            "onPass": { "action": "STOP", "result": "LVL_12" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "SELL" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ],
+        "level_12": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "LVL_15" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "min": 6 },
+            "onPass": { "action": "STOP", "result": "LVL_15" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "SELL" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ],
+        "level_15": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "SLICE" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "min": 10 },
+            "onPass": { "action": "STOP", "result": "SLICE" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "min": 6 },
+            "onPass": { "action": "STOP", "result": "KEEP" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "SELL" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ]
+      },
+"gold": {
+        "level_1": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "LVL_15" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "any": true },
+            "onPass": { "action": "STOP", "result": "LVL_12" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "LVL_3" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ],
+        "level_12": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "LVL_15" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "min": 8 },
+            "onPass": { "action": "STOP", "result": "LVL_15" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "defaultRule",
+            "onPass": { "action": "STOP", "result": "SELL" },
+            "onFail": { "action": "ERROR", "result": "ERROR" }
+          }
+        ],
+        "level_15": [
+          {
+            "check": "isSpeedArrow",
+            "onPass": { "action": "STOP", "result": "SLICE" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "min": 12 },
+            "onPass": { "action": "STOP", "result": "SLICE" },
+            "onFail": { "action": "CONTINUE" }
+          },
+          {
+            "check": "statThreshold",
+            "params": { "stat": "Speed", "min": 8 },
             "onPass": { "action": "STOP", "result": "KEEP" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -173,12 +327,12 @@ export const EVALUATION_WORKFLOWS = {
 };
 
 export const RESULT_CODES = {
-  "KEEP": { verdict: "keep", text: "Keep", className: "keep" },
-  "SELL": { verdict: "sell", text: "Sell", className: "sell" },
-  "SLICE": { verdict: "slice", text: "Slice", className: "slice" },
-  "LVL_6": { verdict: "level", text: "Level to 6", className: "level" },
-  "LVL_9": { verdict: "level", text: "Level to 9", className: "level" },
-  "LVL_12": { verdict: "level", text: "Level to 12", className: "level" },
-  "LVL_15": { verdict: "level", text: "Level to 15", className: "level" },
-  "ERROR": { verdict: "error", text: "Error", className: "sell" }
+  "KEEP": { verdict: "keep", text: "Keep", className: "keep", colorVar: "var(--verdict-keep)", colorBgVar: "var(--verdict-keep-bg)" },
+  "SELL": { verdict: "sell", text: "Sell", className: "sell", colorVar: "var(--verdict-sell)", colorBgVar: "var(--verdict-sell-bg)" },
+  "SLICE": { verdict: "slice", text: "Slice", className: "slice", colorVar: "var(--verdict-slice)", colorBgVar: "var(--verdict-slice-bg)" },
+  "LVL_6": { verdict: "level", text: "Level to 6", className: "level", colorVar: "var(--verdict-level)", colorBgVar: "var(--verdict-level-bg)" },
+  "LVL_9": { verdict: "level", text: "Level to 9", className: "level", colorVar: "var(--verdict-level)", colorBgVar: "var(--verdict-level-bg)" },
+  "LVL_12": { verdict: "level", text: "Level to 12", className: "level", colorVar: "var(--verdict-level)", colorBgVar: "var(--verdict-level-bg)" },
+  "LVL_15": { verdict: "level", text: "Level to 15", className: "level", colorVar: "var(--verdict-level)", colorBgVar: "var(--verdict-level-bg)" },
+  "ERROR": { verdict: "error", text: "Error", className: "sell", colorVar: "var(--verdict-error)", colorBgVar: "var(--verdict-error-bg)" }
 };
