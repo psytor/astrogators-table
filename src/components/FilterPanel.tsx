@@ -151,7 +151,7 @@ export default function FilterPanel({ advancedFilters, setAdvancedFilters, isOpe
                           }}
                         />
                       </div>
-                      <span>{name.split(' ').map(word => word.charAt(0)).join('')}</span>
+                      <span>{name}</span>
                     </div>
                   );
                 })}
