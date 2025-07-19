@@ -8,11 +8,12 @@ type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 
 interface ModDetailModalProps {
   mod: CompactMod | null;
+  evaluation: any;
   onClose: () => void;
   dbLookups: DbLookups | null;
 }
 
-const ModDetailModal: React.FC<ModDetailModalProps> = ({ mod, onClose, dbLookups }) => {
+const ModDetailModal: React.FC<ModDetailModalProps> = ({ mod, evaluation, onClose, dbLookups }) => {
   if (!mod || !dbLookups) {
     return null;
   }
@@ -78,12 +79,14 @@ const ModDetailModal: React.FC<ModDetailModalProps> = ({ mod, onClose, dbLookups
           <h3 className={styles.sectionTitle}>Evaluation</h3>
           <div className={styles.evaluationSection}>
             <div className={styles.verdictBox}>
-              Verdict: <strong>Keep</strong>
+              Verdict: <strong>{evaluation?.text || 'N/A'}</strong>
             </div>
             <div className={styles.evaluationSteps}>
               <p>Evaluation Steps:</p>
               <ul>
-                <li>&rarr; Speed meets threshold (8+)</li>
+                {evaluation?.steps?.map((step: string, index: number) => (
+                  <li key={index}>&rarr; {step}</li>
+                ))}
               </ul>
             </div>
           </div>

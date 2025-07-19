@@ -36,7 +36,7 @@ export default function ModsPageClient() {
     secondaryStats: [],
   });
   const [filterPanelOpen, setFilterPanelOpen] = useState(false);
-  const [selectedMod, setSelectedMod] = useState<HydratedMod | null>(null);
+  const [selectedModInfo, setSelectedModInfo] = useState<{ mod: HydratedMod, evaluation: any } | null>(null);
 
   const workflowConfig = useWorkflows();
   const { lookups: dbLookups, isLoading: isLookupsLoading } = useDbLookups();
@@ -130,12 +130,12 @@ export default function ModsPageClient() {
     }
   };
 
-  const handleModSelect = (mod: HydratedMod) => {
-    setSelectedMod(mod);
+  const handleModSelect = (mod: HydratedMod, evaluation: any) => {
+    setSelectedModInfo({ mod, evaluation });
   };
 
   const handleCloseModal = () => {
-    setSelectedMod(null);
+    setSelectedModInfo(null);
   };
 
   const filteredPlayerData = useMemo(() => {
@@ -221,7 +221,12 @@ export default function ModsPageClient() {
           </div>
         )}
       </div>
-      <ModDetailModal mod={selectedMod} onClose={handleCloseModal} dbLookups={dbLookups} />
+      <ModDetailModal
+        mod={selectedModInfo?.mod ?? null}
+        evaluation={selectedModInfo?.evaluation ?? null}
+        onClose={handleCloseModal}
+        dbLookups={dbLookups}
+      />
     </div>
   );
 }

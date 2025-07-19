@@ -13,7 +13,7 @@ type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 interface ModCardProps {
   mod: CompactMod;
   characterId: string;
-  onSelect: (mod: CompactMod) => void;
+  onSelect: (mod: CompactMod, evaluation: any) => void;
 }
 
 export default function ModCard({ mod, characterId, onSelect }: ModCardProps) {
@@ -25,7 +25,7 @@ export default function ModCard({ mod, characterId, onSelect }: ModCardProps) {
   }
 
   const handleCardClick = () => {
-    onSelect(mod);
+    onSelect(mod, evaluation);
   };
 
   const evaluationResultCode = executeWorkflow(mod, 'beginner_speed_chaser');
