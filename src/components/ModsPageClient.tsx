@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { HydratedPlayerData, HydratedMod } from '@/services/modHydrationService';
+import { WorkflowResult } from '@/services/modWorkflowService';
 import TopBar from '@/components/TopBar';
 import AllyCodeForm from '@/components/AllyCodeForm';
 import PlayerHeader from '@/components/PlayerHeader';
@@ -36,7 +37,7 @@ export default function ModsPageClient() {
     secondaryStats: [],
   });
   const [filterPanelOpen, setFilterPanelOpen] = useState(false);
-  const [selectedModInfo, setSelectedModInfo] = useState<{ mod: HydratedMod, evaluation: any } | null>(null);
+  const [selectedModInfo, setSelectedModInfo] = useState<{ mod: HydratedMod, evaluation: WorkflowResult } | null>(null);
   const [activeWorkflow, setActiveWorkflow] = useState('beginner_speed_focus');
 
   const workflowConfig = useWorkflows();
@@ -135,7 +136,7 @@ export default function ModsPageClient() {
     }
   };
 
-  const handleModSelect = (mod: HydratedMod, evaluation: any) => {
+  const handleModSelect = (mod: HydratedMod, evaluation: WorkflowResult) => {
     setSelectedModInfo({ mod, evaluation });
   };
 

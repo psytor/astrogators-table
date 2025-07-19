@@ -1,6 +1,8 @@
 import React from 'react';
 import { HydratedPlayerData } from '@/services/modHydrationService';
 import { DbLookups } from '@/services/modHydrationService';
+import { WorkflowResult, EvaluationStep } from '@/services/modWorkflowService';
+import { useWorkflows } from '@/contexts/WorkflowContext';
 import { MOD_SETS, MOD_SLOTS, MOD_TIER_COLORS } from '@/lib/mod-constants';
 import styles from './ModDetailModal.module.css';
 
@@ -8,13 +10,15 @@ type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 
 interface ModDetailModalProps {
   mod: CompactMod | null;
-  evaluation: any;
+  evaluation: WorkflowResult | null;
   onClose: () => void;
   dbLookups: DbLookups | null;
 }
 
 const ModDetailModal: React.FC<ModDetailModalProps> = ({ mod, evaluation, onClose, dbLookups }) => {
-  if (!mod || !dbLookups) {
+  const workflowConfig = useWorkflows();
+
+  if (!mod || !dbLookups || !workflowConfig) {
     return null;
   }
 
@@ -25,6 +29,9 @@ const ModDetailModal: React.FC<ModDetailModalProps> = ({ mod, evaluation, onClos
   const setName = MOD_SETS[setId] || 'Unknown';
   const shapeName = MOD_SLOTS[shapeId] || 'Unknown';
   const tierName = MOD_TIER_COLORS[mod.t] || 'Unknown';
+
+  const evaluationResultCode = evaluation ? evaluation.resultCode : 'ERROR';
+  const evaluationDisplay = workflowConfig.results[evaluationResultCode] || workflowConfig.results['ERROR'];
 
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>
@@ -81,20 +88,24 @@ const ModDetailModal: React.FC<ModDetailModalProps> = ({ mod, evaluation, onClos
             <div 
               className={styles.verdictBox} 
               style={{ 
-                backgroundColor: evaluation?.colorBgVar,
-                borderColor: evaluation?.colorVar 
+                backgroundColor: evaluationDisplay?.colorBgVar,
+                borderColor: evaluationDisplay?.colorVar 
               }}
             >
               <span>Verdict:</span>
-              <strong style={{ color: evaluation?.colorVar }}>
-                {evaluation?.text || 'N/A'}
+              <strong style={{ color: evaluationDisplay?.colorVar }}>
+                {evaluationDisplay?.text || 'N/A'}
               </strong>
             </div>
             <div className={styles.evaluationSteps}>
-              <p>Evaluation Steps:</p>
+              <h4>Evaluation Steps:</h4>
               <ul>
-                {evaluation?.steps?.map((step: string, index: number) => (
-                  <li key={index}>&rarr; {step}</li>
+                {evaluation?.trace?.map((step: EvaluationStep) => (
+                  <li key={step.stepId} className={step.outcome === 'Pass' ? styles.stepPass : styles.stepFail}>
+                    <span className={styles.stepIcon}>{step.outcome === 'Pass' ? '✔' : '✖'}</span>
+                    <span className={styles.stepDescription}>{step.description}</span>
+                    <span className={styles.stepResult}>&rarr; {step.result}</span>
+                  </li>
                 ))}
               </ul>
             </div>

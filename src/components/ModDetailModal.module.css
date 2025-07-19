@@ -203,17 +203,58 @@
   font-weight: bold;
 }
 
-.evaluationSteps p {
-  margin: 0 0 0.5rem 0;
+.evaluationSteps h4 {
+  margin: 0 0 0.75rem 0;
   font-weight: bold;
+  color: var(--text-secondary);
+  font-size: 1rem;
 }
 
 .evaluationSteps ul {
   list-style: none;
   padding-left: 0;
   margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
 }
 
 .evaluationSteps li {
-  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  background-color: var(--bg-dark);
+  border: 1px solid var(--border-default);
+}
+
+.stepPass {
+  border-left: 3px solid var(--color-success);
+}
+
+.stepFail {
+  border-left: 3px solid var(--color-danger);
+}
+
+.stepIcon {
+  margin-right: 0.75rem;
+  font-weight: bold;
+}
+
+.stepPass .stepIcon {
+  color: var(--color-success);
+}
+
+.stepFail .stepIcon {
+  color: var(--color-danger);
+}
+
+.stepDescription {
+  flex-grow: 1;
+  color: var(--text-primary);
+}
+
+.stepResult {
+  font-weight: bold;
+  color: var(--text-secondary);
 }

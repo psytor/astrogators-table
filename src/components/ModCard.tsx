@@ -3,7 +3,7 @@
 import { HydratedPlayerData } from '@/services/modHydrationService';
 import { useDbLookups } from '@/contexts/DbLookupsContext';
 import { useWorkflows } from '@/contexts/WorkflowContext';
-import { executeWorkflow } from '@/services/modWorkflowService';
+import { executeWorkflow, WorkflowResult } from '@/services/modWorkflowService';
 import styles from './ModCard.module.css';
 import ModVisual from './ModVisual';
 import { MOD_SETS, MOD_SLOTS, MOD_TIER_COLORS } from '@/lib/mod-constants';
@@ -13,7 +13,7 @@ type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 interface ModCardProps {
   mod: CompactMod;
   characterId: string;
-  onSelect: (mod: CompactMod, evaluation: any) => void;
+  onSelect: (mod: CompactMod, evaluation: WorkflowResult) => void;
   activeWorkflow: string;
 }
 
@@ -25,12 +25,16 @@ export default function ModCard({ mod, characterId, onSelect, activeWorkflow }: 
     return <div className={`${styles.card} ${styles.loading}`}>Loading...</div>;
   }
 
-  const handleCardClick = () => {
-    onSelect(mod, evaluation);
-  };
+  // Execute the workflow and get the full result object
+  const workflowResult = executeWorkflow(mod, activeWorkflow);
+  
+  // Get the display configuration (text, colors) for the card based on the result code
+  const evaluationDisplay = workflowConfig.results[workflowResult.resultCode] || workflowConfig.results['ERROR'];
 
-  const evaluationResultCode = executeWorkflow(mod, activeWorkflow);
-  const evaluation = workflowConfig.results[evaluationResultCode] || workflowConfig.results['ERROR'];
+  const handleCardClick = () => {
+    // Pass the entire workflow result (including the trace) to the modal
+    onSelect(mod, workflowResult);
+  };
 
   const overallEfficiency = mod.oe ? `${mod.oe.toFixed(1)}%` : "0.0%";
 
@@ -76,8 +80,8 @@ export default function ModCard({ mod, characterId, onSelect, activeWorkflow }: 
         <div className={`${styles.cornerDiagonal} ${styles.diagonalBr}`}></div>
       </div>
       <div className={styles.header}>
-        <span className={styles.recommendation} style={{ color: evaluation.colorVar }}>
-          {evaluation.text}
+        <span className={styles.recommendation} style={{ color: evaluationDisplay.colorVar }}>
+          {evaluationDisplay.text}
         </span>
         <span className={styles.score}>{overallEfficiency}</span>
       </div>

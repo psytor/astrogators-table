@@ -8,16 +8,43 @@ type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 type RuleFunction = (mod: CompactMod, params?: any) => boolean;
 
 /**
+ * Describes a single step in the evaluation process for tracing.
+ */
+export interface EvaluationStep {
+  stepId: number;
+  rule: string;
+  params?: any;
+  outcome: 'Pass' | 'Fail';
+  result: string;
+  description: string;
+}
+
+/**
+ * Encapsulates the final result and the execution trace of a workflow.
+ */
+export interface WorkflowResult {
+  resultCode: string;
+  trace: EvaluationStep[];
+}
+
+/**
  * Finds and executes the correct evaluation workflow for a given mod.
  * @param mod The mod to evaluate.
  * @param profileName The name of the evaluation profile to use.
- * @returns The final result code (e.g., "KEEP", "SELL", "LVL_15").
+ * @returns A WorkflowResult object containing the final result code and the execution trace.
  */
-export function executeWorkflow(mod: CompactMod, profileName: string): string {
+export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowResult {
+  const trace: EvaluationStep[] = [];
+  let stepCounter = 1;
+
   const profile = EVALUATION_WORKFLOWS[profileName];
   if (!profile) {
-    console.error(`Evaluation profile "${profileName}" not found.`);
-    return "ERROR";
+    const errorMsg = `Evaluation profile "${profileName}" not found.`;
+    console.error(errorMsg);
+    return {
+      resultCode: "ERROR",
+      trace: [{ stepId: stepCounter, rule: 'Setup', outcome: 'Fail', result: 'ERROR', description: errorMsg }]
+    };
   }
 
   const rarity = parseInt(mod.d.charAt(1), 10);
@@ -28,21 +55,23 @@ export function executeWorkflow(mod: CompactMod, profileName: string): string {
   } else {
     rarityKey = `dot_${rarity}`;
   }
-  const tier = mod.t; // Assuming tier is 1-5 for grey-gold
+  const tier = mod.t;
   const level = mod.l;
 
-  // This is a placeholder for mapping tier to color name
-  const tierMap = { 1: 'grey', 2: 'green', 3: 'blue', 4: 'purple', 5: 'gold' };
+  const tierMap: { [key: number]: string } = { 1: 'grey', 2: 'green', 3: 'blue', 4: 'purple', 5: 'gold' };
   const colorKey = tierMap[tier];
 
   const levelChecksForColor = profile[rarityKey]?.[colorKey];
 
   if (!levelChecksForColor) {
-    console.warn(`No workflow found for ${rarityKey}, ${colorKey}`);
-    return "ERROR";
+    const errorMsg = `No workflow found for Rarity: ${rarityKey}, Color: ${colorKey}.`;
+    console.warn(errorMsg);
+    return {
+      resultCode: "ERROR",
+      trace: [{ stepId: stepCounter, rule: 'Setup', outcome: 'Fail', result: 'ERROR', description: errorMsg }]
+    };
   }
 
-  // Find the correct level key using the fallback logic
   const availableLevels = Object.keys(levelChecksForColor)
     .map(key => parseInt(key.replace('level_', ''), 10))
     .sort((a, b) => a - b);
@@ -52,39 +81,78 @@ export function executeWorkflow(mod: CompactMod, profileName: string): string {
   }, -1);
 
   if (applicableLevel === -1) {
-    console.warn(`No applicable level found for mod at level ${level}.`);
-    return "ERROR";
+    const errorMsg = `No applicable level found for mod at level ${level}.`;
+    console.warn(errorMsg);
+    return {
+      resultCode: "ERROR",
+      trace: [{ stepId: stepCounter, rule: 'Setup', outcome: 'Fail', result: 'ERROR', description: errorMsg }]
+    };
   }
 
   const levelKey = `level_${applicableLevel}`;
   const checks = levelChecksForColor[levelKey];
 
   if (!checks) {
-    // This should theoretically not be reached if the logic above is sound
-    console.error(`Could not retrieve checks for determined level key: ${levelKey}`);
-    return "ERROR";
+    const errorMsg = `Could not retrieve checks for determined level key: ${levelKey}.`;
+    console.error(errorMsg);
+    return {
+      resultCode: "ERROR",
+      trace: [{ stepId: stepCounter, rule: 'Setup', outcome: 'Fail', result: 'ERROR', description: errorMsg }]
+    };
   }
 
   for (const check of checks) {
     const ruleFunc = ruleFunctions[check.check] as RuleFunction;
     if (!ruleFunc) {
-      console.error(`Rule function "${check.check}" not found in library.`);
-      return "ERROR";
+      const errorMsg = `Rule function "${check.check}" not found in library.`;
+      console.error(errorMsg);
+      trace.push({ stepId: stepCounter++, rule: check.check, outcome: 'Fail', result: 'ERROR', description: errorMsg });
+      return { resultCode: "ERROR", trace };
     }
 
     const passed = ruleFunc(mod, check.params);
+    const outcome = passed ? 'Pass' : 'Fail';
     const directive = passed ? check.onPass : check.onFail;
+    const description = generateStepDescription(check.check, check.params, outcome);
 
-    if (directive.action === 'STOP') {
-      return directive.result;
+    trace.push({
+      stepId: stepCounter++,
+      rule: check.check,
+      params: check.params,
+      outcome,
+      result: directive.result,
+      description
+    });
+
+    if (directive.action === 'STOP' || directive.action === 'ERROR') {
+      if (directive.action === 'ERROR') {
+        console.error(`Explicit ERROR state reached in workflow: ${directive.result}`);
+      }
+      return { resultCode: directive.result, trace };
     }
-    if (directive.action === 'ERROR') {
-      console.error('Reached an explicit error state in workflow.');
-      return directive.result;
-    }
-    // If action is 'CONTINUE', we do nothing and the loop proceeds.
   }
 
-  console.error('Workflow completed without a "STOP" action.');
-  return "ERROR"; // Should be unreachable if a 'default' check is always last
+  const finalErrorMsg = 'Workflow completed without a "STOP" or "ERROR" action.';
+  console.error(finalErrorMsg);
+  trace.push({ stepId: stepCounter, rule: 'End of Workflow', outcome: 'Fail', result: 'ERROR', description: finalErrorMsg });
+  return { resultCode: "ERROR", trace };
+}
+
+/**
+ * Generates a human-readable description for an evaluation step.
+ * @param rule The name of the rule function.
+ * @param params The parameters used by the rule.
+ * @param outcome The result of the rule execution.
+ * @returns A descriptive string.
+ */
+function generateStepDescription(rule: string, params: any, outcome: 'Pass' | 'Fail'): string {
+  let description = `Rule '${rule}'`;
+
+  if (params) {
+    description += ` with params ${JSON.stringify(params)}`;
+  }
+
+  description += `: ${outcome}`;
+
+  return description;
 }
