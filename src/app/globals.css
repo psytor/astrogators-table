@@ -65,6 +65,13 @@
   --glow-gold: rgba(245, 158, 11, 0.5);
   --glow-success: rgba(5, 150, 105, 0.5);
   --glow-error: rgba(220, 38, 38, 0.5);
+
+  /* Muted Tier Colors for Borders */
+  --tier-gold-muted: color-mix(in srgb, var(--tier-gold) 25%, var(--bg-medium));
+  --tier-purple-muted: color-mix(in srgb, var(--tier-purple) 25%, var(--bg-medium));
+  --tier-blue-muted: color-mix(in srgb, var(--tier-blue) 25%, var(--bg-medium));
+  --tier-green-muted: color-mix(in srgb, var(--tier-green) 25%, var(--bg-medium));
+  --tier-grey-muted: color-mix(in srgb, var(--tier-grey) 25%, var(--bg-medium));
 }
 
 html,

@@ -56,10 +56,23 @@ export default function ModCard({ mod, characterId, onSelect }: ModCardProps) {
   // Derive props for ModVisual
   const setType = MOD_SETS[setId] || null;
   const shapeType = MOD_SLOTS[shapeId] || null;
-  const modTierName = MOD_TIER_COLORS[mod.t] || null;
+  const modTierNameForVisual = MOD_TIER_COLORS[mod.t] || null;
+
+  const modTierColorName = (MOD_TIER_COLORS[mod.t] || 'grey').toLowerCase();
+  const modTierColor = `var(--tier-${modTierColorName})`;
+  const modTierColorMuted = `var(--tier-${modTierColorName}-muted)`;
 
   return (
-    <div className={styles.modCard} onClick={handleCardClick}>
+    <div
+      className={styles.modCard}
+      onClick={handleCardClick}
+      style={
+        {
+          '--mod-border-color': modTierColor,
+          '--mod-border-color-muted': modTierColorMuted,
+        } as React.CSSProperties
+      }
+    >
       <div className={styles.modBorders}>
         <div className={styles.borderLeft}></div>
         <div className={styles.borderRight}></div>
@@ -94,7 +107,7 @@ export default function ModCard({ mod, characterId, onSelect }: ModCardProps) {
             <ModVisual
               shapeType={shapeType}
               setType={setType}
-              modTierName={modTierName}
+              modTierName={modTierNameForVisual}
               is6Dot={isSixDot}
             />
             <div className={styles.modLevel}>{mod.l}</div>

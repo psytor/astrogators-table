@@ -42,14 +42,14 @@
 .modCard:hover .borderRight,
 .modCard:hover .cornerDiagonal,
 .modCard:hover .borderCornerWrap {
-    background: var(--primary);
-    box-shadow: 0 0 10px var(--primary);
+    background: var(--mod-border-color);
+    box-shadow: 0 0 10px var(--mod-border-color);
 }
 
 .modCard:hover .borderTop,
 .modCard:hover .borderBottom {
-    background: var(--primary);
-    box-shadow: 0 0 10px var(--primary);
+    background: var(--mod-border-color);
+    box-shadow: 0 0 10px var(--mod-border-color);
 }
 
 .modBorders {
@@ -64,8 +64,8 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: var(--border-default);
-    box-shadow: 0 0 5px var(--border-default);
+    background: var(--mod-border-color-muted);
+    box-shadow: 0 0 5px var(--mod-border-color-muted);
 }
 
 .borderLeft {
@@ -81,8 +81,8 @@
     left: 25px;
     right: 25px;
     height: 1px;
-    background: var(--border-default);
-    box-shadow: 0 0 5px var(--border-default);
+    background: var(--mod-border-color-muted);
+    box-shadow: 0 0 5px var(--mod-border-color-muted);
     top: 0;
 }
 
@@ -91,15 +91,15 @@
     left: 25px;
     right: 55px;
     height: 1px;
-    background: var(--border-default);
-    box-shadow: 0 0 5px var(--border-default);
+    background: var(--mod-border-color-muted);
+    box-shadow: 0 0 5px var(--mod-border-color-muted);
     bottom: 0;
 }
 
 .borderCornerWrap {
     position: absolute;
-    background: var(--border-default);
-    box-shadow: 0 0 5px var(--border-default);
+    background: var(--mod-border-color-muted);
+    box-shadow: 0 0 5px var(--mod-border-color-muted);
 }
 
 .cornerWrapTl {
@@ -132,8 +132,8 @@
 
 .cornerDiagonal {
     position: absolute;
-    background: var(--border-default);
-    box-shadow: 0 0 5px var(--border-default);
+    background: var(--mod-border-color-muted);
+    box-shadow: 0 0 5px var(--mod-border-color-muted);
 }
 
 .diagonalTl {
