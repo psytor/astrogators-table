@@ -15,7 +15,7 @@ export type RuleFunction = (mod: CompactMod, params?: any) => boolean | null;
  * @param mod The mod to check.
  * @returns True if the mod is a Speed Arrow, false if it's an Arrow but not Speed primary, and null if it's not an Arrow.
  */
-export const isSpeedArrow: RuleFunction = (mod) => {
+export const isArrowPrimSpeed: RuleFunction = (mod) => {
   const shapeId = parseInt(mod.d.charAt(2), 10);
   
   // Shape ID 2 is Arrow

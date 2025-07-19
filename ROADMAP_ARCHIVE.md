@@ -174,7 +174,7 @@ This phase focuses on building the user interface to display the mod data.
 
 *   **Task 48: Implement the Library of Rule Functions**
     *   [x] **48.1:** Create the service file `src/services/modRuleFunctions.ts`.
-    *   [x] **48.2:** Implement the `isSpeedArrow` check function.
+    *   [x] **48.2:** Implement the `isArrowPrimSpeed` check function.
     *   [x] **48.3:** Implement the `hasStat` check function.
     *   [x] **48.4:** Implement the `default` check function.
 

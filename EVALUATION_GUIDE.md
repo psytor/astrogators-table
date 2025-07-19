@@ -10,7 +10,7 @@ The evaluation engine is a **bidirectional, sequential workflow**. It processes 
 
 - **Workflow:** A named set of rules for evaluating mods (e.g., "Beginner Speed Chaser").
 - **Check:** A single rule object in the workflow that calls a specific `Rule Function`.
-- **Rule Function:** A JavaScript function that performs a specific check on a mod (e.g., `isSpeedArrow`).
+- **Rule Function:** A JavaScript function that performs a specific check on a mod (e.g., `isArrowPrimSpeed`).
 - **Directive:** An instruction (`onPass` or `onFail`) that tells the engine what to do based on the result of a Rule Function.
 - **Action:** The specific action within a directive, either `STOP` or `CONTINUE`.
 - **Result:** The final outcome of an evaluation (e.g., `SELL`, `LVL_15`).
@@ -60,7 +60,7 @@ Each check in the array is an object with the following properties:
 
 All rule functions are located in `src/services/modRuleFunctions.ts`.
 
-### `isSpeedArrow`
+### `isArrowPrimSpeed`
 
 - **Description:** Checks if the mod is an Arrow shape with a Speed primary stat.
 - **Parameters:** None.
@@ -95,7 +95,7 @@ export const EVALUATION_WORKFLOWS = {
       "grey": {
         "level_1": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -107,7 +107,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_9": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },

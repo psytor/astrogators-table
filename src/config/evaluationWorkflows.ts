@@ -55,7 +55,7 @@ export const EVALUATION_WORKFLOWS = {
       "grey": {
         "level_1": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -67,7 +67,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_9": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -85,7 +85,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_15": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -105,7 +105,7 @@ export const EVALUATION_WORKFLOWS = {
       "green": {
         "level_1": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -117,7 +117,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_9": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -135,7 +135,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_15": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -161,7 +161,7 @@ export const EVALUATION_WORKFLOWS = {
       "blue": {
         "level_1": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -173,7 +173,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_6":[
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15"},
             "onFail": { "action": "CONTINUE"}
           },
@@ -191,7 +191,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_12": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -209,7 +209,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_15": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -235,7 +235,7 @@ export const EVALUATION_WORKFLOWS = {
 "purple": {
         "level_1": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -247,7 +247,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_3":[
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15"},
             "onFail": { "action": "CONTINUE"}
           },
@@ -265,7 +265,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_12": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -283,7 +283,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_15": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -309,7 +309,7 @@ export const EVALUATION_WORKFLOWS = {
 "gold": {
         "level_1": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -327,7 +327,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_12": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -345,7 +345,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_15": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -425,7 +425,7 @@ export const EVALUATION_WORKFLOWS = {
       "grey": {
         "level_1": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -437,7 +437,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_9": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -455,7 +455,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_15": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -475,7 +475,7 @@ export const EVALUATION_WORKFLOWS = {
       "green": {
         "level_1": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -487,7 +487,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_9": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -505,7 +505,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_15": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -531,7 +531,7 @@ export const EVALUATION_WORKFLOWS = {
       "blue": {
         "level_1": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -543,7 +543,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_6":[
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15"},
             "onFail": { "action": "CONTINUE"}
           },
@@ -561,7 +561,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_12": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -579,7 +579,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_15": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -605,7 +605,7 @@ export const EVALUATION_WORKFLOWS = {
       "purple": {
         "level_1": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -617,7 +617,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_3":[
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15"},
             "onFail": { "action": "CONTINUE"}
           },
@@ -635,7 +635,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_12": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -653,7 +653,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_15": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -679,7 +679,7 @@ export const EVALUATION_WORKFLOWS = {
       "gold": {
         "level_1": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -697,7 +697,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_12": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "LVL_15" },
             "onFail": { "action": "CONTINUE" }
           },
@@ -715,7 +715,7 @@ export const EVALUATION_WORKFLOWS = {
         ],
         "level_15": [
           {
-            "check": "isSpeedArrow",
+            "check": "isArrowPrimSpeed",
             "onPass": { "action": "STOP", "result": "SLICE" },
             "onFail": { "action": "CONTINUE" }
           },
