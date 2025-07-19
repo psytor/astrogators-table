@@ -37,6 +37,7 @@ export default function ModsPageClient() {
   });
   const [filterPanelOpen, setFilterPanelOpen] = useState(false);
   const [selectedModInfo, setSelectedModInfo] = useState<{ mod: HydratedMod, evaluation: any } | null>(null);
+  const [activeWorkflow, setActiveWorkflow] = useState('beginner_speed_focus');
 
   const workflowConfig = useWorkflows();
   const { lookups: dbLookups, isLoading: isLookupsLoading } = useDbLookups();
@@ -56,6 +57,10 @@ export default function ModsPageClient() {
       }
     }
   }, []);
+
+  const handleWorkflowChange = (newWorkflow: string) => {
+    setActiveWorkflow(newWorkflow);
+  };
 
   const handleFetch = async (allyCode: string) => {
     setIsLoading(true);
@@ -210,13 +215,19 @@ export default function ModsPageClient() {
           <div className={styles.mainContent}>
             <div className={styles.modDisplay}>
               <PlayerHeader playerName={filteredPlayerData.playerName} modCount={filteredModCount} />
-              <ModGrid playerData={filteredPlayerData} onModSelect={handleModSelect} />
+              <ModGrid 
+                playerData={filteredPlayerData} 
+                onModSelect={handleModSelect}
+                activeWorkflow={activeWorkflow} 
+              />
             </div>
             <FilterPanel
               advancedFilters={advancedFilters}
               setAdvancedFilters={setAdvancedFilters}
               isOpen={filterPanelOpen}
               setIsOpen={setFilterPanelOpen}
+              activeWorkflow={activeWorkflow}
+              onWorkflowChange={handleWorkflowChange}
             />
           </div>
         )}

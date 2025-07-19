@@ -1,6 +1,7 @@
 // src/components/FilterPanel.tsx
 'use client';
 
+import { useWorkflows } from '@/contexts/WorkflowContext';
 import styles from './FilterPanel.module.css';
 import { MOD_SLOTS, MOD_SETS, MOD_TIER_NAMES, MOD_TIER_COLORS, STAT_NAMES, MOD_SHAPE_SPRITES, MOD_SET_SPRITES } from '@/lib/mod-constants';
 
@@ -18,9 +19,13 @@ interface FilterPanelProps {
   setAdvancedFilters: React.Dispatch<React.SetStateAction<AdvancedFilters>>;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  activeWorkflow: string;
+  onWorkflowChange: (newWorkflow: string) => void;
 }
 
-export default function FilterPanel({ advancedFilters, setAdvancedFilters, isOpen, setIsOpen }: FilterPanelProps) {
+export default function FilterPanel({ advancedFilters, setAdvancedFilters, isOpen, setIsOpen, activeWorkflow, onWorkflowChange }: FilterPanelProps) {
+  const workflowConfig = useWorkflows();
+
   const clearAdvancedFilters = () => {
     setAdvancedFilters({
       slots: [],
@@ -64,6 +69,23 @@ export default function FilterPanel({ advancedFilters, setAdvancedFilters, isOpe
           <h2 className={styles.filterPanelTitle}>Filters</h2>
 
           <div className={styles.filterControlsPanel}>
+            <div className={styles.filterSection}>
+              <h4>Evaluation Strategy</h4>
+              <select 
+                className={styles.workflowDropdown}
+                value={activeWorkflow}
+                onChange={(e) => onWorkflowChange(e.target.value)}
+              >
+                {workflowConfig && Object.entries(workflowConfig.workflows).map(([key, workflow]) => (
+                  <option key={key} value={key}>
+                    {workflow.name}
+                  </option>
+                ))}
+              </select>
+              <p className={styles.workflowDescription}>
+                {workflowConfig?.workflows[activeWorkflow]?.description}
+              </p>
+            </div>
             <div className={styles.advancedFiltersHeader}>
               <h3>Advanced Filters</h3>
               <button

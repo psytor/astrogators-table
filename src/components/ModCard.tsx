@@ -14,9 +14,10 @@ interface ModCardProps {
   mod: CompactMod;
   characterId: string;
   onSelect: (mod: CompactMod, evaluation: any) => void;
+  activeWorkflow: string;
 }
 
-export default function ModCard({ mod, characterId, onSelect }: ModCardProps) {
+export default function ModCard({ mod, characterId, onSelect, activeWorkflow }: ModCardProps) {
   const { lookups, isLoading: isDbLoading } = useDbLookups();
   const workflowConfig = useWorkflows();
 
@@ -28,7 +29,7 @@ export default function ModCard({ mod, characterId, onSelect }: ModCardProps) {
     onSelect(mod, evaluation);
   };
 
-  const evaluationResultCode = executeWorkflow(mod, 'beginner_speed_chaser');
+  const evaluationResultCode = executeWorkflow(mod, activeWorkflow);
   const evaluation = workflowConfig.results[evaluationResultCode] || workflowConfig.results['ERROR'];
 
   const overallEfficiency = mod.oe ? `${mod.oe.toFixed(1)}%` : "0.0%";

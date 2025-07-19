@@ -240,3 +240,19 @@
     right: 85%;
   }
 }
+
+.workflowDropdown {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: var(--bg-accent);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.workflowDescription {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
