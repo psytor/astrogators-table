@@ -105,6 +105,10 @@ This section tracks key technical decisions that need to be made at a later, mor
 
 The `swgoh-comlink` service is intended to be an **internal service**, accessible only by the Next.js application, not the public internet. Therefore, we will use a simple `ACCESS_KEY` for authentication between the two services, as defined in the `swgoh-comlink` documentation. The more complex HMAC signing with a `SECRET_KEY` is not necessary for this internal-only architecture.
 
+### 3.6. Evaluation Engine Extensibility
+
+Whenever a new rule function (e.g., `isArrowPrimSpeed`) is added to the evaluation engine, a corresponding user-friendly description must also be added to the `ruleDescriptions.ts` file. This ensures that all evaluation steps are clearly understandable to the end-user in the UI.
+
 ---
 
 ## 4. Tech Stack

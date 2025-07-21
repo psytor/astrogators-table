@@ -3,6 +3,7 @@
 import { HydratedPlayerData } from './modHydrationService';
 import { EVALUATION_WORKFLOWS, RESULT_CODES } from '@/config/evaluationWorkflows';
 import * as ruleFunctions from './modRuleFunctions';
+import { RULE_DESCRIPTIONS } from '@/config/ruleDescriptions';
 
 type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 type RuleFunction = (mod: CompactMod, params?: any) => boolean | null;
@@ -120,7 +121,7 @@ export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowR
     const passed = result;
     const outcome = passed ? 'Pass' : 'Fail';
     const directive = passed ? check.onPass : check.onFail;
-    const description = generateStepDescription(check.check, check.params, outcome);
+    const description = generateStepDescription(check.check, check.params);
 
     trace.push({
       stepId: stepCounter++,
@@ -149,17 +150,17 @@ export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowR
  * Generates a human-readable description for an evaluation step.
  * @param rule The name of the rule function.
  * @param params The parameters used by the rule.
- * @param outcome The result of the rule execution.
  * @returns A descriptive string.
  */
-function generateStepDescription(rule: string, params: any, outcome: 'Pass' | 'Fail'): string {
-  let description = `Rule '${rule}'`;
+function generateStepDescription(rule: string, params: any): string {
+  const descriptionBuilder = RULE_DESCRIPTIONS[rule];
+  if (descriptionBuilder) {
+    return descriptionBuilder(params);
+  }
 
+  let description = `Rule '${rule}'`;
   if (params) {
     description += ` with params ${JSON.stringify(params)}`;
   }
-
-  description += `: ${outcome}`;
-
   return description;
 }
