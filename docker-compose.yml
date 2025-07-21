@@ -25,6 +25,14 @@ services:
     networks:
       - astrogators_network
 
+  asset-extractor:
+    image: ghcr.io/swgoh-utils/swgoh-ae2:latest
+    restart: always
+    ports:
+      - "3400:3400"
+    networks:
+      - astrogators_network
+
 volumes:
   postgres_data:
 
