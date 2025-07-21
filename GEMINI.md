@@ -134,30 +134,7 @@ Whenever a new rule function (e.g., `isArrowPrimSpeed`) is added to the evaluati
 
 ## 6. Roadmap
 
-### Phase 13: Centralized Logging Service
-
-**Objective:** Create a robust, centralized logging service using `winston` to replace all `console.log` calls and provide configurable, multi-level logging to both the console and rotating files.
-
-**Tasks:**
-
-1.  **[Done]** **Create the Logger Service:**
-    *   Create a new file at `src/services/logger.ts`.
-    *   Configure `winston` with standard log levels (error, warn, info, http, verbose, debug).
-    *   Create transports:
-        *   A console transport with colorization.
-        *   A rotating file transport for general logs (`logs/app.log`).
-        *   A separate rotating file transport for error logs (`logs/error.log`).
-    *   The log level will be controlled by the `LOG_LEVEL` environment variable.
-    *   Export a single, pre-configured logger instance.
-
-2.  **[Done]** **Update Environment Variables:**
-    *   Add `LOG_LEVEL` to `.env.example` with a default value of `info`.
-
-3.  **[Done]** **Refactor Existing Code:**
-    *   Replace all `console.*` calls in the application with the new `logger`.
-
-4.  **[Done]** **Documentation:**
-    *   Add a section to `README.md` explaining the logging service.
+*(The next phase of development will be defined here.)*
 
 ---
 

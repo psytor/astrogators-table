@@ -4,6 +4,56 @@ This document contains the history of all completed phases and tasks for The Ast
 
 ---
 
+### Phase 12: Discord Notification Service
+
+**Objective:** Create a reusable service for sending formatted messages to a Discord webhook. This service will be used to report the status of automated tasks, such as database synchronization.
+
+**Tasks:**
+
+1.  **[Done]** **Create the Discord Service:**
+    *   Create a new file at `src/services/discordService.ts`.
+    *   This service will export a function, `sendDiscordNotification`, that takes a message payload.
+    *   The function will use the native `fetch` API to send a POST request to the `DISCORD_WEBHOOK_URL` from the environment variables.
+    *   It should handle different message severities (e.g., 'info', 'success', 'warning', 'error') by using different colors.
+    *   It should include robust error handling and logging.
+
+2.  **[Done]** **Create a Test Script:**
+    *   Create a new script at `scripts/test-discord.ts`.
+    *   This script will import and use the `sendDiscordNotification` function to verify it works correctly.
+
+3.  **[Done]** **Update Environment Variables:**
+    *   Add `DISCORD_WEBHOOK_URL` to `.env.example`.
+
+4.  **[Done]** **Documentation:**
+    *   Add a section to `README.md` explaining how to set up and use the Discord notification service.
+
+### Phase 13: Centralized Logging Service
+
+**Objective:** Create a robust, centralized logging service using `winston` to replace all `console.log` calls and provide configurable, multi-level logging to both the console and rotating files.
+
+**Tasks:**
+
+1.  **[Done]** **Create the Logger Service:**
+    *   Create a new file at `src/services/logger.ts`.
+    *   Configure `winston` with standard log levels (error, warn, info, http, verbose, debug).
+    *   Create transports:
+        *   A console transport with colorization.
+        *   A rotating file transport for general logs (`logs/app.log`).
+        *   A separate rotating file transport for error logs (`logs/error.log`).
+    *   The log level will be controlled by the `LOG_LEVEL` environment variable.
+    *   Export a single, pre-configured logger instance.
+
+2.  **[Done]** **Update Environment Variables:**
+    *   Add `LOG_LEVEL` to `.env.example` with a default value of `info`.
+
+3.  **[Done]** **Refactor Existing Code:**
+    *   Replace all `console.*` calls in the application with the new `logger`.
+
+4.  **[Done]** **Documentation:**
+    *   Add a section to `README.md` explaining the logging service.
+
+---
+
 ## Completed Phases
 
 ### Phase 1: Project Definition & Setup
