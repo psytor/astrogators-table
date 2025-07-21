@@ -48,6 +48,18 @@ This guide explains how to set up the project on a new machine.
 
 ## Services
 
+### Logging Service
+
+This project uses `winston` for structured logging. Logs are output to both the console and to rotating files in the `logs/` directory.
+
+**Configuration:**
+
+The log level can be configured in the `.env` file using the `LOG_LEVEL` variable. The available levels are: `error`, `warn`, `info`, `http`, `verbose`, `debug`, and `silly`. The default level is `info`.
+
+**Log Files:**
+*   `logs/app-<DATE>.log`: Contains all logs for the day.
+*   `logs/error-<DATE>.log`: Contains only error-level logs for the day.
+
 ### Discord Notification Service
 
 This project includes a service to send notifications to a Discord channel via a webhook. This is useful for reporting the status of long-running scripts or important events.
@@ -63,5 +75,5 @@ This project includes a service to send notifications to a Discord channel via a
 The service is used by the test script `scripts/test-discord.ts`. You can run it to verify your configuration:
 
 ```bash
-ts-node scripts/test-discord.ts
+npx ts-node --compiler-options '{"module":"commonjs"}' scripts/test-discord.ts
 ```

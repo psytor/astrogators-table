@@ -1,3 +1,5 @@
+import { logger } from './logger';
+
 const COLORS = {
   info: 3447003,    // Blue
   success: 5763719,  // Green
@@ -24,7 +26,7 @@ export async function sendDiscordNotification(payload: DiscordPayload): Promise<
   const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
 
   if (!webhookUrl) {
-    console.warn('DISCORD_WEBHOOK_URL is not set. Skipping notification.');
+    logger.warn('DISCORD_WEBHOOK_URL is not set. Skipping notification.');
     // Silently fail in development if the webhook isn't set up
     return;
   }
@@ -50,13 +52,13 @@ export async function sendDiscordNotification(payload: DiscordPayload): Promise<
 
     if (!response.ok) {
       const errorBody = await response.text();
-      console.error(`Failed to send Discord notification. Status: ${response.status}. Body: ${errorBody}`);
+      logger.error(`Failed to send Discord notification. Status: ${response.status}. Body: ${errorBody}`);
       throw new Error(`Discord API request failed with status ${response.status}`);
     }
 
-    console.info(`Discord notification sent successfully for: ${title}`);
+    logger.info(`Discord notification sent successfully for: ${title}`);
   } catch (error) {
-    console.error('Error sending Discord notification:', error);
+    logger.error('Error sending Discord notification:', error);
     // Re-throw the error to allow the caller to handle it if needed
     throw error;
   }

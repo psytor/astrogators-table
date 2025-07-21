@@ -2,12 +2,13 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { sendDiscordNotification } from '../src/services/discordService';
+import { logger } from '../src/services/logger';
 
 // Load environment variables from .env file at the project root
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 async function runTest() {
-  console.info('Running Discord notification test...');
+  logger.info('Running Discord notification test...');
 
   try {
     await sendDiscordNotification({
@@ -22,9 +23,9 @@ async function runTest() {
         severity: 'warning',
       });
 
-    console.info('Test notification sent successfully. Please check your Discord channel.');
+    logger.info('Test notification sent successfully. Please check your Discord channel.');
   } catch (error) {
-    console.error('Failed to send test notification:', error);
+    logger.error('Failed to send test notification:', error);
     process.exit(1); // Exit with error code
   }
 }
