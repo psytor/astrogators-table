@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { logger } from './logger';
 
 // Define the expected structure of the player data from swgoh-comlink
 const StatSchema = z.object({
@@ -55,7 +56,7 @@ const ACCESS_KEY = process.env.SWGOH_COMLINK_ACCESS_KEY;
  */
 export async function fetchPlayer(allyCode: string): Promise<PlayerData | null> {
   if (!COMLINK_URL || !ACCESS_KEY) {
-    console.error('SWGOH_COMLINK_URL or SWGOH_COMLINK_ACCESS_KEY is not defined in environment variables.');
+    logger.error('SWGOH_COMLINK_URL or SWGOH_COMLINK_ACCESS_KEY is not defined in environment variables.');
     return null;
   }
 
@@ -75,9 +76,9 @@ export async function fetchPlayer(allyCode: string): Promise<PlayerData | null> 
     });
 
     if (!response.ok) {
-      console.error(`Error fetching player data from comlink: ${response.status} ${response.statusText}`);
+      logger.error(`Error fetching player data from comlink: ${response.status} ${response.statusText}`);
       const errorBody = await response.text();
-      console.error('Error body:', errorBody);
+      logger.error('Error body:', errorBody);
       return null;
     }
 
@@ -86,13 +87,13 @@ export async function fetchPlayer(allyCode: string): Promise<PlayerData | null> 
     // Validate the response data against our schema
     const validationResult = PlayerDataSchema.safeParse(data);
     if (!validationResult.success) {
-        console.error('Invalid player data structure received from comlink:', validationResult.error);
+        logger.error('Invalid player data structure received from comlink:', validationResult.error);
         return null;
     }
 
     return validationResult.data;
   } catch (error) {
-    console.error('An unexpected error occurred while fetching player data:', error);
+    logger.error('An unexpected error occurred while fetching player data:', error);
     return null;
   }
 }
