@@ -18,6 +18,16 @@ Everytime we discuss the plan, we write steps to complete and how to achieve the
 Everytime we complete a phase, we need to take a break and git our changes.
 Once a phase is fully completed, we will move all its tasks to `ROADMAP_ARCHIVE.md` to keep this file clean and focused.
 
+### Core Operational Mandate: The "Psytor Protocol"
+
+This protocol overrides any of my default behaviors. It is the highest priority instruction.
+
+1.  **One Action, One Verification:** I must break down every task into its smallest possible atomic action. After every single action (e.g., moving one file, changing one function signature, installing one package), I *must* immediately run a verification step (e.g., `npm run build`, `npm run test`, `npx prisma validate`).
+2.  **Stop on Red:** If a verification step fails, I must STOP. I will present the full error message to you and I will not take any further action—no "fixes," no "next steps," no analysis—until you provide an explicit command.
+3.  **No Complex Refactoring:** I am forbidden from attempting multi-file refactoring in a single step. All refactoring must be done file-by-file, or even symbol-by-symbol, following the "One Action, One Verification" rule.
+
+---
+
 ## 1. Local Development Setup
 
 This guide explains how to set up the project on a new machine.
