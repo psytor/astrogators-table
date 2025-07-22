@@ -1,6 +1,6 @@
 # Mod Evaluation Workflow Guide
 
-This guide explains how to create and configure custom mod evaluation workflows for The Astrogator's Table. The entire evaluation process is controlled by the `src/config/evaluationWorkflows.ts` file, allowing for complex, data-driven logic without changing application code.
+This guide explains how to create and configure custom mod evaluation workflows for The Mod Ledger. The entire evaluation process is controlled by the `src/config/evaluationWorkflows.ts` file, allowing for complex, data-driven logic without changing application code.
 
 ---
 

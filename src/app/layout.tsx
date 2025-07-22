@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "The Astrogator's Table",
-  description: "A Star Wars: Galaxy of Heroes resource optimization tool.",
+  title: "The Mod Ledger | The Astrogator's Table",
+  description: "A Star Wars: Galaxy of Heroes mod management and optimization tool.",
 };
 
 export default function RootLayout({

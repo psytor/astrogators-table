@@ -37,7 +37,7 @@ export default function TopBar({
     <nav className={styles.navBar}>
       <div className={styles.navContainer}>
         <div className={styles.navLeft}>
-          <h1 className={styles.navTitle}>The Astrogator's Table</h1>
+          <h1 className={styles.navTitle}>The Mod Ledger</h1>
         </div>
 
         <div className={`${styles.navRight} ${mobileMenuOpen ? styles.mobileOpen : ''}`}>
