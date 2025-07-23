@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
-import { getDbLookups } from '@/services/modHydrationService';
+import { getDbLookups } from '@/backend/services/modHydrationService';
+import { createLogger } from '@astrogators-table/logger';
+
+const logger = createLogger('ML-dblookup-api');
 
 /**
  * @swagger
@@ -34,6 +37,14 @@ import { getDbLookups } from '@/services/modHydrationService';
  *                   description: A list of all possible stat roll ranges.
  */
 export async function GET() {
-  const dbLookups = await getDbLookups();
-  return NextResponse.json(dbLookups);
+  logger.info('Request received for DB lookups.');
+  try {
+    logger.debug('Fetching all DB lookups...');
+    const dbLookups = await getDbLookups();
+    logger.debug('Successfully fetched DB lookups.');
+    return NextResponse.json(dbLookups);
+  } catch (error) {
+    logger.error('Failed to fetch DB lookups:', error);
+    return new NextResponse('Internal Server Error', { status: 500 });
+  }
 }

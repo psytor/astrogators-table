@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client';
-import { Logger } from 'winston';
+import { createLogger } from '@astrogators-table/logger';
+const logger = createLogger('database-seeder');
 
-export async function seedModSets(prisma: PrismaClient, logger: Logger) {
+export async function seedModSets(prisma: PrismaClient) {
   logger.info('Seeding mod sets...');
   const modSetsData = [
     { id: 1, name: 'Health', required_mods: 2, bonus_description: '+10% Health' },

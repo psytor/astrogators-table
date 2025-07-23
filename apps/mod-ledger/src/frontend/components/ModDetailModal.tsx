@@ -1,9 +1,9 @@
 import React from 'react';
-import { HydratedPlayerData } from '@/services/modHydrationService';
-import { DbLookups } from '@/services/modHydrationService';
-import { WorkflowResult, EvaluationStep } from '@/services/modWorkflowService';
-import { useWorkflows } from '@/contexts/WorkflowContext';
-import { MOD_SETS, MOD_SLOTS, MOD_TIER_COLORS } from '@/lib/mod-constants';
+import { HydratedPlayerData } from '@/backend/services/modHydrationService';
+import { DbLookups } from '@/backend/services/modHydrationService';
+import { WorkflowResult, EvaluationStep } from '@/frontend/services/modWorkflowService';
+import { useWorkflows } from '@/frontend/contexts/WorkflowContext';
+import { MOD_SETS, MOD_SLOTS, MOD_TIER_COLORS } from '@/frontend/lib/mod-constants';
 import styles from './ModDetailModal.module.css';
 
 type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];

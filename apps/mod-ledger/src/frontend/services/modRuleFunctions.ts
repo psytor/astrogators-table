@@ -1,6 +1,6 @@
 // src/services/modRuleFunctions.ts
 
-import { HydratedPlayerData } from './modHydrationService';
+import { HydratedPlayerData } from '@/backend/services/modHydrationService';
 
 type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 

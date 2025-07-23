@@ -1,6 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { createLogger } from '@astrogators-table/logger';
-const logger = createLogger('database-seeder');
 import { seedStats } from './seeders/stats';
 import { seedModSets } from './seeders/modSets';
 import { seedModShapes } from './seeders/modShapes';
@@ -13,6 +11,8 @@ import { seedLevelingCosts } from './seeders/levelingCosts';
 import { seedSlicingActions } from './seeders/slicingActions';
 import { seedSlicingCosts } from './seeders/slicingCosts';
 import { seedCalibrationCosts } from './seeders/calibrationCosts';
+import { createLogger } from '@astrogators-table/logger';
+const logger = createLogger('database-seeder');
 
 const prisma = new PrismaClient();
 
@@ -21,20 +21,20 @@ async function main() {
   logger.info('Starting database seeding process...');
 
   // Foundational Data
-  await seedStats(prisma, logger);
-  await seedModSets(prisma, logger);
-  await seedModShapes(prisma, logger);
-  await seedModQualities(prisma, logger);
-  await seedModRarities(prisma, logger);
-  await seedMaterials(prisma, logger);
+  await seedStats(prisma);
+  await seedModSets(prisma);
+  await seedModShapes(prisma);
+  await seedModQualities(prisma);
+  await seedModRarities(prisma);
+  await seedMaterials(prisma);
 
   // Relational Data
-  await seedModShapePrimaryStats(prisma, logger);
-  await seedStatRollInfo(prisma, logger);
-  await seedLevelingCosts(prisma, logger);
-  await seedSlicingActions(prisma, logger);
-  await seedSlicingCosts(prisma, logger);
-  await seedCalibrationCosts(prisma, logger);
+  await seedModShapePrimaryStats(prisma);
+  await seedStatRollInfo(prisma);
+  await seedLevelingCosts(prisma);
+  await seedSlicingActions(prisma);
+  await seedSlicingCosts(prisma);
+  await seedCalibrationCosts(prisma);
 
   logger.info('Seeding process completed successfully.');
 }

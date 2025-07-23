@@ -158,7 +158,15 @@ Whenever a new rule function (e.g., `isArrowPrimSpeed`) is added to the evaluati
 
 ---
 
-## 7. Development Log
+## 7. Future Technical Tasks
+
+This section lists specific, isolated technical tasks that need to be completed in the future.
+
+*   [ ] **Replace Placeholder Data in `PlayerHeader.tsx`:** The `PlayerHeader` component currently uses hardcoded placeholder data for the `CollectionEfficiencyDisplay`. This needs to be replaced with a real data-fetching mechanism that calls a new backend API endpoint. The endpoint will be responsible for calculating the collection efficiency scores based on the player's actual mod data.
+
+---
+
+## 8. Development Log
 
 *   **2025-07-18:** Completed major development phases, including the database schema, data seeders, API endpoints, the frontend display, a full-featured workflow engine, and advanced UI controls. The application is now a functional prototype.
 *   **2025-07-06:** Created `GEMINI.md` to establish a clear, step-by-step project plan.

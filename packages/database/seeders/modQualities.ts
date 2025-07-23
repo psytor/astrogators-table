@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client';
-import { Logger } from 'winston';
+import { createLogger } from '@astrogators-table/logger';
+const logger = createLogger('database-seeder');
 
-export async function seedModQualities(prisma: PrismaClient, logger: Logger) {
+export async function seedModQualities(prisma: PrismaClient) {
   logger.info('Seeding mod qualities...');
   const modQualitiesData = [
     { tier_letter: 'E', color_name: 'Grey', initial_secondaries: 0 },

@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, ReactNode, useState, useEffect } from 'react';
-import { DbLookups } from '@/services/modHydrationService';
+import { DbLookups } from '@/backend/services/modHydrationService';
 
 // Define the shape of the context data
 interface DbLookupsContextType {

@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client';
-import { Logger } from 'winston';
+import { createLogger } from '@astrogators-table/logger';
+const logger = createLogger('database-seeder');
 
-export async function seedModShapePrimaryStats(prisma: PrismaClient, logger: Logger) {
+export async function seedModShapePrimaryStats(prisma: PrismaClient) {
   logger.info('Seeding Mod Shape Primary Stats...');
 
   const shapePrimaryStatsMap: Record<string, string[]> = {

@@ -1,12 +1,13 @@
 'use client';
 
-import { HydratedPlayerData } from '@/services/modHydrationService';
-import { useDbLookups } from '@/contexts/DbLookupsContext';
-import { useWorkflows } from '@/contexts/WorkflowContext';
-import { executeWorkflow, WorkflowResult } from '@/services/modWorkflowService';
+import { useState, useEffect } from 'react';
+import { HydratedPlayerData } from '@/backend/services/modHydrationService';
+import { useDbLookups } from '@/frontend/contexts/DbLookupsContext';
+import { useWorkflows } from '@/frontend/contexts/WorkflowContext';
+import { WorkflowResult } from '@/frontend/services/modWorkflowService';
 import styles from './ModCard.module.css';
-import ModVisual from './ModVisual';
-import { MOD_SETS, MOD_SLOTS, MOD_TIER_COLORS } from '@/lib/mod-constants';
+import ModVisual from '@/frontend/components/ModVisual';
+import { MOD_SETS, MOD_SLOTS, MOD_TIER_COLORS } from '@/frontend/lib/mod-constants';
 
 type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 
@@ -20,20 +21,45 @@ interface ModCardProps {
 export default function ModCard({ mod, characterId, onSelect, activeWorkflow }: ModCardProps) {
   const { lookups, isLoading: isDbLoading } = useDbLookups();
   const workflowConfig = useWorkflows();
-
-  if (isDbLoading || !lookups || !workflowConfig) {
-    return <div className={`${styles.card} ${styles.loading}`}>Loading...</div>;
-  }
-
-  // Execute the workflow and get the full result object
-  const workflowResult = executeWorkflow(mod, activeWorkflow);
   
-  // Get the display configuration (text, colors) for the card based on the result code
-  const evaluationDisplay = workflowConfig.results[workflowResult.resultCode] || workflowConfig.results['ERROR'];
+  const [evaluation, setEvaluation] = useState<WorkflowResult | null>(null);
+  const [isEvaluating, setIsEvaluating] = useState(true);
+
+  useEffect(() => {
+    const evaluateMod = async () => {
+      setIsEvaluating(true);
+      try {
+        const response = await fetch('/api/evaluate-mod', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mod, profileName: activeWorkflow }),
+        });
+        if (!response.ok) {
+          throw new Error('Failed to evaluate mod');
+        }
+        const result: WorkflowResult = await response.json();
+        setEvaluation(result);
+      } catch (error) {
+        console.error("Evaluation error:", error);
+        setEvaluation({ resultCode: 'ERROR', trace: [] });
+      } finally {
+        setIsEvaluating(false);
+      }
+    };
+
+    evaluateMod();
+  }, [mod, activeWorkflow]);
+
+  if (isDbLoading || !lookups || !workflowConfig || isEvaluating || !evaluation) {
+    return <div className={`${styles.card} ${styles.loading}`}>Evaluating...</div>;
+  }
+  
+  const evaluationDisplay = workflowConfig.results[evaluation.resultCode] || workflowConfig.results['ERROR'];
 
   const handleCardClick = () => {
-    // Pass the entire workflow result (including the trace) to the modal
-    onSelect(mod, workflowResult);
+    if (evaluation) {
+      onSelect(mod, evaluation);
+    }
   };
 
   const overallEfficiency = mod.oe ? `${mod.oe.toFixed(1)}%` : "0.0%";
@@ -45,7 +71,6 @@ export default function ModCard({ mod, characterId, onSelect, activeWorkflow }: 
   const isSixDot = rarity === 6;
   const totalRarityDots = 7;
 
-  // Derive props for ModVisual
   const setType = MOD_SETS[setId] || null;
   const shapeType = MOD_SLOTS[shapeId] || null;
   const modTierNameForVisual = MOD_TIER_COLORS[mod.t] || null;

@@ -2,10 +2,19 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { type Workflows } from '@/lib/types/workflows';
 
+// Define the shape of a single workflow object
+export interface Workflow {
+  name: string;
+  description: string;
+  [key: string]: any; // Allow other properties
+}
+
+// Define the shape of the entire configuration object
 interface WorkflowConfig {
-  workflows: Workflows;
+  workflows: {
+    [key: string]: Workflow; // Index signature using the Workflow type
+  };
   results: any;
 }
 

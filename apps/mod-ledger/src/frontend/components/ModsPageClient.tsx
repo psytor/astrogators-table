@@ -1,17 +1,17 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { HydratedPlayerData, CompactMod } from '@/services/modHydrationService';
-import { WorkflowResult } from '@/services/modWorkflowService';
-import TopBar from '@/components/TopBar';
-import AllyCodeForm from '@/components/AllyCodeForm';
-import PlayerHeader from '@/components/PlayerHeader';
-import FilterPanel from '@/components/FilterPanel';
-import ModGrid from '@/components/ModGrid';
-import ModDetailModal from '@/components/ModDetailModal';
-import { useWorkflows } from '@/contexts/WorkflowContext';
-import { useDbLookups } from '@/contexts/DbLookupsContext';
-import { MOD_SETS, MOD_SLOTS } from '@/lib/mod-constants';
+import { HydratedPlayerData, CompactMod } from '@/backend/services/modHydrationService';
+import { WorkflowResult } from '@/frontend/services/modWorkflowService';
+import TopBar from '@/frontend/components/TopBar';
+import AllyCodeForm from '@/frontend/components/AllyCodeForm';
+import PlayerHeader from '@/frontend/components/PlayerHeader';
+import FilterPanel from '@/frontend/components/FilterPanel';
+import ModGrid from '@/frontend/components/ModGrid';
+import ModDetailModal from '@/frontend/components/ModDetailModal';
+import { useWorkflows } from '@/frontend/contexts/WorkflowContext';
+import { useDbLookups } from '@/frontend/contexts/DbLookupsContext';
+import { MOD_SETS, MOD_SLOTS } from '@/frontend/lib/mod-constants';
 import styles from '@/app/mods/mods.module.css';
 
 interface Player {

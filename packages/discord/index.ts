@@ -1,5 +1,5 @@
 import { createLogger } from '@astrogators-table/logger';
-const logger = createLogger('mod-ledger');
+const logger = createLogger('discord-service');
 
 const COLORS = {
   info: 3447003,    // Blue

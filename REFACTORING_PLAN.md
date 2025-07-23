@@ -50,133 +50,130 @@ Each command is a separate, verifiable step.
 - [x] **Step 1.6:** Create `apps/mod-ledger/src/frontend/contexts`
 - [x] **Step 1.7:** Create `apps/mod-ledger/src/frontend/lib`
 - [x] **Step 1.8:** Create `apps/mod-ledger/src/frontend/config`
-- [ ] **Step 1.9:** **Verification:** Run `npm run build` to ensure scaffolding caused no issues.
+- [x] **Step 1.9:** **Verification:** Run `npm run build` to ensure scaffolding caused no issues.
 
 ---
 
 ## Phase 2: Move Frontend Components
 
-We will move all files from `src/components` to `src/frontend/components`. For each file, we will move it, update its imports, and verify.
+We will move all files from `src/components` to `src/frontend/components`. For each component, we will move its `.tsx` and `.module.css` files together, update all necessary import paths, and verify the changes are reflected in the running `dev` server.
 
-**File: `AllyCodeForm.tsx`**
-- [ ] **Step 2.1.1:** Move `AllyCodeForm.tsx` to `src/frontend/components`.
-- [ ] **Step 2.1.2:** Update import in `apps/mod-ledger/src/components/ModsPageClient.tsx`.
-- [ ] **Step 2.1.3:** **Verification:** Run `npm run build`.
+**Component: `AllyCodeForm`**
+- [x] **Step 2.1.1:** Move `AllyCodeForm.tsx` and `AllyCodeForm.module.css` to `src/frontend/components`.
+- [x] **Step 2.1.2:** Update the component import in `apps/mod-ledger/src/components/ModsPageClient.tsx`.
+- [x] **Step 2.1.3:** **Verification:** Confirmed changes are reflected correctly in the `dev` server.
 
-**File: `AllyCodeForm.module.css`**
-- [ ] **Step 2.2.1:** Move `AllyCodeForm.module.css` to `src/frontend/components`.
-- [ ] **Step 2.2.2:** Update import in `apps/mod-ledger/src/frontend/components/AllyCodeForm.tsx`.
-- [ ] **Step 2.2.3:** **Verification:** Run `npm run build`.
+**Component: `CollectionEfficiencyDisplay`**
+- [x] **Step 2.2.1:** Move `CollectionEfficiencyDisplay.tsx` and `CollectionEfficiencyDisplay.module.css` to `src/frontend/components`.
+- [x] **Step 2.2.2:** No import update needed as component is currently unused.
+- [x] **Step 2.2.3:** **Verification:** Confirmed changes are reflected correctly in the `dev` server.
 
-**File: `CollectionEfficiencyDisplay.tsx`**
-- [ ] **Step 2.3.1:** Move `CollectionEfficiencyDisplay.tsx` to `src/frontend/components`.
-- [ ] **Step 2.3.2:** Update import in `apps/mod-ledger/src/components/PlayerHeader.tsx`.
-- [ ] **Step 2.3.3:** **Verification:** Run `npm run build`.
+**Component: `FilterPanel`**
+- [x] **Step 2.3.1:** Move `FilterPanel.tsx` and `FilterPanel.module.css` to `src/frontend/components`.
+- [x] **Step 2.3.2:** Update the component import in `apps/mod-ledger/src/components/ModsPageClient.tsx`.
+- [x] **Step 2.3.3:** **Verification:** Confirmed changes are reflected correctly in the `dev` server.
 
-**File: `CollectionEfficiencyDisplay.module.css`**
-- [ ] **Step 2.4.1:** Move `CollectionEfficiencyDisplay.module.css` to `src/frontend/components`.
-- [ ] **Step 2.4.2:** Update import in `apps/mod-ledger/src/frontend/components/CollectionEfficiencyDisplay.tsx`.
-- [ ] **Step 2.4.3:** **Verification:** Run `npm run build`.
+**Component: `ModCard`**
+- [x] **Step 2.4.1:** Move `ModCard.tsx` and `ModCard.module.css` to `src/frontend/components`.
+- [x] **Step 2.4.2:** Update the component import in `apps/mod-ledger/src/components/ModGrid.tsx`.
+- [x] **Step 2.4.3:** **Verification:** Confirmed changes are reflected correctly in the `dev` server.
 
-**File: `FilterPanel.tsx`**
-- [ ] **Step 2.5.1:** Move `FilterPanel.tsx` to `src/frontend/components`.
-- [ ] **Step 2.5.2:** Update import in `apps/mod-ledger/src/components/ModsPageClient.tsx`.
-- [ ] **Step 2.5.3:** **Verification:** Run `npm run build`.
+**Component: `ModDetailModal`**
+- [x] **Step 2.5.1:** Move `ModDetailModal.tsx` and `ModDetailModal.module.css` to `src/frontend/components`.
+- [x] **Step 2.5.2:** Update the component import in `apps/mod-ledger/src/components/ModsPageClient.tsx`.
+- [x] **Step 2.5.3:** **Verification:** Confirmed changes are reflected correctly in the `dev` server.
 
-**File: `FilterPanel.module.css`**
-- [ ] **Step 2.6.1:** Move `FilterPanel.module.css` to `src/frontend/components`.
-- [ ] **Step 2.6.2:** Update import in `apps/mod-ledger/src/frontend/components/FilterPanel.tsx`.
-- [ ] **Step 2.6.3:** **Verification:** Run `npm run build`.
+**Component: `ModGrid`**
+- [x] **Step 2.6.1:** Move `ModGrid.tsx` and `ModGrid.module.css` to `src/frontend/components`.
+- [x] **Step 2.6.2:** Update the component import in `apps/mod-ledger/src/components/ModsPageClient.tsx`.
+- [x] **Step 2.6.3:** **Verification:** Confirmed changes are reflected correctly in the `dev` server.
 
-**File: `ModCard.tsx`**
-- [ ] **Step 2.7.1:** Move `ModCard.tsx` to `src/frontend/components`.
-- [ ] **Step 2.7.2:** Update import in `apps/mod-ledger/src/components/ModGrid.tsx`.
-- [ ] **Step 2.7.3:** **Verification:** Run `npm run build`.
+**Component: `ModsPageClient`**
+- [x] **Step 2.7.1:** Move `ModsPageClient.tsx` to `src/frontend/components`.
+- [x] **Step 2.7.2:** Update the component import in `apps/mod-ledger/src/app/mods/page.tsx`.
+- [x] **Step 2.7.3:** **Verification:** Confirmed changes are reflected correctly in the `dev` server.
 
-**File: `ModCard.module.css`**
-- [ ] **Step 2.8.1:** Move `ModCard.module.css` to `src/frontend/components`.
-- [ ] **Step 2.8.2:** Update import in `apps/mod-ledger/src/frontend/components/ModCard.tsx`.
-- [ ] **Step 2.8.3:** **Verification:** Run `npm run build`.
+**Component: `ModVisual`**
+- [x] **Step 2.8.1:** Move `ModVisual.tsx` and `ModVisual.module.css` to `src/frontend/components`.
+- [x] **Step 2.8.2:** Update the component import in `apps/mod-ledger/src/frontend/components/ModCard.tsx`.
+- [x] **Step 2.8.3:** **Verification:** Confirmed changes are reflected correctly in the `dev` server.
 
-**File: `ModDetailModal.tsx`**
-- [ ] **Step 2.9.1:** Move `ModDetailModal.tsx` to `src/frontend/components`.
-- [ ] **Step 2.9.2:** Update import in `apps/mod-ledger/src/components/ModsPageClient.tsx`.
-- [ ] **Step 2.9.3:** **Verification:** Run `npm run build`.
+**Component: `PlayerHeader`**
+- [x] **Step 2.9.1:** Move `PlayerHeader.tsx` and `PlayerHeader.module.css` to `src/frontend/components`.
+- [x] **Step 2.9.2:** Update the component import in `apps/mod-ledger/src/frontend/components/ModsPageClient.tsx`.
+- [x] **Step 2.9.3:** **Verification:** Confirmed changes are reflected correctly in the `dev` server.
 
-**File: `ModDetailModal.module.css`**
-- [ ] **Step 2.10.1:** Move `ModDetailModal.module.css` to `src/frontend/components`.
-- [ ] **Step 2.10.2:** Update import in `apps/mod-ledger/src/frontend/components/ModDetailModal.tsx`.
-- [ ] **Step 2.10.3:** **Verification:** Run `npm run build`.
+**Component: `TopBar`**
+- [x] **Step 2.10.1:** Move `TopBar.tsx` and `TopBar.module.css` to `src/frontend/components`.
+- [x] **Step 2.10.2:** No import update needed as component is currently unused.
+- [x] **Step 2.10.3:** **Verification:** Confirmed changes are reflected correctly in the `dev` server.
 
-**File: `ModGrid.tsx`**
-- [ ] **Step 2.11.1:** Move `ModGrid.tsx` to `src/frontend/components`.
-- [ ] **Step 2.11.2:** Update import in `apps/mod-ledger/src/components/ModsPageClient.tsx`.
-- [ ] **Step 2.11.3:** **Verification:** Run `npm run build`.
-
-**File: `ModGrid.module.css`**
-- [ ] **Step 2.12.1:** Move `ModGrid.module.css` to `src/frontend/components`.
-- [ ] **Step 2.12.2:** Update import in `apps/mod-ledger/src/frontend/components/ModGrid.tsx`.
-- [ ] **Step 2.12.3:** **Verification:** Run `npm run build`.
-
-**File: `ModsPageClient.tsx`**
-- [ ] **Step 2.13.1:** Move `ModsPageClient.tsx` to `src/frontend/components`.
-- [ ] **Step 2.13.2:** Update import in `apps/mod-ledger/src/app/mods/page.tsx`.
-- [ ] **Step 2.13.3:** **Verification:** Run `npm run build`.
-
-**File: `ModVisual.tsx`**
-- [ ] **Step 2.14.1:** Move `ModVisual.tsx` to `src/frontend/components`.
-- [ ] **Step 2.14.2:** Update import in `apps/mod-ledger/src/frontend/components/ModCard.tsx`.
-- [ ] **Step 2.14.3:** **Verification:** Run `npm run build`.
-
-**File: `ModVisual.module.css`**
-- [ ] **Step 2.15.1:** Move `ModVisual.module.css` to `src/frontend/components`.
-- [ ] **Step 2.15.2:** Update import in `apps/mod-ledger/src/frontend/components/ModVisual.tsx`.
-- [ ] **Step 2.15.3:** **Verification:** Run `npm run build`.
-
-**File: `PlayerHeader.tsx`**
-- [ ] **Step 2.16.1:** Move `PlayerHeader.tsx` to `src/frontend/components`.
-- [ ] **Step 2.16.2:** Update import in `apps/mod-ledger/src/frontend/components/ModsPageClient.tsx`.
-- [ ] **Step 2.16.3:** **Verification:** Run `npm run build`.
-
-**File: `PlayerHeader.module.css`**
-- [ ] **Step 2.17.1:** Move `PlayerHeader.module.css` to `src/frontend/components`.
-- [ ] **Step 2.17.2:** Update import in `apps/mod-ledger/src/frontend/components/PlayerHeader.tsx`.
-- [ ] **Step 2.17.3:** **Verification:** Run `npm run build`.
-
-**File: `TopBar.tsx`**
-- [ ] **Step 2.18.1:** Move `TopBar.tsx` to `src/frontend/components`.
-- [ ] **Step 2.18.2:** Update import in `apps/mod-ledger/src/app/layout.tsx`.
-- [ ] **Step 2.18.3:** **Verification:** Run `npm run build`.
-
-**File: `TopBar.module.css`**
-- [ ] **Step 2.19.1:** Move `TopBar.module.css` to `src/frontend/components`.
-- [ ] **Step 2.19.2:** Update import in `apps/mod-ledger/src/frontend/components/TopBar.tsx`.
-- [ ] **Step 2.19.3:** **Verification:** Run `npm run build`.
-
-- [ ] **Step 2.20:** **Final Verification:** Run `npm run build` and `rm -rf apps/mod-ledger/src/components`.
+- [x] **Step 2.11:** **Final Verification:** Run `npm run build` to ensure all changes are production-ready, then `rm -rf apps/mod-ledger/src/components`.
 
 ---
 
 ## Phase 3: Move Frontend Contexts
 
-- [ ] **Step 3.1:** Move `DbLookupsContext.tsx` to `src/frontend/contexts`.
-- [ ] **Step 3.2:** Move `WorkflowContext.tsx` to `src/frontend/contexts`.
-- [ ] **Step 3.3:** Update all import paths for these files.
-- [ ] **Step 3.4:** **Verification:** Run `npm run build` and `rm -rf apps/mod-ledger/src/contexts`.
+- [x] **Step 3.1:** Move `DbLookupsContext.tsx` to `src/frontend/contexts`.
+- [x] **Step 3.2:** Move `WorkflowContext.tsx` to `src/frontend/contexts`.
+- [x] **Step 3.3:** Update all import paths for these files.
+- [x] **Step 3.4:** **Verification:** Run `npm run build` and `rm -rf apps/mod-ledger/src/contexts`.
 
 ---
 
 ## Phase 4: Move Config Files
 
-- [ ] **Step 4.1:** Move `evaluationWorkflows.ts` to `src/frontend/config`.
-- [ ] **Step 4.2:** Move `ruleDescriptions.ts` to `src/frontend/config`.
-- [ ] **Step 4.3:** Update all import paths for these files.
-- [ ] **Step 4.4:** **Verification:** Run `npm run build` and `rm -rf apps/mod-ledger/src/config`.
+- [x] **Step 4.1:** Move `evaluationWorkflows.ts` to `src/frontend/config`.
+- [x] **Step 4.2:** Move `ruleDescriptions.ts` to `src/frontend/config`.
+- [x] **Step 4.3:** Update all import paths for these files.
+- [x] **Step 4.4:** **Verification:** Run `npm run build` and `rm -rf apps/mod-ledger/src/config`.
 
 ---
 
-## Phase 5: Move and Classify `lib` and `services`
+## Phase 5: Create Shared Backend Packages
 
-This is the most complex phase. We will analyze each file to determine if it's backend, frontend, or shared, and move it accordingly.
+We will extract `logger` and `discordService` into their own shared packages to be used across the monorepo.
 
-*(This section will be expanded after the previous phases are complete, as the import paths will have changed, making analysis easier.)*
+**Sub-Phase 5.A: Create `logger` Package**
+- [x] **Step 5.A.1:** Create the directory `packages/logger`.
+- [x] **Step 5.A.2:** Create `packages/logger/package.json`.
+- [x] **Step 5.A.3:** Create `packages/logger/index.ts`.
+- [x] **Step 5.A.4:** Move the code from `apps/mod-ledger/src/services/logger.ts` into `packages/logger/index.ts`.
+- [x] **Step 5.A.5:** Add `@astrogators-table/logger` to the dependencies in `apps/mod-ledger/package.json`.
+- [x] **Step 5.A.6:** Run `npm install` from the root directory to link the new package.
+- [x] **Step 5.A.7:** Delete the original file `apps/mod-ledger/src/services/logger.ts`.
+- [x] **Step 5.A.8:** **Verification:** Confirm your `dev` server runs without errors.
+
+**Sub-Phase 5.B: Create `discord` Package**
+- [x] **Step 5.B.1:** Create the directory `packages/discord`.
+- [x] **Step 5.B.2:** Create `packages/discord/package.json`.
+- [x] **Step 5.B.3:** Create `packages/discord/index.ts`.
+- [x] **Step 5.B.4:** Move the code from `apps/mod-ledger/src/services/discordService.ts` into `packages/discord/index.ts`.
+- [x] **Step 5.B.5:** Update the import path for the logger in `packages/discord/index.ts` to use `@astrogators-table/logger`.
+- [x] **Step 5.B.6:** Add `@astrogators-table/discord` to the dependencies in `apps/mod-ledger/package.json`.
+- [x] **Step 5.B.7:** Run `npm install` from the root directory to link the new package.
+- [x] **Step 5.B.8:** Delete the original file `apps/mod-ledger/src/services/discordService.ts`.
+- [x] **Step 5.B.9:** **Verification:** Confirm your `dev` server runs without errors.
+
+---
+
+## Phase 6: Move and Classify `services`
+
+We will move the remaining files from `apps/mod-ledger/src/services` into their correct `frontend` or `backend` locations.
+
+**Sub-Phase 6.A: Move Backend Services**
+- [x] **Step 6.A.1:** Move `modHydrationService.ts` to `apps/mod-ledger/src/backend/services`.
+- [x] **Step 6.A.2:** Move `swgohComlinkService.ts` to `apps/mod-ledger/src/backend/services`.
+- [x] **Step 6.A.3:** Update all import paths for these files.
+- [x] **Step 6.A.4:** **Verification:** Run `npm run build`.
+
+**Sub-Phase 6.B: Move Frontend Services**
+- [x] **Step 6.B.1:** Create the directory `apps/mod-ledger/src/frontend/services`.
+- [x] **Step 6.B.2:** Move `modRuleFunctions.ts` to `apps/mod-ledger/src/frontend/services`.
+- [x] **Step 6.B.3:** Move `modWorkflowService.ts` to `apps/mod-ledger/src/frontend/services`.
+- [x] **Step 6.B.4:** Update all import paths for these files.
+- [x] **Step 6.B.5:** **Verification:** Run `npm run build`.
+
+**Sub-Phase 6.C: Final Cleanup**
+- [x] **Step 6.C.1:** Delete the now-empty directory `apps/mod-ledger/src/services`.
+- [x] **Step 6.C.2:** **Verification:** Run `npm run build` to ensure the final structure is correct.

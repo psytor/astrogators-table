@@ -1,5 +1,5 @@
-import { WorkflowProvider } from '@/contexts/WorkflowContext';
-import ModsPageClient from '@/components/ModsPageClient';
+import { WorkflowProvider } from '@/frontend/contexts/WorkflowContext';
+import ModsPageClient from '@/frontend/components/ModsPageClient';
 
 export default function ModsPage() {
   return (

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { DbLookupsProvider } from "@/contexts/DbLookupsContext";
+import { DbLookupsProvider } from "@/frontend/contexts/DbLookupsContext";
 import "./globals.css";
 
 const inter = Inter({

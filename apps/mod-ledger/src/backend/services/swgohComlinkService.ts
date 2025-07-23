@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { createLogger } from '@astrogators-table/logger';
-const logger = createLogger('mod-ledger');
+const logger = createLogger('ML-workflow');
 
 // Define the expected structure of the player data from swgoh-comlink
 const StatSchema = z.object({

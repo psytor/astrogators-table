@@ -1,5 +1,5 @@
 // src/config/evaluationWorkflows.ts
-import { type Workflows } from '@/lib/types/workflows';
+import { type Workflows } from '@/frontend/lib/types/workflows';
 
 export const EVALUATION_WORKFLOWS: Workflows = {
   "beginner_speed_focus": {

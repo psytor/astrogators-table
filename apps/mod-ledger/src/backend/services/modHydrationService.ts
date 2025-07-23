@@ -1,5 +1,7 @@
-import { PlayerData, fetchPlayer, Mod, SecondaryStat } from './swgohComlinkService';
+import { PlayerData, fetchPlayer, Mod, SecondaryStat } from '@/backend/services/swgohComlinkService';
 import prisma, { Stat, ModSet, ModShape, ModRarity } from '@astrogators-table/database';
+import { createLogger } from '@astrogators-table/logger';
+const logger = createLogger('ML-ModHydration');
 
 // --- Type definitions for our final API response ---
 
@@ -132,57 +134,68 @@ function formatStatValue(statId: number, decimalValue: number, lookups: DbLookup
  * @returns The player's structured data, or null if an error occurs.
  */
 export async function getPlayerData(allyCode: string): Promise<HydratedPlayerData | null> {
-  const [rawPlayerData, dbLookups] = await Promise.all([
-    fetchPlayer(allyCode),
-    getDbLookups()
-  ]);
+  logger.info(`Starting data hydration for ally code: ${allyCode}`);
+  try {
+    logger.debug(`Fetching raw player data and DB lookups in parallel for ${allyCode}...`);
+    const [rawPlayerData, dbLookups] = await Promise.all([
+      fetchPlayer(allyCode),
+      getDbLookups()
+    ]);
+    logger.debug(`Successfully fetched raw data and lookups for ${allyCode}.`);
 
-  if (!rawPlayerData) {
-    return null;
-  }
+    if (!rawPlayerData) {
+      logger.warn(`No raw player data returned for ally code: ${allyCode}. Aborting hydration.`);
+      return null;
+    }
 
-  const rosterUnit: HydratedPlayerData['rosterUnit'] = rawPlayerData.rosterUnit.map(unit => {
-    const characterId = unit.definitionId;
-    const mods: CompactMod[] = unit.equippedStatMod?.map((mod: Mod) => {
-      const secondaryStats = mod.secondaryStat.map((stat: SecondaryStat) => {
-        const efficiencyData = calculateStatEfficiency(stat);
+    logger.debug(`Processing ${rawPlayerData.rosterUnit.length} roster units for ${allyCode}.`);
+    const rosterUnit: HydratedPlayerData['rosterUnit'] = rawPlayerData.rosterUnit.map(unit => {
+      const characterId = unit.definitionId;
+      const mods: CompactMod[] = unit.equippedStatMod?.map((mod: Mod) => {
+        const secondaryStats = mod.secondaryStat.map((stat: SecondaryStat) => {
+          const efficiencyData = calculateStatEfficiency(stat);
+          return {
+            i: stat.stat.unitStatId,
+            v: formatStatValue(stat.stat.unitStatId, stat.stat.statValueDecimal, dbLookups),
+            r: stat.statRolls,
+            e: efficiencyData.average,
+            rv: stat.unscaledRollValue?.map(v => parseInt(v, 10)) || [],
+            re: efficiencyData.rolls,
+          };
+        });
+
         return {
-          i: stat.stat.unitStatId,
-          v: formatStatValue(stat.stat.unitStatId, stat.stat.statValueDecimal, dbLookups),
-          r: stat.statRolls,
-          e: efficiencyData.average,
-          rv: stat.unscaledRollValue?.map(v => parseInt(v, 10)) || [],
-          re: efficiencyData.rolls,
+          id: mod.id,
+          d: mod.definitionId,
+          l: mod.level,
+          t: mod.tier,
+          c: characterId,
+          p: {
+            i: mod.primaryStat.stat.unitStatId,
+            v: formatStatValue(mod.primaryStat.stat.unitStatId, mod.primaryStat.stat.statValueDecimal, dbLookups),
+          },
+          s: secondaryStats,
+          oe: calculateOverallModEfficiency(secondaryStats),
         };
-      });
+      }) || [];
 
       return {
-        id: mod.id,
-        d: mod.definitionId,
-        l: mod.level,
-        t: mod.tier,
-        c: characterId,
-        p: {
-          i: mod.primaryStat.stat.unitStatId,
-          v: formatStatValue(mod.primaryStat.stat.unitStatId, mod.primaryStat.stat.statValueDecimal, dbLookups),
-        },
-        s: secondaryStats,
-        oe: calculateOverallModEfficiency(secondaryStats),
+        id: unit.definitionId,
+        mods,
       };
-    }) || [];
+    });
 
+    logger.info(`Successfully hydrated data for ${rawPlayerData.name} (${allyCode}).`);
     return {
-      id: unit.definitionId,
-      mods,
+      playerName: rawPlayerData.name,
+      allyCode: rawPlayerData.allyCode,
+      lastUpdated: new Date().toISOString(), // Placeholder
+      rosterUnit,
     };
-  });
-
-  return {
-    playerName: rawPlayerData.name,
-    allyCode: rawPlayerData.allyCode,
-    lastUpdated: new Date().toISOString(), // Placeholder
-    rosterUnit,
-  };
+  } catch (error) {
+    logger.error(`An error occurred during data hydration for ally code ${allyCode}:`, error);
+    throw error; // Re-throw to be caught by the API route handler
+  }
 }
 
 /**
@@ -190,28 +203,37 @@ export async function getPlayerData(allyCode: string): Promise<HydratedPlayerDat
  * @returns An object containing all static game data.
  */
 export async function getDbLookups(): Promise<DbLookups> {
-    const [dbStats, dbSets, dbShapes, dbRarities, dbStatRollInfo] = await Promise.all([
-        prisma.stat.findMany(),
-        prisma.modSet.findMany(),
-        prisma.modShape.findMany(),
-        prisma.modRarity.findMany(),
-        prisma.statRollInfo.findMany({
-            select: {
-                stat: { select: { name: true } },
-                rarity_id: true,
-                min_roll: true,
-                max_roll: true,
-            }
-        }),
-    ]);
+    logger.info('Fetching all static DB lookups.');
+    try {
+        logger.debug('Executing parallel prisma queries for lookups...');
+        const [dbStats, dbSets, dbShapes, dbRarities, dbStatRollInfo] = await Promise.all([
+            prisma.stat.findMany(),
+            prisma.modSet.findMany(),
+            prisma.modShape.findMany(),
+            prisma.modRarity.findMany(),
+            prisma.statRollInfo.findMany({
+                select: {
+                    stat: { select: { name: true } },
+                    rarity_id: true,
+                    min_roll: true,
+                    max_roll: true,
+                }
+            }),
+        ]);
+        logger.debug('Prisma queries complete. Assembling lookup objects.');
 
-    const dbLookups: DbLookups = {
-        stats: Object.fromEntries(dbStats.map((s: Stat) => [s.id, { name: s.name, isPercentage: s.is_percentage }])),
-        sets: Object.fromEntries(dbSets.map((s: ModSet) => [s.id, { name: s.name, bonus: s.bonus_description }])),
-        shapes: Object.fromEntries(dbShapes.map((s: ModShape) => [s.id, { name: s.name, formalName: s.formal_name }])),
-        rarities: Object.fromEntries(dbRarities.map((r: ModRarity) => [r.dot_value, { name: r.dot_value.toString() }])),
-        statRollInfo: dbStatRollInfo,
-    };
+        const dbLookups: DbLookups = {
+            stats: Object.fromEntries(dbStats.map((s: Stat) => [s.id, { name: s.name, isPercentage: s.is_percentage }])),
+            sets: Object.fromEntries(dbSets.map((s: ModSet) => [s.id, { name: s.name, bonus: s.bonus_description }])),
+            shapes: Object.fromEntries(dbShapes.map((s: ModShape) => [s.id, { name: s.name, formalName: s.formal_name }])),
+            rarities: Object.fromEntries(dbRarities.map((r: ModRarity) => [r.dot_value, { name: r.dot_value.toString() }])),
+            statRollInfo: dbStatRollInfo,
+        };
 
-    return dbLookups;
+        logger.info('Successfully assembled all DB lookups.');
+        return dbLookups;
+    } catch (error) {
+        logger.error('An error occurred while fetching DB lookups:', error);
+        throw error; // Re-throw to be caught by the caller
+    }
 }

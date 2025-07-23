@@ -1,5 +1,5 @@
-import { HydratedPlayerData, CompactMod } from '@/services/modHydrationService';
-import ModCard from './ModCard';
+import { HydratedPlayerData, CompactMod } from '@/backend/services/modHydrationService';
+import ModCard from '@/frontend/components/ModCard';
 import styles from './ModGrid.module.css';
 
 interface ModGridProps {

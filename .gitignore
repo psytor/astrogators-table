@@ -14,6 +14,7 @@ node_modules
 
 # Ignore log files
 /logs
+/apps/mod-ledger/logs
 
 # Ignore Mod Evalutor Files
 /Temp

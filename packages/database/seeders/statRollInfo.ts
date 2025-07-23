@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client';
-import { Logger } from 'winston';
+import { createLogger } from '@astrogators-table/logger';
+const logger = createLogger('database-seeder');
 
-export async function seedStatRollInfo(prisma: PrismaClient, logger: Logger) {
+export async function seedStatRollInfo(prisma: PrismaClient) {
   logger.info('Seeding Stat Roll Info...');
 
   const statRollData = [

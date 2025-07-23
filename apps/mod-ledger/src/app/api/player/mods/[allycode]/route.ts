@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getPlayerData } from '@/services/modHydrationService';
+import { getPlayerData } from '@/backend/services/modHydrationService';
+import { createLogger } from '@astrogators-table/logger'
+const logger = createLogger('ML-player-api')
 
 /**
  * @swagger

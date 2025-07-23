@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
-import { EVALUATION_WORKFLOWS, RESULT_CODES } from '@/config/evaluationWorkflows';
+import { EVALUATION_WORKFLOWS, RESULT_CODES } from '@/frontend/config/evaluationWorkflows';
+import { createLogger } from '@astrogators-table/logger';
+const logger = createLogger('ML-workflows-api');
 
 /**
  * @swagger
@@ -27,14 +29,17 @@ import { EVALUATION_WORKFLOWS, RESULT_CODES } from '@/config/evaluationWorkflows
  *         description: Internal server error if the configuration cannot be loaded.
  */
 export async function GET() {
+  logger.info('Request received for workflow configuration.');
   try {
+    logger.debug('Assembling workflow configuration object...');
     const workflowConfig = {
       workflows: EVALUATION_WORKFLOWS,
       results: RESULT_CODES,
     };
+    logger.debug('Successfully assembled workflow configuration.');
     return NextResponse.json(workflowConfig);
   } catch (error) {
-    console.error('Failed to load workflow configuration:', error);
+    logger.error('Failed to load workflow configuration:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 }

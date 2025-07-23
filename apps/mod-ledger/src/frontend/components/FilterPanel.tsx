@@ -1,9 +1,8 @@
-// src/components/FilterPanel.tsx
 'use client';
 
-import { useWorkflows } from '@/contexts/WorkflowContext';
+import { useWorkflows } from '@/frontend/contexts/WorkflowContext';
 import styles from './FilterPanel.module.css';
-import { MOD_SLOTS, MOD_SETS, MOD_TIER_NAMES, MOD_TIER_COLORS, STAT_NAMES, MOD_SHAPE_SPRITES, MOD_SET_SPRITES } from '@/lib/mod-constants';
+import { MOD_SLOTS, MOD_SETS, MOD_TIER_NAMES, MOD_TIER_COLORS, STAT_NAMES, MOD_SHAPE_SPRITES, MOD_SET_SPRITES } from '@/frontend/lib/mod-constants';
 
 interface AdvancedFilters {
   slots: string[];

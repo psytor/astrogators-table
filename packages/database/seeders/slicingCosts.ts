@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client';
-import { Logger } from 'winston';
+import { createLogger } from '@astrogators-table/logger';
+const logger = createLogger('database-seeder');
 
-export async function seedSlicingCosts(prisma: PrismaClient, logger: Logger) {
+export async function seedSlicingCosts(prisma: PrismaClient) {
   logger.info('Seeding Slicing Costs...');
 
   const slicingCostRawData = [

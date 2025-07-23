@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client';
-import { Logger } from 'winston';
+import { createLogger } from '@astrogators-table/logger';
+const logger = createLogger('database-seeder');
 
-export async function seedModShapes(prisma: PrismaClient, logger: Logger) {
+export async function seedModShapes(prisma: PrismaClient) {
   logger.info('Seeding mod shapes...');
   const modShapesData = [
     { id: 1, name: 'Square', formal_name: 'Transmitter' },

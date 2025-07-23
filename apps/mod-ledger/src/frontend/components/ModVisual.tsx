@@ -6,8 +6,8 @@ import {
   MOD_SHAPE_SPRITES_6DOT,
   MOD_SET_SPRITES,
   SET_ICON_LAYOUT_CONFIG
-} from '@/lib/mod-constants';
-import { ModShape, ModSet } from '@/lib/mod-constants';
+} from '@/frontend/lib/mod-constants';
+import { ModShape, ModSet } from '@/frontend/lib/mod-constants';
 
 interface ModVisualProps {
   shapeType: ModShape | null;
