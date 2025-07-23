@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/psytor/projects/astrogators-table-new/apps/mod-ledger/logs/.c2938c9474769aaf0155db4df1a997eca3c494b0-audit.json",
+    "files": [
+        {
+            "date": 1753190387280,
+            "name": "/home/psytor/projects/astrogators-table-new/apps/mod-ledger/logs/mod-ledger-2025-07-22.log",
+            "hash": "57645b8fa4e14d8e5b93c7fe02359d72d48d0060f09d4549fd0b563863dc4c87"
+        },
+        {
+            "date": 1753248466208,
+            "name": "/home/psytor/projects/astrogators-table-new/apps/mod-ledger/logs/mod-ledger-2025-07-23.log",
+            "hash": "cb6233b957947e254be6413875c1c1c3149bfc53382ccea11256bc90fcbcb598"
+        }
+    ],
+    "hashType": "sha256"
+}

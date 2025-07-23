@@ -1,0 +1,19 @@
+{
+  "name": "@astrogators-table/database",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "db:seed": "dotenv -e ../../.env -- ts-node --compiler-options '{\"module\":\"commonjs\"}' seed.ts",
+    "generate": "dotenv -e ../../.env -- prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "5.16.1"
+  },
+  "devDependencies": {
+    "prisma": "5.16.1",
+    "ts-node": "^10.9.2"
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma"
+  }
+}

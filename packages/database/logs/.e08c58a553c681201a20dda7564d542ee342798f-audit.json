@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/psytor/projects/astrogators-table-new/packages/database/logs/.e08c58a553c681201a20dda7564d542ee342798f-audit.json",
+    "files": [
+        {
+            "date": 1753250345661,
+            "name": "/home/psytor/projects/astrogators-table-new/packages/database/logs/database-seeder-2025-07-23.log",
+            "hash": "42d0dc26fcd5f79500db6296ee94cc3278dcf72236b4ae37421d4929a9936e22"
+        }
+    ],
+    "hashType": "sha256"
+}
