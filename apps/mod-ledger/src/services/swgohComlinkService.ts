@@ -74,6 +74,7 @@ export async function fetchPlayer(allyCode: string): Promise<PlayerData | null> 
         },
         enums: false,
       }),
+      cache: 'no-store', // Prevent Next.js from caching this large, dynamic response
     });
 
     if (!response.ok) {

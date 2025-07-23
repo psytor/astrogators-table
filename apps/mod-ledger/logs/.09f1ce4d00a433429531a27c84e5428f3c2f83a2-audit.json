@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "/home/psytor/projects/astrogators-table/apps/mod-ledger/logs/.09f1ce4d00a433429531a27c84e5428f3c2f83a2-audit.json",
+    "files": [
+        {
+            "date": 1753250844766,
+            "name": "/home/psytor/projects/astrogators-table/apps/mod-ledger/logs/mod-ledger.error-2025-07-23.log",
+            "hash": "27f48bf15f084639e4210b2665084fd0863c972e43e3c9ff8484d3400b2d7c93"
+        }
+    ],
+    "hashType": "sha256"
+}
