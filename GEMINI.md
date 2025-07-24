@@ -91,20 +91,23 @@ Examples of static data to be stored include:
 
 ### 3.2. Data Flow and Responsibilities
 
-The application follows a clear, three-step data flow:
+The application follows a clear, three-step data flow within the `apps/mod-ledger` directory:
 
 1.  **Data Source (`swgoh-comlink`):** The Docker container provides the live, raw game data, including player-specific information.
-2.  **Backend (Next.js API Routes):** The backend is responsible for:
+2.  **Backend (`src/backend`):** The backend, containing services like `swgohComlinkService.ts` and `modHydrationService.ts`, is responsible for:
     *   Fetching raw data from `swgoh-comlink`.
-    *   Querying our PostgreSQL database to augment the raw data with static information (e.g., adding full character details to a player's roster ID).
-    *   Cleaning and preparing the combined data into a format suitable for the frontend.
-3.  **Frontend (Next.js React Components):** The frontend is responsible for displaying the data provided by the backend.
+    *   Querying our PostgreSQL database (defined in `packages/database`) to augment the raw data with static information.
+    *   Cleaning and preparing the combined data into a format suitable for the frontend. This logic is exposed via Next.js API routes located in `src/app/api`.
+3.  **Frontend (`src/frontend`):** The frontend, consisting of React components, contexts, and services, is responsible for:
+    *   Displaying the data provided by the backend.
+    *   Handling all user interaction and client-side state.
+    *   Executing the mod evaluation logic via the `modWorkflowService.ts`.
 
 ### 3.3. Database Seeding and Maintenance
 
 The database will be populated and kept up-to-date by automated scripts.
 
-*   **Mechanism:** These will be standalone scripts located in the `packages/database/seeders/` directory, with the main orchestration script at `packages/database/seed.ts`.
+*   **Mechanism:** These will be standalone scripts located in the `packages/database/seeders/` directory. The main orchestration script, `packages/database/seed.ts`, runs all the individual seeder files.
 *   **Execution:** They will be designed to run on a schedule (e.g., as cron jobs).
 *   **Timing:** The exact frequency of these updates (e.g., daily, weekly) will be determined later based on how often the underlying game data changes.
 
@@ -162,7 +165,7 @@ Whenever a new rule function (e.g., `isArrowPrimSpeed`) is added to the evaluati
 
 This section lists specific, isolated technical tasks that need to be completed in the future.
 
-*   [ ] **Replace Placeholder Data in `PlayerHeader.tsx`:** The `PlayerHeader` component currently uses hardcoded placeholder data for the `CollectionEfficiencyDisplay`. This needs to be replaced with a real data-fetching mechanism that calls a new backend API endpoint. The endpoint will be responsible for calculating the collection efficiency scores based on the player's actual mod data.
+*   [ ] **Replace Placeholder Data in `PlayerHeader.tsx`:** The `PlayerHeader` component, located at `apps/mod-ledger/src/frontend/components/PlayerHeader.tsx`, currently uses hardcoded placeholder data for the `CollectionEfficiencyDisplay`. This needs to be replaced with a real data-fetching mechanism that calls a new backend API endpoint. The endpoint will be responsible for calculating the collection efficiency scores based on the player's actual mod data.
 
 ---
 
