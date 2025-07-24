@@ -1,8 +1,9 @@
 import { z } from 'zod';
 import { createLogger } from '@astrogators-table/logger';
-const logger = createLogger('ML-workflow');
+const logger = createLogger('comlink-service');
 
-// Define the expected structure of the player data from swgoh-comlink
+// --- Zod Schemas for Data Validation ---
+
 const StatSchema = z.object({
   unitStatId: z.number(),
   statValueDecimal: z.preprocess(
@@ -43,9 +44,21 @@ const PlayerDataSchema = z.object({
   }).passthrough()),
 }).passthrough();
 
+const MetadataSchema = z.object({
+    latestGamedataVersion: z.string(),
+    latestLocalizationBundleVersion: z.string(),
+}).passthrough();
+
+
+// --- Type Exports ---
+
 export type PlayerData = z.infer<typeof PlayerDataSchema>;
 export type Mod = z.infer<typeof ModSchema>;
 export type SecondaryStat = z.infer<typeof SecondaryStatSchema>;
+export type Metadata = z.infer<typeof MetadataSchema>;
+
+
+// --- Service Implementation ---
 
 const COMLINK_URL = process.env.SWGOH_COMLINK_URL;
 const ACCESS_KEY = process.env.SWGOH_COMLINK_ACCESS_KEY;
@@ -74,7 +87,7 @@ export async function fetchPlayer(allyCode: string): Promise<PlayerData | null> 
         },
         enums: false,
       }),
-      cache: 'no-store', // Prevent Next.js from caching this large, dynamic response
+      
     });
 
     if (!response.ok) {
@@ -85,8 +98,6 @@ export async function fetchPlayer(allyCode: string): Promise<PlayerData | null> 
     }
 
     const data = await response.json();
-    
-    // Validate the response data against our schema
     const validationResult = PlayerDataSchema.safeParse(data);
     if (!validationResult.success) {
         logger.error('Invalid player data structure received from comlink:', validationResult.error);
@@ -98,4 +109,45 @@ export async function fetchPlayer(allyCode: string): Promise<PlayerData | null> 
     logger.error('An unexpected error occurred while fetching player data:', error);
     return null;
   }
+}
+
+/**
+ * Fetches the game metadata from the swgoh-comlink service.
+ * @returns The game metadata, or null if an error occurs.
+ */
+export async function getMetadata(): Promise<Metadata | null> {
+    if (!COMLINK_URL || !ACCESS_KEY) {
+        logger.error('SWGOH_COMLINK_URL or SWGOH_COMLINK_ACCESS_KEY is not defined in environment variables.');
+        return null;
+    }
+
+    try {
+        const response = await fetch(`${COMLINK_URL}/metadata`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${ACCESS_KEY}`,
+            },
+            
+        });
+
+        if (!response.ok) {
+            logger.error(`Error fetching metadata from comlink: ${response.status} ${response.statusText}`);
+            const errorBody = await response.text();
+            logger.error('Error body:', errorBody);
+            return null;
+        }
+
+        const data = await response.json();
+        const validationResult = MetadataSchema.safeParse(data);
+        if (!validationResult.success) {
+            logger.error('Invalid metadata structure received from comlink:', validationResult.error);
+            return null;
+        }
+
+        return validationResult.data;
+    } catch (error) {
+        logger.error('An unexpected error occurred while fetching metadata:', error);
+        return null;
+    }
 }

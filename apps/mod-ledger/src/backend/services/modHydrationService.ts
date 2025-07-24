@@ -1,4 +1,4 @@
-import { PlayerData, fetchPlayer, Mod, SecondaryStat } from '@/backend/services/swgohComlinkService';
+import { PlayerData, fetchPlayer, Mod, SecondaryStat } from '@astrogators-table/comlink';
 import prisma, { Stat, ModSet, ModShape, ModRarity } from '@astrogators-table/database';
 import { createLogger } from '@astrogators-table/logger';
 const logger = createLogger('ML-ModHydration');

@@ -130,6 +130,27 @@ The `swgoh-comlink` service is intended to be an **internal service**, accessibl
 
 Whenever a new rule function (e.g., `isArrowPrimSpeed`) is added to the evaluation engine, a corresponding user-friendly description must also be added to the `ruleDescriptions.ts` file. This ensures that all evaluation steps are clearly understandable to the end-user in the UI.
 
+### 3.7. Standalone Script Execution
+
+This project contains both a Next.js web application and standalone TypeScript scripts (e.g., for database orchestration) that are intended to be run from the command line, potentially via `cron` jobs. These two environments have different capabilities and require different configurations.
+
+*   **Environment Conflict:** The Next.js app runs in a "DOM" environment, which includes browser-specific APIs. Standalone scripts run in a pure "Node.js" environment. A common conflict point is the global `fetch` API, where the Next.js version accepts a `cache` property that the Node.js version does not, leading to TypeScript errors.
+*   **Solution:** To resolve this, all standalone scripts must be executed using a command that forces the TypeScript compiler to use the correct module system for Node.js. The `cache` property was removed from the `fetch` calls to ensure compatibility in both environments.
+
+The canonical command for running a standalone script is:
+```bash
+npx dotenv-cli -- npx ts-node --compilerOptions '{"module": "commonjs"}' path/to/your/script.ts
+```
+
+### 3.8. Logging Conventions
+
+To ensure clean and useful logs, especially for automated scripts, we will adhere to the following log levels:
+
+*   **`error`**: For any error that stops a process or causes it to fail (e.g., cannot connect to the database, a critical API call fails).
+*   **`warn`**: For unexpected situations that do not stop the process but should be investigated (e.g., an API returns an empty list when data was expected, a fallback value is used).
+*   **`info`**: For high-level, summary information that shows the main progress of a script. This should be used for key milestones like "Starting orchestration," "Game versions match," or "Synchronization complete."
+*   **`debug`**: For detailed, step-by-step information that is useful for tracing the exact execution flow. This includes things like "Fetching data from endpoint X," "Processing Y records," or "Comparing A and B." This level is not expected to be enabled in a standard production run.
+
 ---
 
 ## 4. Tech Stack
@@ -196,61 +217,50 @@ Whenever a new rule function (e.g., `isArrowPrimSpeed`) is added to the evaluati
     *   **Action:** Run the `npm run db:migrate` command to generate a new migration and apply these schema changes to the database.
     *   **Verification:** The command should complete successfully, and the new `GameVersion` and `Character` tables should be visible in the database.
 
-### Part 2: The Orchestrator Script
+### Part 2: The Main Orchestrator
 
-*   [ ] **4. Create Orchestrator File:**
-    *   **Action:** Create a new directory `packages/database/orchestrators/`. Inside it, create a new file named `characterOrchestrator.ts`.
+*   [x] **4. Create Main Orchestrator File:**
+    *   **Action:** Create a new directory `packages/database/orchestrators/`. Inside it, create a new file named `dataOrchestrator.ts`.
+    *   **Purpose:** This script will be the main entry point for all automated data synchronization tasks.
     *   **Verification:** The file exists at the specified path.
 
-*   [ ] **5. Implement Game Version Fetching:**
-    *   **Action:** In `characterOrchestrator.ts`, add the logic to fetch the `latest_game_version` from the `swgoh-comlink` metadata endpoint.
-    *   **Action:** Add the logic to query our `GameVersion` table for the `stored_game_version`.
-    *   **Verification:** Create a temporary test execution within the file to call these functions and log the results.
+*   [x] **5. Implement Game Version Logic:**
+    *   **Action:** In `dataOrchestrator.ts`, implement the core logic to fetch the `latest_game_version` from the `swgoh-comlink` API and compare it to the version stored in our `GameVersion` table.
+    *   **Action:** The script will log whether an update is needed or not.
+    *   **Verification:** Run the script and confirm it correctly logs the version status.
 
-*   [ ] **6. Implement Core Comparison Logic:**
-    *   **Action:** In `characterOrchestrator.ts`, create the main `if/else` block that compares `latest_game_version` and `stored_game_version`.
-    *   **Verification:** Add log statements inside each block (`"Versions match"` / `"Versions do not match"`) and run the script to confirm the correct path is taken.
+### Part 3: The Character Synchronization Module
 
-### Part 3: "Versions Match" Scenario
+*   [ ] **6. Create Character Sync Module:**
+    *   **Action:** In `packages/database/orchestrators/`, create a new file named `syncCharacters.ts`.
+    *   **Purpose:** This module will contain all the logic specifically for synchronizing character data. It will be called by the main orchestrator.
+    *   **Verification:** The file exists at the specified path.
 
-*   [ ] **7. Implement Count Logic:**
-    *   **Action:** Implement the function to get the total character count from the API.
-    *   **Action:** Implement the function to get the total character count from our database.
-    *   **Verification:** Call these functions and log their output.
+*   [ ] **7. Implement "Versions Match" Logic:**
+    *   **Action:** In `syncCharacters.ts`, implement the function that runs when the game version has **not** changed. This function will compare the character count in the API with the count in our database to detect anomalies.
+    *   **Action:** For now, it will just log a `console.error` if the counts do not match.
+    *   **Verification:** Call the function and log the output.
 
-*   [ ] **8. Implement Anomaly Alert:**
-    *   **Action:** Add the logic for the "Counts DO NOT Match" scenario. For now, this will just be a `console.error` message. (We will integrate a real Discord alert later).
-    *   **Verification:** Manually test this path by temporarily hardcoding mismatched counts.
+*   [ ] **8. Implement "Versions Don't Match" Logic:**
+    *   **Action:** In `syncCharacters.ts`, implement the main synchronization function that runs when a new game version is detected.
+    *   **Sub-task (8a):** Fetch all characters from the API and all characters from our database.
+    *   **Sub-task (8b):** Identify and `INSERT` new characters.
+    *   **Sub-task (8c):** Identify and soft `DELETE` retired characters (set `is_active` to `false`).
+    *   **Sub-task (8d):** Identify and `UPDATE` existing characters if their data has changed.
+    *   **Verification:** Test each sub-task individually by logging the results.
 
-### Part 4: "Versions Don't Match" Scenario
+### Part 4: Integration and Finalization
 
-*   [ ] **9. Implement Full Data Fetching:**
-    *   **Action:** Implement the function to fetch the complete list of all characters from the API.
-    *   **Action:** Implement the function to fetch the complete list of all characters from our database.
-    *   **Verification:** Call these functions and log the number of records fetched by each.
+*   [ ] **9. Integrate Character Sync into Main Orchestrator:**
+    *   **Action:** In `dataOrchestrator.ts`, add the logic to call the appropriate function from `syncCharacters.ts` based on whether the game version has changed.
+    *   **Verification:** Run the main orchestrator and confirm it triggers the correct character sync logic.
 
-*   [ ] **10. Implement New Character Logic (`INSERT`):**
-    *   **Action:** Add the logic to identify characters present in the API list but not in our database.
-    *   **Action:** For each new character, perform a `prisma.character.create()` operation.
-    *   **Verification:** Run the orchestrator against a database that is missing a character you know is in the API data. Confirm the new character is added.
-
-*   [ ] **11. Implement Retired Character Logic (Soft `DELETE`):**
-    *   **Action:** Add the logic to identify characters present in our database but not in the API list.
-    *   **Action:** For each retired character, perform a `prisma.character.update()` operation to set `is_active` to `false`.
-    *   **Verification:** Run the orchestrator against a database that contains an extra, fake character. Confirm its `is_active` flag is set to `false`.
-
-*   [ ] **12. Implement Existing Character Logic (`UPDATE`):**
-    *   **Action:** Add the logic to compare and update existing characters.
-    *   **Verification:** Add a log statement confirming the "update" path is taken for existing characters.
-
-### Part 5: Finalization
-
-*   [ ] **13. Implement Final Version Update:**
-    *   **Action:** At the end of a successful synchronization, add the `prisma.gameVersion.update()` call to store the `latest_game_version`.
+*   [ ] **10. Implement Final Version Update:**
+    *   **Action:** At the end of a successful synchronization in `dataOrchestrator.ts`, add the `prisma.gameVersion.update()` call to store the new `latest_game_version`.
     *   **Verification:** Run a full sync and confirm the `GameVersion` table is updated in the database.
 
-*   [ ] **14. Integrate into Main Seeder:**
-    *   **Action:** Modify the main `packages/database/seed.ts` file to call the `characterOrchestrator`.
+*   [ ] **11. Integrate into Main Seeder:**
+    *   **Action:** Modify the main `packages/database/seed.ts` file to call the `dataOrchestrator`.
     *   **Verification:** Run `npm run db:seed` and confirm the orchestrator executes as expected.
 
 ---
