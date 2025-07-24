@@ -137,3 +137,28 @@ model CalibrationCost {
   quantity       Int
   material       Material @relation(fields: [material_id], references: [id])
 }
+
+/// Tracks versions of different game data assets.
+model GameVersion {
+  id             Int      @id @default(autoincrement())
+  metadata_key   String   @unique
+  metadata_value String
+  last_checked   DateTime
+  last_updated   DateTime
+}
+
+/// Stores static data for each character in the game.
+model Character {
+  id          Int      @id @default(autoincrement())
+  game_id     String   @unique
+  name_key    String
+  alignment   String
+  factions    String[]
+  roles       String[]
+  raids       String[]
+  unit_type   String
+  icon_url    String
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}

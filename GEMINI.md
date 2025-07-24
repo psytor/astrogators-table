@@ -163,7 +163,7 @@ Whenever a new rule function (e.g., `isArrowPrimSpeed`) is added to the evaluati
 
 ### Part 1: Database Schema
 
-*   [ ] **1. Define `GameVersion` Model:**
+*   [x] **1. Define `GameVersion` Model:**
     *   **Action:** Add a new model to `packages/database/prisma/schema.prisma` named `GameVersion`.
     *   **Purpose:** This table will act as a key-value store to track the versions of different game data assets and when they were last checked and updated.
     *   **Fields:**
@@ -174,7 +174,7 @@ Whenever a new rule function (e.g., `isArrowPrimSpeed`) is added to the evaluati
         *   `last_updated`: DateTime. (Timestamp of the last successful data sync for this key).
     *   **Verification:** Run `npx prisma validate`.
 
-*   [ ] **2. Define `Character` Model:**
+*   [x] **2. Define `Character` Model:**
     *   **Action:** Add a new model to `schema.prisma` named `Character`.
     *   **Purpose:** This table will store the curated, essential static data for each character in the game.
     *   **Fields:**
@@ -192,7 +192,7 @@ Whenever a new rule function (e.g., `isArrowPrimSpeed`) is added to the evaluati
         *   `updated_at`: DateTime, Auto-updated on change.
     *   **Verification:** Run `npx prisma validate`.
 
-*   [ ] **3. Apply Schema to Database:**
+*   [x] **3. Apply Schema to Database:**
     *   **Action:** Run the `npm run db:migrate` command to generate a new migration and apply these schema changes to the database.
     *   **Verification:** The command should complete successfully, and the new `GameVersion` and `Character` tables should be visible in the database.
 
