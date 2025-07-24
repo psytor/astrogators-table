@@ -71,8 +71,8 @@ This guide explains how to set up the project on a new machine.
 
 ## 2. Project Status
 
-*   **Current Stage:** Phase 14: Planning Next Steps
-*   **Current Task:** Define the next development phase and tasks.
+*   **Current Stage:** Phase 15: The Data Orchestrator - Characters
+*   **Current Task:** 1. Define the `GameVersion` model in `schema.prisma`.
 
 ---
 
@@ -157,7 +157,101 @@ Whenever a new rule function (e.g., `isArrowPrimSpeed`) is added to the evaluati
 
 ## 6. Roadmap
 
-*(The next phase of development will be defined here.)*
+## Phase 15: The Data Orchestrator - Characters
+
+**High-Level Goal:** To create a robust, automated system that synchronizes static character data from the `swgoh-comlink` API into our database. This system must be resilient, prevent data corruption, and use a soft-delete pattern to preserve historical integrity for dependent systems like Navicharts.
+
+### Part 1: Database Schema
+
+*   [ ] **1. Define `GameVersion` Model:**
+    *   **Action:** Add a new model to `packages/database/prisma/schema.prisma` named `GameVersion`.
+    *   **Purpose:** This table will act as a key-value store to track the versions of different game data assets and when they were last checked and updated.
+    *   **Fields:**
+        *   `id`: Autoincrementing Integer, Primary Key.
+        *   `metadata_key`: String, Unique. (e.g., "latestGamedataVersion").
+        *   `metadata_value`: String. (e.g., "c7g82d...").
+        *   `last_checked`: DateTime. (Timestamp of the last time the orchestrator ran for this key).
+        *   `last_updated`: DateTime. (Timestamp of the last successful data sync for this key).
+    *   **Verification:** Run `npx prisma validate`.
+
+*   [ ] **2. Define `Character` Model:**
+    *   **Action:** Add a new model to `schema.prisma` named `Character`.
+    *   **Purpose:** This table will store the curated, essential static data for each character in the game.
+    *   **Fields:**
+        *   `id`: Autoincrementing Integer, Primary Key.
+        *   `game_id`: String, Unique. (The immutable `definitionId` from the game API).
+        *   `name_key`: String. (The localization key for the character's name).
+        *   `alignment`: String.
+        *   `factions`: Array of Strings.
+        *   `roles`: Array of Strings.
+        *   `raids`: Array of Strings.
+        *   `unit_type`: String.
+        *   `icon_url`: String.
+        *   `is_active`: Boolean, Default: `true`. (For soft-deleting).
+        *   `created_at`: DateTime, Default: `now()`.
+        *   `updated_at`: DateTime, Auto-updated on change.
+    *   **Verification:** Run `npx prisma validate`.
+
+*   [ ] **3. Apply Schema to Database:**
+    *   **Action:** Run the `npm run db:migrate` command to generate a new migration and apply these schema changes to the database.
+    *   **Verification:** The command should complete successfully, and the new `GameVersion` and `Character` tables should be visible in the database.
+
+### Part 2: The Orchestrator Script
+
+*   [ ] **4. Create Orchestrator File:**
+    *   **Action:** Create a new directory `packages/database/orchestrators/`. Inside it, create a new file named `characterOrchestrator.ts`.
+    *   **Verification:** The file exists at the specified path.
+
+*   [ ] **5. Implement Game Version Fetching:**
+    *   **Action:** In `characterOrchestrator.ts`, add the logic to fetch the `latest_game_version` from the `swgoh-comlink` metadata endpoint.
+    *   **Action:** Add the logic to query our `GameVersion` table for the `stored_game_version`.
+    *   **Verification:** Create a temporary test execution within the file to call these functions and log the results.
+
+*   [ ] **6. Implement Core Comparison Logic:**
+    *   **Action:** In `characterOrchestrator.ts`, create the main `if/else` block that compares `latest_game_version` and `stored_game_version`.
+    *   **Verification:** Add log statements inside each block (`"Versions match"` / `"Versions do not match"`) and run the script to confirm the correct path is taken.
+
+### Part 3: "Versions Match" Scenario
+
+*   [ ] **7. Implement Count Logic:**
+    *   **Action:** Implement the function to get the total character count from the API.
+    *   **Action:** Implement the function to get the total character count from our database.
+    *   **Verification:** Call these functions and log their output.
+
+*   [ ] **8. Implement Anomaly Alert:**
+    *   **Action:** Add the logic for the "Counts DO NOT Match" scenario. For now, this will just be a `console.error` message. (We will integrate a real Discord alert later).
+    *   **Verification:** Manually test this path by temporarily hardcoding mismatched counts.
+
+### Part 4: "Versions Don't Match" Scenario
+
+*   [ ] **9. Implement Full Data Fetching:**
+    *   **Action:** Implement the function to fetch the complete list of all characters from the API.
+    *   **Action:** Implement the function to fetch the complete list of all characters from our database.
+    *   **Verification:** Call these functions and log the number of records fetched by each.
+
+*   [ ] **10. Implement New Character Logic (`INSERT`):**
+    *   **Action:** Add the logic to identify characters present in the API list but not in our database.
+    *   **Action:** For each new character, perform a `prisma.character.create()` operation.
+    *   **Verification:** Run the orchestrator against a database that is missing a character you know is in the API data. Confirm the new character is added.
+
+*   [ ] **11. Implement Retired Character Logic (Soft `DELETE`):**
+    *   **Action:** Add the logic to identify characters present in our database but not in the API list.
+    *   **Action:** For each retired character, perform a `prisma.character.update()` operation to set `is_active` to `false`.
+    *   **Verification:** Run the orchestrator against a database that contains an extra, fake character. Confirm its `is_active` flag is set to `false`.
+
+*   [ ] **12. Implement Existing Character Logic (`UPDATE`):**
+    *   **Action:** Add the logic to compare and update existing characters.
+    *   **Verification:** Add a log statement confirming the "update" path is taken for existing characters.
+
+### Part 5: Finalization
+
+*   [ ] **13. Implement Final Version Update:**
+    *   **Action:** At the end of a successful synchronization, add the `prisma.gameVersion.update()` call to store the `latest_game_version`.
+    *   **Verification:** Run a full sync and confirm the `GameVersion` table is updated in the database.
+
+*   [ ] **14. Integrate into Main Seeder:**
+    *   **Action:** Modify the main `packages/database/seed.ts` file to call the `characterOrchestrator`.
+    *   **Verification:** Run `npm run db:seed` and confirm the orchestrator executes as expected.
 
 ---
 
