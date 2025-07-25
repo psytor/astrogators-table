@@ -12,6 +12,7 @@ import { seedSlicingActions } from './seeders/slicingActions';
 import { seedSlicingCosts } from './seeders/slicingCosts';
 import { seedCalibrationCosts } from './seeders/calibrationCosts';
 import { createLogger } from '@astrogators-table/logger';
+import { runDataOrchestrator } from './orchestrators/dataOrchestrator';
 const logger = createLogger('database-seeder');
 
 const prisma = new PrismaClient();
@@ -35,6 +36,11 @@ async function main() {
   await seedSlicingActions(prisma);
   await seedSlicingCosts(prisma);
   await seedCalibrationCosts(prisma);
+
+  logger.info('Static data seeding complete. Starting character data orchestration...');
+
+  // Character Data Orchestration
+  await runDataOrchestrator();
 
   logger.info('Seeding process completed successfully.');
 }

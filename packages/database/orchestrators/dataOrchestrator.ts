@@ -7,7 +7,7 @@ const logger = createLogger('data-orchestrator');
 
 const METADATA_KEY = 'latestGamedataVersion';
 
-async function main() {
+export async function runDataOrchestrator() {
   logger.info('Starting data orchestration process...');
   const orchestratorStartTime = new Date();
 
@@ -63,7 +63,10 @@ async function main() {
   logger.info('Data orchestration process finished.');
 }
 
-main().catch((error) => {
-  logger.error('An unexpected error occurred during data orchestration:', error);
-  process.exit(1);
-});
+// This allows the script to be run directly from the command line
+if (require.main === module) {
+  runDataOrchestrator().catch((error) => {
+    logger.error('An unexpected error occurred during data orchestration:', error);
+    process.exit(1);
+  });
+}

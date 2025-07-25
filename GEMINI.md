@@ -259,7 +259,7 @@ To ensure clean and useful logs, especially for automated scripts, we will adher
     *   **Action:** At the end of a successful synchronization in `dataOrchestrator.ts`, add the `prisma.gameVersion.update()` call to store the new `latest_game_version`.
     *   **Verification:** Run a full sync and confirm the `GameVersion` table is updated in the database.
 
-*   [ ] **11. Integrate into Main Seeder:**
+*   [x] **11. Integrate into Main Seeder:**
     *   **Action:** Modify the main `packages/database/seed.ts` file to call the `dataOrchestrator`.
     *   **Verification:** Run `npm run db:seed` and confirm the orchestrator executes as expected.
 
