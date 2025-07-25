@@ -9,6 +9,7 @@ const METADATA_KEY = 'latestGamedataVersion';
 
 async function main() {
   logger.info('Starting data orchestration process...');
+  const orchestratorStartTime = new Date();
 
   logger.debug('Fetching latest game version from comlink...');
   const metadata = await getMetadata();
@@ -28,12 +29,35 @@ async function main() {
   logger.info(`Stored game version is: ${localVersion || 'Not found'}`);
 
   if (remoteVersion === localVersion) {
-    logger.info('Game versions match.');
+    logger.info('Game versions match. Running anomaly check...');
     await checkCharacterAnomalies(remoteVersion);
+    // Even if versions match, we update the 'last_checked' timestamp
+    if (localVersionEntry) {
+      await prisma.gameVersion.update({
+        where: { metadata_key: METADATA_KEY },
+        data: { last_checked: orchestratorStartTime },
+      });
+    }
   } else {
-    logger.info('New game version detected. Proceeding with data synchronization...');
-    // In the future, we will call the main sync logic here.
-    await syncAllCharacters(remoteVersion); // This will call the placeholder
+    logger.info('New game version detected. Starting full data synchronization...');
+    await syncAllCharacters(remoteVersion);
+
+    logger.info(`Synchronization complete. Updating stored game version to ${remoteVersion}...`);
+    await prisma.gameVersion.upsert({
+      where: { metadata_key: METADATA_KEY },
+      update: {
+        metadata_value: remoteVersion,
+        last_checked: orchestratorStartTime,
+        last_updated: orchestratorStartTime,
+      },
+      create: {
+        metadata_key: METADATA_KEY,
+        metadata_value: remoteVersion,
+        last_checked: orchestratorStartTime,
+        last_updated: orchestratorStartTime,
+      },
+    });
+    logger.info('Stored game version updated successfully.');
   }
 
   logger.info('Data orchestration process finished.');

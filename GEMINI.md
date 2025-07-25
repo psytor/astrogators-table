@@ -241,7 +241,7 @@ To ensure clean and useful logs, especially for automated scripts, we will adher
     *   **Action:** For now, it will just log a `console.error` if the counts do not match.
     *   **Verification:** Call the function and log the output.
 
-*   [ ] **8. Implement "Versions Don't Match" Logic:**
+*   [x] **8. Implement "Versions Don't Match" Logic:**
     *   **Action:** In `syncCharacters.ts`, implement the main synchronization function that runs when a new game version is detected.
     *   **Sub-task (8a):** Fetch all characters from the API and all characters from our database.
     *   **Sub-task (8b):** Identify and `INSERT` new characters.
@@ -251,11 +251,11 @@ To ensure clean and useful logs, especially for automated scripts, we will adher
 
 ### Part 4: Integration and Finalization
 
-*   [ ] **9. Integrate Character Sync into Main Orchestrator:**
+*   [x] **9. Integrate Character Sync into Main Orchestrator:**
     *   **Action:** In `dataOrchestrator.ts`, add the logic to call the appropriate function from `syncCharacters.ts` based on whether the game version has changed.
     *   **Verification:** Run the main orchestrator and confirm it triggers the correct character sync logic.
 
-*   [ ] **10. Implement Final Version Update:**
+*   [x] **10. Implement Final Version Update:**
     *   **Action:** At the end of a successful synchronization in `dataOrchestrator.ts`, add the `prisma.gameVersion.update()` call to store the new `latest_game_version`.
     *   **Verification:** Run a full sync and confirm the `GameVersion` table is updated in the database.
 
