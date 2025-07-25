@@ -41,7 +41,7 @@ export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowR
   const trace: EvaluationStep[] = [];
   let stepCounter = 1;
 
-  logger.info(`Executing workflow "${profileName}" for mod ${mod.id}`);
+  logger.debug(`Executing workflow "${profileName}" for mod ${mod.id}`);
 
   const profile = EVALUATION_WORKFLOWS[profileName];
   if (!profile) {
@@ -156,7 +156,7 @@ export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowR
       if (directive.action === 'ERROR') {
         logger.error(`Explicit ERROR state reached in workflow: ${directive.result}`);
       }
-      logger.info(`Workflow for mod ${mod.id} finished with result: ${directive.result}`);
+      logger.debug(`Workflow for mod ${mod.id} finished with result: ${directive.result}`);
       return { resultCode: directive.result, trace };
     }
   }

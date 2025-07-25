@@ -29,7 +29,7 @@ const logger = createLogger('ML-workflows-api');
  *         description: Internal server error if the configuration cannot be loaded.
  */
 export async function GET() {
-  logger.info('Request received for workflow configuration.');
+  logger.debug('Request received for workflow configuration.');
   try {
     logger.debug('Assembling workflow configuration object...');
     const workflowConfig = {

@@ -104,7 +104,7 @@ export async function fetchPlayer(allyCode: string): Promise<PlayerData | null> 
         },
         enums: false,
       }),
-      
+      cache: 'no-store',
     });
 
     if (!response.ok) {

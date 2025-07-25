@@ -13,7 +13,7 @@ interface EvaluateModRequest {
 }
 
 export async function POST(request: Request) {
-  logger.info('Request received to evaluate a mod.');
+  logger.debug('Request received to evaluate a mod.');
   try {
     const body: EvaluateModRequest = await request.json();
     const { mod, profileName } = body;
