@@ -156,7 +156,7 @@ model Character {
   factions    String[]
   roles       String[]
   raids       String[]
-  unit_type   String
+  unit_type   Int
   icon_url    String
   is_active   Boolean  @default(true)
   created_at  DateTime @default(now())

@@ -51,10 +51,14 @@ const MetadataSchema = z.object({
 
 const UnitSchema = z.object({
     id: z.string(),
+    baseId: z.string(),
     nameKey: z.string(),
     categoryId: z.array(z.string()),
     combatType: z.number(),
     thumbnailName: z.string(),
+    rarity: z.number(),
+    obtainable: z.boolean(),
+    obtainableTime: z.string(),
 }).passthrough();
 
 const GameDataSchema = z.object({
@@ -207,7 +211,11 @@ export async function getUnits(gameVersion: string): Promise<Unit[] | null> {
             return null;
         }
 
-        return validationResult.data.units;
+        const filteredUnits = validationResult.data.units.filter(unit =>
+            unit.rarity === 7 && unit.obtainable === true && unit.obtainableTime === '0'
+        );
+
+        return filteredUnits;
     } catch (error) {
         logger.error('An unexpected error occurred while fetching units:', error);
         return null;
