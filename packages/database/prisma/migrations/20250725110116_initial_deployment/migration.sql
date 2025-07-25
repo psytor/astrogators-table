@@ -88,6 +88,7 @@ CREATE TABLE "SlicingAction" (
     "from_quality_id" INTEGER NOT NULL,
     "to_rarity_id" INTEGER NOT NULL,
     "to_quality_id" INTEGER NOT NULL,
+    "credit_cost" INTEGER NOT NULL,
 
     CONSTRAINT "SlicingAction_pkey" PRIMARY KEY ("id")
 );
@@ -102,12 +103,41 @@ CREATE TABLE "SlicingCost" (
 );
 
 -- CreateTable
-CREATE TABLE "CalibrationInfo" (
-    "stat_id" INTEGER NOT NULL,
+CREATE TABLE "CalibrationCost" (
+    "attempt_number" INTEGER NOT NULL,
     "material_id" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
 
-    CONSTRAINT "CalibrationInfo_pkey" PRIMARY KEY ("stat_id","material_id")
+    CONSTRAINT "CalibrationCost_pkey" PRIMARY KEY ("attempt_number")
+);
+
+-- CreateTable
+CREATE TABLE "GameVersion" (
+    "id" SERIAL NOT NULL,
+    "metadata_key" TEXT NOT NULL,
+    "metadata_value" TEXT NOT NULL,
+    "last_checked" TIMESTAMP(3) NOT NULL,
+    "last_updated" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "GameVersion_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Character" (
+    "id" SERIAL NOT NULL,
+    "game_id" TEXT NOT NULL,
+    "name_key" TEXT NOT NULL,
+    "alignment" TEXT NOT NULL,
+    "factions" TEXT[],
+    "roles" TEXT[],
+    "raids" TEXT[],
+    "unit_type" INTEGER NOT NULL,
+    "icon_url" TEXT NOT NULL,
+    "is_active" BOOLEAN NOT NULL DEFAULT true,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Character_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -130,6 +160,18 @@ CREATE UNIQUE INDEX "ModQuality_color_name_key" ON "ModQuality"("color_name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Material_name_key" ON "Material"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "SlicingAction_from_rarity_id_from_quality_id_to_rarity_id_t_key" ON "SlicingAction"("from_rarity_id", "from_quality_id", "to_rarity_id", "to_quality_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "SlicingCost_action_id_material_id_key" ON "SlicingCost"("action_id", "material_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "GameVersion_metadata_key_key" ON "GameVersion"("metadata_key");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Character_game_id_key" ON "Character"("game_id");
 
 -- AddForeignKey
 ALTER TABLE "ModShapePrimaryStat" ADD CONSTRAINT "ModShapePrimaryStat_shape_id_fkey" FOREIGN KEY ("shape_id") REFERENCES "ModShape"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -165,7 +207,4 @@ ALTER TABLE "SlicingCost" ADD CONSTRAINT "SlicingCost_action_id_fkey" FOREIGN KE
 ALTER TABLE "SlicingCost" ADD CONSTRAINT "SlicingCost_material_id_fkey" FOREIGN KEY ("material_id") REFERENCES "Material"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CalibrationInfo" ADD CONSTRAINT "CalibrationInfo_stat_id_fkey" FOREIGN KEY ("stat_id") REFERENCES "Stat"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "CalibrationInfo" ADD CONSTRAINT "CalibrationInfo_material_id_fkey" FOREIGN KEY ("material_id") REFERENCES "Material"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "CalibrationCost" ADD CONSTRAINT "CalibrationCost_material_id_fkey" FOREIGN KEY ("material_id") REFERENCES "Material"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
