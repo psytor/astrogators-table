@@ -49,6 +49,18 @@ const MetadataSchema = z.object({
     latestLocalizationBundleVersion: z.string(),
 }).passthrough();
 
+const UnitSchema = z.object({
+    id: z.string(),
+    nameKey: z.string(),
+    categoryId: z.array(z.string()),
+    combatType: z.number(),
+    thumbnailName: z.string(),
+}).passthrough();
+
+const GameDataSchema = z.object({
+    units: z.array(UnitSchema),
+}).passthrough();
+
 
 // --- Type Exports ---
 
@@ -56,6 +68,7 @@ export type PlayerData = z.infer<typeof PlayerDataSchema>;
 export type Mod = z.infer<typeof ModSchema>;
 export type SecondaryStat = z.infer<typeof SecondaryStatSchema>;
 export type Metadata = z.infer<typeof MetadataSchema>;
+export type Unit = z.infer<typeof UnitSchema>;
 
 
 // --- Service Implementation ---
@@ -148,6 +161,55 @@ export async function getMetadata(): Promise<Metadata | null> {
         return validationResult.data;
     } catch (error) {
         logger.error('An unexpected error occurred while fetching metadata:', error);
+        return null;
+    }
+}
+
+/**
+ * Fetches game data, including the full list of units, from the swgoh-comlink service.
+ * @param gameVersion The latest game data version from the metadata endpoint.
+ * @returns An array of unit data, or null if an error occurs.
+ */
+export async function getUnits(gameVersion: string): Promise<Unit[] | null> {
+    if (!COMLINK_URL || !ACCESS_KEY) {
+        logger.error('SWGOH_COMLINK_URL or SWGOH_COMLINK_ACCESS_KEY is not defined in environment variables.');
+        return null;
+    }
+
+    try {
+        const response = await fetch(`${COMLINK_URL}/data`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${ACCESS_KEY}`,
+            },
+            body: JSON.stringify({
+                payload: {
+                    version: gameVersion,
+                    includePveUnits: false,
+                    requestSegment: 3
+                },
+                enums: false
+            }),
+        });
+
+        if (!response.ok) {
+            logger.error(`Error fetching units from comlink: ${response.status} ${response.statusText}`);
+            const errorBody = await response.text();
+            logger.error('Error body:', errorBody);
+            return null;
+        }
+
+        const data = await response.json();
+        const validationResult = GameDataSchema.safeParse(data);
+        if (!validationResult.success) {
+            logger.error('Invalid unit data structure received from comlink:', validationResult.error);
+            return null;
+        }
+
+        return validationResult.data.units;
+    } catch (error) {
+        logger.error('An unexpected error occurred while fetching units:', error);
         return null;
     }
 }
