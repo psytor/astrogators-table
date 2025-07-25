@@ -4,9 +4,6 @@ import { HydratedPlayerData } from '@/backend/services/modHydrationService';
 import { EVALUATION_WORKFLOWS, RESULT_CODES } from '@/frontend/config/evaluationWorkflows';
 import * as ruleFunctions from './modRuleFunctions';
 import { RULE_DESCRIPTIONS } from '@/frontend/config/ruleDescriptions';
-import { createLogger } from '@astrogators-table/logger';
-
-const logger = createLogger('ML-workflow');
 
 type CompactMod = HydratedPlayerData['rosterUnit'][0]['mods'][0];
 type RuleFunction = (mod: CompactMod, params?: any) => boolean | null;
@@ -41,12 +38,12 @@ export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowR
   const trace: EvaluationStep[] = [];
   let stepCounter = 1;
 
-  logger.debug(`Executing workflow "${profileName}" for mod ${mod.id}`);
+  console.debug(`Executing workflow "${profileName}" for mod ${mod.id}`);
 
   const profile = EVALUATION_WORKFLOWS[profileName];
   if (!profile) {
     const errorMsg = `Evaluation profile "${profileName}" not found.`;
-    logger.error(errorMsg);
+    console.error(errorMsg);
     return {
       resultCode: "ERROR",
       trace: [{ stepId: stepCounter, rule: 'Setup', outcome: 'Fail', result: 'ERROR', description: errorMsg }]
@@ -67,13 +64,13 @@ export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowR
   const tierMap: { [key: number]: string } = { 1: 'grey', 2: 'green', 3: 'blue', 4: 'purple', 5: 'gold' };
   const colorKey = tierMap[tier];
 
-  logger.debug(`Mod properties - RarityKey: ${rarityKey}, Color: ${colorKey}, Level: ${level}`);
+  console.debug(`Mod properties - RarityKey: ${rarityKey}, Color: ${colorKey}, Level: ${level}`);
 
   const levelChecksForColor = profile[rarityKey]?.[colorKey];
 
   if (!levelChecksForColor) {
     const errorMsg = `No workflow found for Rarity: ${rarityKey}, Color: ${colorKey}.`;
-    logger.warn(errorMsg);
+    console.warn(errorMsg);
     return {
       resultCode: "ERROR",
       trace: [{ stepId: stepCounter, rule: 'Setup', outcome: 'Fail', result: 'ERROR', description: errorMsg }]
@@ -90,7 +87,7 @@ export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowR
 
   if (applicableLevel === -1) {
     const errorMsg = `No applicable level found for mod at level ${level}.`;
-    logger.warn(errorMsg);
+    console.warn(errorMsg);
     return {
       resultCode: "ERROR",
       trace: [{ stepId: stepCounter, rule: 'Setup', outcome: 'Fail', result: 'ERROR', description: errorMsg }]
@@ -99,11 +96,11 @@ export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowR
 
   const levelKey = `level_${applicableLevel}`;
   const checks = levelChecksForColor[levelKey];
-  logger.debug(`Using checks from level key: ${levelKey}`);
+  console.debug(`Using checks from level key: ${levelKey}`);
 
   if (!checks) {
     const errorMsg = `Could not retrieve checks for determined level key: ${levelKey}.`;
-    logger.error(errorMsg);
+    console.error(errorMsg);
     return {
       resultCode: "ERROR",
       trace: [{ stepId: stepCounter, rule: 'Setup', outcome: 'Fail', result: 'ERROR', description: errorMsg }]
@@ -115,17 +112,17 @@ export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowR
     const ruleFunc = ruleFunctions[checkName] as RuleFunction;
     if (!ruleFunc) {
       const errorMsg = `Rule function "${check.check}" not found in library.`;
-      logger.error(errorMsg);
+      console.error(errorMsg);
       trace.push({ stepId: stepCounter++, rule: check.check, outcome: 'Fail', result: 'ERROR', description: errorMsg });
       return { resultCode: "ERROR", trace };
     }
 
-    logger.debug(`Executing rule: ${check.check} with params: ${JSON.stringify(check.params)}`);
+    console.debug(`Executing rule: ${check.check} with params: ${JSON.stringify(check.params)}`);
     const result = ruleFunc(mod, check.params);
 
     // If the rule is not applicable, skip it and continue to the next check.
     if (result === null) {
-      logger.debug(`Rule ${check.check} was not applicable. Skipping.`);
+      console.debug(`Rule ${check.check} was not applicable. Skipping.`);
       trace.push({
         stepId: stepCounter++,
         rule: check.check,
@@ -141,7 +138,7 @@ export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowR
     const outcome = passed ? 'Pass' : 'Fail';
     const directive = passed ? check.onPass : check.onFail;
     const description = generateStepDescription(check.check, check.params);
-    logger.debug(`Rule ${check.check} outcome: ${outcome}. Directive: ${directive.action}, Result: ${directive.result}`);
+    console.debug(`Rule ${check.check} outcome: ${outcome}. Directive: ${directive.action}, Result: ${directive.result}`);
 
     trace.push({
       stepId: stepCounter++,
@@ -154,15 +151,15 @@ export function executeWorkflow(mod: CompactMod, profileName: string): WorkflowR
 
     if (directive.action === 'STOP' || directive.action === 'ERROR') {
       if (directive.action === 'ERROR') {
-        logger.error(`Explicit ERROR state reached in workflow: ${directive.result}`);
+        console.error(`Explicit ERROR state reached in workflow: ${directive.result}`);
       }
-      logger.debug(`Workflow for mod ${mod.id} finished with result: ${directive.result}`);
+      console.debug(`Workflow for mod ${mod.id} finished with result: ${directive.result}`);
       return { resultCode: directive.result, trace };
     }
   }
 
   const finalErrorMsg = 'Workflow completed without a "STOP" or "ERROR" action.';
-  logger.error(finalErrorMsg);
+  console.error(finalErrorMsg);
   trace.push({ stepId: stepCounter, rule: 'End of Workflow', outcome: 'Fail', result: 'ERROR', description: finalErrorMsg });
   return { resultCode: "ERROR", trace };
 }

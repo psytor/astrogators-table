@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { HydratedPlayerData } from '@/backend/services/modHydrationService';
 import { useDbLookups } from '@/frontend/contexts/DbLookupsContext';
 import { useWorkflows } from '@/frontend/contexts/WorkflowContext';
-import { WorkflowResult } from '@/frontend/services/modWorkflowService';
+import { executeWorkflow, WorkflowResult } from '@/frontend/services/modWorkflowService';
 import styles from './ModCard.module.css';
 import ModVisual from '@/frontend/components/ModVisual';
 import { MOD_SETS, MOD_SLOTS, MOD_TIER_COLORS } from '@/frontend/lib/mod-constants';
@@ -21,36 +21,16 @@ interface ModCardProps {
 export default function ModCard({ mod, characterId, onSelect, activeWorkflow }: ModCardProps) {
   const { lookups, isLoading: isDbLoading } = useDbLookups();
   const workflowConfig = useWorkflows();
-  
-  const [evaluation, setEvaluation] = useState<WorkflowResult | null>(null);
-  const [isEvaluating, setIsEvaluating] = useState(true);
 
-  useEffect(() => {
-    const evaluateMod = async () => {
-      setIsEvaluating(true);
-      try {
-        const response = await fetch('/api/evaluate-mod', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ mod, profileName: activeWorkflow }),
-        });
-        if (!response.ok) {
-          throw new Error('Failed to evaluate mod');
-        }
-        const result: WorkflowResult = await response.json();
-        setEvaluation(result);
-      } catch (error) {
-        console.error("Evaluation error:", error);
-        setEvaluation({ resultCode: 'ERROR', trace: [] });
-      } finally {
-        setIsEvaluating(false);
-      }
-    };
+  const evaluation = useMemo(() => {
+    if (!workflowConfig.workflows || !activeWorkflow) {
+      return { resultCode: 'ERROR', trace: [] };
+    }
+    // The executeWorkflow function expects the profile *name* (a string), not the profile object.
+    return executeWorkflow(mod, activeWorkflow);
+  }, [mod, activeWorkflow, workflowConfig.workflows]);
 
-    evaluateMod();
-  }, [mod, activeWorkflow]);
-
-  if (isDbLoading || !lookups || !workflowConfig || isEvaluating || !evaluation) {
+  if (isDbLoading || !lookups || !workflowConfig || !evaluation) {
     return <div className={`${styles.card} ${styles.loading}`}>Evaluating...</div>;
   }
   
