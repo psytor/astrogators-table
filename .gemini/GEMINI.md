@@ -11,7 +11,7 @@ The backend is Python/FastAPI, the frontend is React/Next.js, and the database i
 
 ## Core Technology Stack
 
-### Backend (Python)
+### Backend (Python 3.12.3)
 - **Framework:** FastAPI
 - **Database:** PostgreSQL
 - **Cache:** Redis

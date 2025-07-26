@@ -4,7 +4,7 @@
 Get raw player data from the SWGOH API and cache it in Redis.
 
 ## Technology Focus
-- Python FastAPI
+- Python 3.12.3 FastAPI
 - Redis
 - httpx
 

@@ -1,0 +1,9 @@
+# requirements.txt
+
+# --- Core Dependencies ---
+
+# For environment variable management and settings validation
+pydantic-settings
+
+# A modern, asynchronous-capable HTTP client
+httpx

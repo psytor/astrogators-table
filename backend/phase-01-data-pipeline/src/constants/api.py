@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # src/constants/api.py
 
 """

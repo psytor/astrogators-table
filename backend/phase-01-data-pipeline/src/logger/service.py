@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # src/logger/service.py
 
 import logging
