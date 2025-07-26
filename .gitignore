@@ -1,20 +1,2 @@
 # Ignore environment files with secrets
 **/.env
-
-# Ignore Node.js dependencies
-node_modules
-
-# Ignore Next.js build output
-.next
-
-# Ignore Prisma cache
-.prisma/client
-
-/src/generated/prisma
-
-# Ignore log files
-/logs
-/apps/mod-ledger/logs
-
-# Ignore Mod Evalutor Files
-/Temp
