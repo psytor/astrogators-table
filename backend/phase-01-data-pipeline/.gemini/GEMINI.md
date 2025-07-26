@@ -9,9 +9,9 @@ Get raw player data from the SWGOH API and cache it in Redis.
 - httpx
 
 ## Modules to Build in This Phase:
-[ ] Environment Config Manager (#37) - Load .env variables and settings
-[ ] Constants Manager (#38) - SWGOH API endpoints, cache keys, timeouts
-[ ] Logger Service (#36) - Structured logging with rotation
+[X] Environment Config Manager (#37) - Load .env variables and settings
+[X] Constants Manager (#38) - SWGOH API endpoints, cache keys, timeouts
+[X] Logger Service (#36) - Structured logging with rotation
 [ ] Discord Notification Service (#91) - Service to alert Discord for different actions.
 [ ] SWGOH API Client (#7) - httpx client with proper headers and auth
 [ ] API Rate Limiter (#8) - Rate limiting to respect SWGOH API limits
