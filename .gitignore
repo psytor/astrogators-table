@@ -1,2 +1,19 @@
+# .gitignore
 # Ignore environment files with secrets
 **/.env
+
+# --- Virtual Environment ---
+**/.venv/
+
+# --- Python Cache ---
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+
+# --- IDE / Editor ---
+**/.idea/
+**/.vscode/
+
+# --- Log Files ---
+**/*logs/
